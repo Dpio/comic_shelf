@@ -1,0 +1,7 @@
+﻿namespace ComicShelf.DataAccess.Entities
+{
+	public interface IEntity
+	{
+		int Id { get; set; }
+	}
+}
