@@ -10,10 +10,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Impl\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\ComicShelf.DataAccess\ComicShelf.DataAccess.csproj" />
     <ProjectReference Include="..\ComicShelf.Models\ComicShelf.Models.csproj" />
   </ItemGroup>

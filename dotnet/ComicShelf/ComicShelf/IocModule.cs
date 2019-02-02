@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using ComicShelf.DataAccess.Repositories;
+using ComicShelf.Logic.Impl;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace ComicShelf.Api
 {
@@ -19,10 +21,14 @@ namespace ComicShelf.Api
 
 		private static void RegisterServices(IServiceCollection services)
 		{
+			services.AddScoped<IUserService, UserService>();
+			services.AddScoped<IComicService, ComicService>();
 		}
 
 		private static void RegisterRepos(IServiceCollection services)
 		{
+			services.AddScoped<IUserRepository, UserRepository>();
+			services.AddScoped<IComicRepository, ComicRepository>();
 		}
 	}
 }
