@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using ComicShelf.Logic.Profiles;
 
 namespace ComicShelf.Api
 {
@@ -8,6 +9,8 @@ namespace ComicShelf.Api
 		{
 			var mapperConfiguration = new MapperConfiguration(c =>
 			{
+				c.AddProfile(new UserMappingProfile());
+				c.AddProfile(new ComicMappingProfile());
 			});
 			return mapperConfiguration;
 		}

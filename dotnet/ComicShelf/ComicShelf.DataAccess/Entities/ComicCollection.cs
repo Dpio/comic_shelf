@@ -1,8 +1,6 @@
-﻿using ComicShelf.Models.Base;
-
-namespace ComicShelf.Models.ComicCollection
+﻿namespace ComicShelf.DataAccess.Entities
 {
-	public class ComicCollectionDto : EntityDto
+	public class ComicCollection : Entity
 	{
 		public string Name { get; set; }
 		public string Description { get; set; }
