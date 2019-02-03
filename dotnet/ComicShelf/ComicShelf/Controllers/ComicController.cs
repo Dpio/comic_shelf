@@ -1,10 +1,12 @@
 ﻿using ComicShelf.Logic.Impl;
 using ComicShelf.Models.Comic;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 
 namespace ComicShelf.Api.Controllers
 {
+	[Authorize]
 	[ApiController]
 	[Route("api/[controller]")]
 	public class ComicController : CrudBaseController<ComicDto, CreateComicDto, ComicDto>
@@ -16,6 +18,7 @@ namespace ComicShelf.Api.Controllers
 			_service = service;
 		}
 
+		[Authorize]
 		[HttpGet("{id}")]
 		[Produces("application/json", Type = typeof(ComicDto))]
 		public override IActionResult Get(int id)
@@ -23,12 +26,14 @@ namespace ComicShelf.Api.Controllers
 			return base.Get(id);
 		}
 
+		[Authorize]
 		[HttpDelete("{id}")]
 		public override IActionResult Delete(int id)
 		{
 			return base.Delete(id);
 		}
 
+		[Authorize]
 		[HttpPost()]
 		[Produces("application/json", Type = typeof(ComicDto))]
 		public override IActionResult Post([FromBody] CreateComicDto value)
@@ -36,6 +41,7 @@ namespace ComicShelf.Api.Controllers
 			return base.Post(value);
 		}
 
+		[Authorize]
 		[HttpPut()]
 		[Produces("application/json", Type = typeof(ComicDto))]
 		public override IActionResult Put([FromBody] ComicDto input)
@@ -43,6 +49,7 @@ namespace ComicShelf.Api.Controllers
 			return base.Put(input);
 		}
 
+		[Authorize]
 		[HttpGet("getAll")]
 		[Produces("application/json", Type = typeof(IEnumerable<ComicDto>))]
 		public IActionResult GetAll()

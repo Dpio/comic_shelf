@@ -3,11 +3,13 @@ using ComicShelf.DataAccess.Entities;
 using ComicShelf.Logic.Helpers;
 using ComicShelf.Logic.Impl;
 using ComicShelf.Models.User;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 
 namespace ComicShelf.Api.Controllers
 {
+	[Authorize]
 	[ApiController]
 	[Route("api/[controller]")]
 	public class UserController : Controller
@@ -24,6 +26,7 @@ namespace ComicShelf.Api.Controllers
 			_mapper = mapper;
 		}
 
+		[Authorize]
 		[HttpPost("register")]
 		[Produces("application/json", Type = typeof(UserDto))]
 		public IActionResult Register([FromBody]UserDto userdto)
@@ -44,6 +47,7 @@ namespace ComicShelf.Api.Controllers
 			}
 		}
 
+		[Authorize]
 		[HttpGet("getAll")]
 		[Produces("application/json", Type = typeof(IEnumerable<UserDto>))]
 		public IActionResult GetAll()
@@ -53,6 +57,7 @@ namespace ComicShelf.Api.Controllers
 			return Ok(userDtos);
 		}
 
+		[Authorize]
 		[HttpGet("{id}")]
 		[Produces("application/json", Type = typeof(UserDto))]
 		public IActionResult GetById(int id)
@@ -62,6 +67,7 @@ namespace ComicShelf.Api.Controllers
 			return Ok(userDto);
 		}
 
+		[Authorize]
 		[HttpPut("{id}")]
 		[Produces("application/json", Type = typeof(UserDto))]
 		public IActionResult Update(int id, [FromBody]UserDto userdto)
@@ -83,12 +89,12 @@ namespace ComicShelf.Api.Controllers
 			}
 		}
 
+		[Authorize]
 		[HttpDelete("{id}")]
 		public IActionResult Delete(int id)
 		{
 			_userService.Delete(id);
 			return Ok();
 		}
-
 	}
 }

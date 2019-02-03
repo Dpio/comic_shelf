@@ -24,6 +24,7 @@ namespace ComicShelf.Api
 			services.AddScoped<IUserService, UserService>();
 			services.AddScoped<IComicService, ComicService>();
 			services.AddScoped<IComicCollectionService, ComicCollectionService>();
+			services.AddScoped<IAuthenticationService, AuthenticationService>();
 		}
 
 		private static void RegisterRepos(IServiceCollection services)

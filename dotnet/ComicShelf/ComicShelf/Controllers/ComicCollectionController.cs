@@ -3,6 +3,7 @@ using ComicShelf.DataAccess.Entities;
 using ComicShelf.Logic.Helpers;
 using ComicShelf.Logic.Impl;
 using ComicShelf.Models.ComicCollection;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 
@@ -23,6 +24,7 @@ namespace ComicShelf.Api.Controllers
 			_mapper = mapper;
 		}
 
+		[Authorize]
 		[HttpPost("addToCollection")]
 		[Produces("application/json", Type = typeof(ComicCollectionDto))]
 		public IActionResult AddToCollection([FromBody]ComicCollectionDto comicCollectionDto)
@@ -40,6 +42,7 @@ namespace ComicShelf.Api.Controllers
 			}
 		}
 
+		[Authorize]
 		[HttpDelete("deleteFromCollection")]
 		public IActionResult DeleteFromCollection(int id)
 		{
@@ -47,6 +50,7 @@ namespace ComicShelf.Api.Controllers
 			return Ok();
 		}
 
+		[Authorize]
 		[HttpGet("getComicsCollection")]
 		[Produces("application/json", Type = typeof(IEnumerable<ComicCollection>))]
 		public IActionResult GetComicsCollection(int userId)

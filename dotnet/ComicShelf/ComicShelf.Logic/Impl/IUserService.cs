@@ -7,7 +7,7 @@ namespace ComicShelf.Logic.Impl
 	{
 		IEnumerable<User> GetAll();
 		User GetById(int id);
-		void Create(User user);
+		User Create(User user);
 		void Update(User user);
 		void Delete(int id);
 	}

@@ -15,10 +15,12 @@ namespace ComicShelf.Logic.Impl
 			_userRepository = repository;
 		}
 
-		public void Create(User user)
+		public User Create(User user)
 		{
 			_userRepository.Add(user);
 			_userRepository.SaveChanges();
+
+			return user;
 		}
 
 		public IEnumerable<User> GetAll()

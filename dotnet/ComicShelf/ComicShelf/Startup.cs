@@ -1,5 +1,8 @@
 using ComicShelf.Api;
 using ComicShelf.DataAccess;
+using ComicShelf.Logic.Helpers;
+using ComicShelf.Logic.Impl;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -8,7 +11,12 @@ using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 using Swashbuckle.AspNetCore.Swagger;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace ComicShelf
 {
@@ -27,8 +35,46 @@ namespace ComicShelf
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services)
 		{
+			var appSettingsSection = Configuration.GetSection("AppSettings");
+			services.Configure<AppSettings>(appSettingsSection);
+
 			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
+			var appSettings = appSettingsSection.Get<AppSettings>();
+
+			var key = Encoding.ASCII.GetBytes(appSettings.Secret);
+			services.AddAuthentication(x =>
+			{
+				x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+				x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+			})
+			.AddJwtBearer(x =>
+			{
+				x.Events = new JwtBearerEvents
+				{
+					OnTokenValidated = context =>
+					{
+						var userService = context.HttpContext.RequestServices.GetRequiredService<IUserService>();
+						var userId = int.Parse(context.Principal.Identity.Name);
+						var user = userService.GetById(userId);
+						if (user == null)
+						{
+							// return unauthorized if user no longer exists
+							context.Fail("Unauthorized");
+						}
+						return Task.CompletedTask;
+					}
+				};
+				x.RequireHttpsMetadata = false;
+				x.SaveToken = true;
+				x.TokenValidationParameters = new TokenValidationParameters
+				{
+					ValidateIssuerSigningKey = true,
+					IssuerSigningKey = new SymmetricSecurityKey(key),
+					ValidateIssuer = false,
+					ValidateAudience = false
+				};
+			});
 			// In production, the Angular files will be served from this directory
 			services.AddSpaStaticFiles(configuration =>
 			{
@@ -41,6 +87,10 @@ namespace ComicShelf
 					Version = "v1",
 					Title = "API"
 				});
+				c.AddSecurityDefinition("Bearer", new ApiKeyScheme { In = "header", Description = "Please enter JWT with Bearer into field", Name = "Authorization", Type = "apiKey" });
+				c.AddSecurityRequirement(new Dictionary<string, IEnumerable<string>> {
+							   { "Bearer", Enumerable.Empty<string>() },
+						   });
 			});
 
 			if (_env.IsEnvironment("Testing"))
@@ -55,6 +105,9 @@ namespace ComicShelf
 			}
 
 			services.AddMvc();
+			services.AddCors(options => options.AddPolicy("AllowAll", p => p.AllowAnyOrigin()
+			.AllowAnyMethod().AllowAnyHeader()));
+			services.AddAuthorization();
 			IocModule.RegisterDependencies(services);
 		}
 
@@ -95,12 +148,14 @@ namespace ComicShelf
 			//	}
 			//});
 
+			app.UseCors("AllowAll");
 			app.UseSwagger();
 			app.UseSwaggerUI(c =>
 			{
 
 				c.SwaggerEndpoint("/swagger/v1/swagger.json", "API v1");
 			});
+			app.UseAuthentication();
 			app.UseMvc();
 		}
 	}
