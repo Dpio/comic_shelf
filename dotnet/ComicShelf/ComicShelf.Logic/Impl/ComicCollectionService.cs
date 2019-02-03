@@ -3,6 +3,7 @@ using System.Linq;
 using ComicShelf.DataAccess.Entities;
 using ComicShelf.DataAccess.Repositories;
 using ComicShelf.Logic.Helpers;
+using ComicShelf.Models.ComicCollection;
 
 namespace ComicShelf.Logic.Impl
 {
@@ -15,14 +16,16 @@ namespace ComicShelf.Logic.Impl
 			_comicCollectionRepository = comicCollectionRepository;
 		}
 
-		public ComicCollection AddToCollection(int userId, int comicId)
+		public ComicCollection AddToCollection(ComicCollectionDto input)
 		{
-			if (_comicCollectionRepository.GetAll().Any(x => x.UserId == userId && x.ComicId == comicId))
+			if (_comicCollectionRepository.GetAll().Any(x => x.UserId == input.UserId && x.ComicId == input.ComicId))
 				throw new AppException(" Already in collection");
 			var comicCollection = new ComicCollection()
 			{
-				ComicId = comicId,
-				UserId = userId
+				Name = input.Name,
+				Description = input.Description,
+				ComicId = input.ComicId,
+				UserId = input.UserId
 			};
 			_comicCollectionRepository.Add(comicCollection);
 			_comicCollectionRepository.SaveChanges();

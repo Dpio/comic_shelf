@@ -30,7 +30,7 @@ namespace ComicShelf.Api.Controllers
 			try
 			{
 				// save 
-				_comicCollectionService.AddToCollection(comicCollectionDto.UserId, comicCollectionDto.ComicId);
+				_comicCollectionService.AddToCollection(comicCollectionDto);
 				return Ok();
 			}
 			catch (AppException ex)
