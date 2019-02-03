@@ -10,5 +10,10 @@ namespace ComicShelf.DataAccess.Repositories
 		{
 			_context = context;
 		}
+
+		public void Update(User user)
+		{
+			_context.Update(user);
+		}
 	}
 }

@@ -29,9 +29,9 @@ namespace ComicShelf.Logic.Impl
 			return result;
 		}
 
-		public IEnumerable<ComicDto> GetAllForUser(int userId)
+		public IEnumerable<ComicDto> GetComicsCollection(int userId)
 		{
-			var comics = _comicRepository.GetAllComicsForUser(userId);
+			var comics = _comicRepository.GetComicsCollection(userId);
 			var result = Mapper.Map<IEnumerable<ComicDto>>(comics);
 			return result;
 		}

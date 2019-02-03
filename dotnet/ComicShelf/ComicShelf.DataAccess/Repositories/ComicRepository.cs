@@ -56,18 +56,13 @@ namespace ComicShelf.DataAccess.Repositories
 			return result.Entity;
 		}
 
-		public IEnumerable<Comic> GetAllComicsForUser(int userId)
+		public IEnumerable<Comic> GetComicsCollection(int userId)
 		{
 			var comics = Entities
 				.Include(e => e.ComicsCollection)
 				.Where(e => e.ComicsCollection.Any(cc => cc.UserId == userId))
 				.OrderBy(e => e.Id);
 			return comics.ToList();
-		}
-
-		public void RemoveRangeComicCollection(IEnumerable<ComicCollection> toRemove)
-		{
-			_context.RemoveRange(toRemove);
 		}
 	}
 }

@@ -8,6 +8,6 @@ namespace ComicShelf.Logic.Impl
 	{
 		IEnumerable<ComicDto> GetAll();
 		ComicDto Get(int id);
-		IEnumerable<ComicDto> GetAllForUser(int userId);
+		IEnumerable<ComicDto> GetComicsCollection(int userId);
 	}
 }

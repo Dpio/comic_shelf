@@ -47,7 +47,6 @@ namespace ComicShelf.Api.Controllers
 		[Produces("application/json", Type = typeof(IEnumerable<ComicDto>))]
 		public IActionResult GetAll()
 		{
-
 			var dto = _service.GetAll();
 			if (dto == null)
 			{
