@@ -49,7 +49,8 @@ namespace ComicShelf.Api.Controllers
 		public IActionResult GetAll()
 		{
 			var users = _userService.GetAll();
-			return Ok(users);
+			var userDtos = _mapper.Map<IList<UserDto>>(users);
+			return Ok(userDtos);
 		}
 
 		[HttpGet("{id}")]
@@ -57,7 +58,8 @@ namespace ComicShelf.Api.Controllers
 		public IActionResult GetById(int id)
 		{
 			var user = _userService.GetById(id);
-			return Ok(user);
+			var userDto = _mapper.Map<UserDto>(user);
+			return Ok(userDto);
 		}
 
 		[HttpPut("{id}")]

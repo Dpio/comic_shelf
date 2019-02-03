@@ -9,6 +9,5 @@ namespace ComicShelf.DataAccess.Repositories
 		IEnumerable<Comic> GetAllComics();
 		Task<Comic> GetWithDetails(int id);
 		Comic Update(Comic comic);
-		IEnumerable<Comic> GetComicsCollection(int userId);
 	}
 }

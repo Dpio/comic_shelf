@@ -2,7 +2,6 @@
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace ComicShelf.DataAccess.Repositories
 {
@@ -13,6 +12,12 @@ namespace ComicShelf.DataAccess.Repositories
 		public ComicCollectionRepository(ApplicationDbContext context) : base(context)
 		{
 			_context = context;
+		}
+
+		public IEnumerable<ComicCollection> GetComicsCollection(int userId)
+		{
+			var comicCollections = _context.ComicCollections.Include(cc => cc.Comic).Include(cc => cc.User).Where(cc => cc.UserId == userId);
+			return comicCollections;
 		}
 	}
 }

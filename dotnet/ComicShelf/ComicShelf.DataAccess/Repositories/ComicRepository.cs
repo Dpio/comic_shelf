@@ -55,14 +55,5 @@ namespace ComicShelf.DataAccess.Repositories
 			var result = Entities.Update(comic);
 			return result.Entity;
 		}
-
-		public IEnumerable<Comic> GetComicsCollection(int userId)
-		{
-			var comics = Entities
-				.Include(e => e.ComicsCollection)
-				.Where(e => e.ComicsCollection.Any(cc => cc.UserId == userId))
-				.OrderBy(e => e.Id);
-			return comics.ToList();
-		}
 	}
 }

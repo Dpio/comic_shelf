@@ -28,12 +28,5 @@ namespace ComicShelf.Logic.Impl
 			var result = Mapper.Map<IEnumerable<ComicDto>>(comics);
 			return result;
 		}
-
-		public IEnumerable<ComicDto> GetComicsCollection(int userId)
-		{
-			var comics = _comicRepository.GetComicsCollection(userId);
-			var result = Mapper.Map<IEnumerable<ComicDto>>(comics);
-			return result;
-		}
 	}
 }
