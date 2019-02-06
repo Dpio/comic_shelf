@@ -22,8 +22,6 @@ namespace ComicShelf.Logic.Impl
 				throw new AppException(" Already in collection");
 			var comicCollection = new ComicCollection()
 			{
-				Name = input.Name,
-				Description = input.Description,
 				ComicId = input.ComicId,
 				UserId = input.UserId
 			};
