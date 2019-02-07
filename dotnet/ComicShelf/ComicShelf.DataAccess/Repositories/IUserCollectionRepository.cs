@@ -1,10 +1,10 @@
-﻿using System;
+﻿using ComicShelf.DataAccess.Entities;
 using System.Collections.Generic;
-using System.Text;
 
 namespace ComicShelf.DataAccess.Repositories
 {
-	class IUserCollectionRepository
+	public interface IUserCollectionRepository : IGenericRepository<UserCollection>
 	{
+		IEnumerable<UserCollection> GetUserCollection(int collectionId);
 	}
 }
