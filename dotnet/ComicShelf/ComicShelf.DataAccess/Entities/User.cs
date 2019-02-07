@@ -9,6 +9,6 @@ namespace ComicShelf.DataAccess.Entities
 		public string GivenName { get; set; }
 		public string Email { get; set; }
 		public string Picture { get; set; }
-		public virtual ICollection<ComicCollection> ComicsCollection { get; set; }
+		public virtual ICollection<ComicCollection> ComicsCollections { get; set; }
 	}
 }

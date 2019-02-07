@@ -142,14 +142,14 @@ namespace ComicShelf.DataAccess.Migrations
             modelBuilder.Entity("ComicShelf.DataAccess.Entities.Collection", b =>
                 {
                     b.HasOne("ComicShelf.DataAccess.Entities.UserCollection")
-                        .WithMany("Collection")
+                        .WithMany("Collections")
                         .HasForeignKey("UserCollectionId");
                 });
 
             modelBuilder.Entity("ComicShelf.DataAccess.Entities.ComicCollection", b =>
                 {
                     b.HasOne("ComicShelf.DataAccess.Entities.Comic", "Comic")
-                        .WithMany("ComicsCollection")
+                        .WithMany("ComicsCollections")
                         .HasForeignKey("ComicId")
                         .OnDelete(DeleteBehavior.Cascade);
 
@@ -158,7 +158,7 @@ namespace ComicShelf.DataAccess.Migrations
                         .HasForeignKey("UserCollectionId");
 
                     b.HasOne("ComicShelf.DataAccess.Entities.User", "User")
-                        .WithMany("ComicsCollection")
+                        .WithMany("ComicsCollections")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

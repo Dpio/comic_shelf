@@ -12,6 +12,6 @@ namespace ComicShelf.DataAccess.Entities
 		public DateTime EndDate { get; set; }
 		public string Note { get; set; }
 		public byte Image { get; set; }
-		public virtual ICollection<ComicCollection> ComicsCollection { get; set; }
+		public virtual ICollection<ComicCollection> ComicsCollections { get; set; }
 	}
 }

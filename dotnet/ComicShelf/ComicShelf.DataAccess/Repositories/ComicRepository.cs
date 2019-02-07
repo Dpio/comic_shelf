@@ -18,7 +18,7 @@ namespace ComicShelf.DataAccess.Repositories
 		public override Comic Get(int id)
 		{
 			var comic = Entities
-				.Include(e => e.ComicsCollection)
+				.Include(e => e.ComicsCollections)
 					.ThenInclude(e => e.User)
 					.FirstOrDefault(e => e.Id == id);
 			return comic;
@@ -27,7 +27,7 @@ namespace ComicShelf.DataAccess.Repositories
 		public override async Task<Comic> GetAsync(int id)
 		{
 			var comic = await Entities
-				.Include(e => e.ComicsCollection)
+				.Include(e => e.ComicsCollections)
 					.ThenInclude(e => e.User)
 					.FirstOrDefaultAsync(e => e.Id == id);
 			return comic;
@@ -36,7 +36,7 @@ namespace ComicShelf.DataAccess.Repositories
 		public IEnumerable<Comic> GetAllComics()
 		{
 			var comics = Entities
-				.Include(e => e.ComicsCollection)
+				.Include(e => e.ComicsCollections)
 				.OrderBy(e => e.Id);
 			return comics.ToList();
 		}
@@ -44,7 +44,7 @@ namespace ComicShelf.DataAccess.Repositories
 		public async Task<Comic> GetWithDetails(int id)
 		{
 			var comic = await Entities
-				.Include(e => e.ComicsCollection)
+				.Include(e => e.ComicsCollections)
 					.ThenInclude(e => e.User)
 				.FirstOrDefaultAsync(e => e.Id == id);
 			return comic;
