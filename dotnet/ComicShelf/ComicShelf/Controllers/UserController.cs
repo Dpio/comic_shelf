@@ -29,7 +29,7 @@ namespace ComicShelf.Api.Controllers
 		[Authorize]
 		[HttpPost("register")]
 		[Produces("application/json", Type = typeof(UserDto))]
-		public IActionResult Register([FromBody]UserDto userdto)
+		public IActionResult Register([FromBody]CreateUserDto userdto)
 		{
 			// map dto to entity
 			var user = _mapper.Map<User>(userdto);

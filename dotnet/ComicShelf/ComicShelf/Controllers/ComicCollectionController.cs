@@ -27,7 +27,7 @@ namespace ComicShelf.Api.Controllers
 		[Authorize]
 		[HttpPost("addToCollection")]
 		[Produces("application/json", Type = typeof(ComicCollectionDto))]
-		public IActionResult AddToCollection([FromBody]ComicCollectionDto comicCollectionDto)
+		public IActionResult AddToCollection([FromBody]CreateComicCollectionDto comicCollectionDto)
 		{
 			try
 			{

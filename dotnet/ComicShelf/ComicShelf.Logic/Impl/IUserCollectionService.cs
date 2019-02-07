@@ -7,7 +7,7 @@ namespace ComicShelf.Logic.Impl
 	public interface IUserCollectionService
 	{
 		IEnumerable<UserCollection> GetUserCollection(int collectionId);
-		UserCollectionDto AddToUserCollection(UserCollectionDto userCollection);
+		UserCollectionDto AddToUserCollection(CreateUserCollectionDto userCollection);
 		void DeleteCollectionFromUserCollection(int id);
 	}
 }

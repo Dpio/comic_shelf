@@ -19,7 +19,7 @@ namespace ComicShelf.Logic.Impl
 			_mapper = mapper;
 		}
 
-		public ComicCollectionDto AddToCollection(ComicCollectionDto input)
+		public ComicCollectionDto AddToCollection(CreateComicCollectionDto input)
 		{
 			if (_comicCollectionRepository.GetAll().Any(x => x.UserId == input.UserId && x.ComicId == input.ComicId))
 				throw new AppException(" Already in collection");
