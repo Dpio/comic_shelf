@@ -1,4 +1,5 @@
-﻿using ComicShelf.DataAccess.Entities;
+﻿using AutoMapper;
+using ComicShelf.DataAccess.Entities;
 using ComicShelf.DataAccess.Repositories;
 using ComicShelf.Logic.Helpers;
 using ComicShelf.Models.UserCollection;
@@ -10,13 +11,15 @@ namespace ComicShelf.Logic.Impl
 	public class UserCollectionService : IUserCollectionService
 	{
 		private readonly IUserCollectionRepository _userCollectionRepository;
+		private IMapper _mapper;
 
-		public UserCollectionService(IUserCollectionRepository UserCollectionRepository)
+		public UserCollectionService(IUserCollectionRepository userCollectionRepository, IMapper mapper)
 		{
-			_userCollectionRepository = UserCollectionRepository;
+			_userCollectionRepository = userCollectionRepository;
+			_mapper = mapper;
 		}
 
-		public UserCollection AddToUserCollection(UserCollectionDto input)
+		public UserCollectionDto AddToUserCollection(UserCollectionDto input)
 		{
 			if (_userCollectionRepository.GetAll().Any(x => x.CollectionId == input.CollectionId && x.ComicCollectionId == input.ComicCollectionId))
 				throw new AppException(" Already in collection");
@@ -27,7 +30,8 @@ namespace ComicShelf.Logic.Impl
 			};
 			_userCollectionRepository.Add(userCollection);
 			_userCollectionRepository.SaveChanges();
-			return userCollection;
+			var userCollectionDto = _mapper.Map<UserCollectionDto>(userCollection);
+			return userCollectionDto;
 		}
 
 		public IEnumerable<UserCollection> GetUserCollection(int collectionId)
