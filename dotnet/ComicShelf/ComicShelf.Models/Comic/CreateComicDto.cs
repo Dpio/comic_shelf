@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using ComicShelf.Models.Base;
+using System;
 
-namespace ComicShelf.DataAccess.Entities
+namespace ComicShelf.Models.Comic
 {
-	public class Comic : Entity
+	public class CreateComicDto : ICreateEntityDto
 	{
 		public string Title { get; set; }
 		public string Issue { get; set; }
@@ -12,6 +12,5 @@ namespace ComicShelf.DataAccess.Entities
 		public DateTime EndDate { get; set; }
 		public string Note { get; set; }
 		public byte Image { get; set; }
-		public virtual ICollection<ComicCollection> ComicsCollections { get; set; }
 	}
 }

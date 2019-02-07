@@ -8,6 +8,8 @@ namespace ComicShelf.DataAccess
 		public DbSet<User> Users { get; set; }
 		public DbSet<Comic> Comics { get; set; }
 		public DbSet<ComicCollection> ComicCollections { get; set; }
+		public DbSet<UserCollection> UserCollections { get; set; }
+		public DbSet<Collection> Collections { get; set; }
 
 		public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
 			: base(options)
@@ -21,6 +23,8 @@ namespace ComicShelf.DataAccess
 			modelBuilder.Entity<User>().HasIndex(x => x.Id).IsUnique();
 			modelBuilder.Entity<Comic>().HasIndex(x => x.Id).IsUnique();
 			modelBuilder.Entity<ComicCollection>().HasIndex(x => x.Id).IsUnique();
+			modelBuilder.Entity<UserCollection>().HasIndex(x => x.Id).IsUnique();
+			modelBuilder.Entity<Collection>().HasIndex(x => x.Id).IsUnique(); ;
 		}
 	}
 }

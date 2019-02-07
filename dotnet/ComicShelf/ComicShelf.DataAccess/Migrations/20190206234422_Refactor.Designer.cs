@@ -4,14 +4,16 @@ using ComicShelf.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ComicShelf.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190206234422_Refactor")]
+    partial class Refactor
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -142,14 +144,14 @@ namespace ComicShelf.DataAccess.Migrations
             modelBuilder.Entity("ComicShelf.DataAccess.Entities.Collection", b =>
                 {
                     b.HasOne("ComicShelf.DataAccess.Entities.UserCollection")
-                        .WithMany("Collections")
+                        .WithMany("Collection")
                         .HasForeignKey("UserCollectionId");
                 });
 
             modelBuilder.Entity("ComicShelf.DataAccess.Entities.ComicCollection", b =>
                 {
                     b.HasOne("ComicShelf.DataAccess.Entities.Comic", "Comic")
-                        .WithMany("ComicsCollections")
+                        .WithMany("ComicsCollection")
                         .HasForeignKey("ComicId")
                         .OnDelete(DeleteBehavior.Cascade);
 
@@ -158,7 +160,7 @@ namespace ComicShelf.DataAccess.Migrations
                         .HasForeignKey("UserCollectionId");
 
                     b.HasOne("ComicShelf.DataAccess.Entities.User", "User")
-                        .WithMany("ComicsCollections")
+                        .WithMany("ComicsCollection")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

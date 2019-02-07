@@ -12,6 +12,8 @@ namespace ComicShelf.Api
 				c.AddProfile(new UserMappingProfile());
 				c.AddProfile(new ComicMappingProfile());
 				c.AddProfile(new ComicCollectionMappingProfile());
+				c.AddProfile(new CollectionMappingProfile());
+				c.AddProfile(new UserCollectionMappingProfile());
 			});
 			return mapperConfiguration;
 		}

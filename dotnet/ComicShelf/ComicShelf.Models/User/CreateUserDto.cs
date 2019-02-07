@@ -1,14 +1,13 @@
-﻿using System.Collections.Generic;
+﻿using ComicShelf.Models.Base;
 
-namespace ComicShelf.DataAccess.Entities
+namespace ComicShelf.Models.User
 {
-	public class User : Entity
+	public class CreateUserDto : ICreateEntityDto
 	{
 		public string GoogleId { get; set; }
 		public string Name { get; set; }
 		public string GivenName { get; set; }
 		public string Email { get; set; }
 		public string Picture { get; set; }
-		public virtual ICollection<ComicCollection> ComicsCollections { get; set; }
 	}
 }
