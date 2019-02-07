@@ -3,6 +3,7 @@ using ComicShelf.DataAccess.Entities;
 using ComicShelf.DataAccess.Repositories;
 using ComicShelf.Logic.Helpers;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace ComicShelf.Logic.Impl
 {
@@ -17,6 +18,10 @@ namespace ComicShelf.Logic.Impl
 
 		public User Create(User user)
 		{
+			var users = _userRepository.GetAll();
+			if (users.Any(x => x.Name == user.Name && x.GoogleId == user.GoogleId))
+				throw new AppException("User already exists");
+
 			_userRepository.Add(user);
 			_userRepository.SaveChanges();
 
