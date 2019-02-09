@@ -9,7 +9,7 @@ using System.Collections.Generic;
 
 namespace ComicShelf.Api.Controllers
 {
-	[Authorize]
+	
 	[ApiController]
 	[Route("api/[controller]")]
 	public class UserController : Controller
@@ -26,7 +26,7 @@ namespace ComicShelf.Api.Controllers
 			_mapper = mapper;
 		}
 
-		[Authorize]
+		[AllowAnonymous]
 		[HttpPost("register")]
 		[Produces("application/json", Type = typeof(UserDto))]
 		public IActionResult Register([FromBody]CreateUserDto userdto)
