@@ -12,6 +12,10 @@ import { ComicComponent } from './comic/comic.component';
 import { ComicService } from './shared/services/comic.service';
 import { ToastrService, ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AuthGuard } from './login/auth.guard';
+import { AuthenticateService } from './shared/services/authenticate.service';
+import { LoggedComponent } from './logged/logged.component';
+import { UserService } from './shared/services/user.service';
 
 
 @NgModule({
@@ -22,6 +26,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     CounterComponent,
     FetchDataComponent,
     ComicComponent,
+    LoggedComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -32,13 +37,16 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'counter', component: CounterComponent },
       { path: 'fetch-data', component: FetchDataComponent },
-      { path: 'comic', component: ComicComponent },
+      { path: 'comic', component: ComicComponent, canActivate: [AuthGuard]  },
     ]),
     ToastrModule.forRoot(),
   ],
   providers: [
     ComicService,
-    ToastrService
+    ToastrService,
+    AuthenticateService,
+    UserService,
+    AuthGuard
   ],
   bootstrap: [AppComponent]
 })

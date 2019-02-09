@@ -19,7 +19,7 @@ export class ComicComponent implements OnInit {
   ) {
   }
   ngOnInit(): void {
-    this.comicService.getComics().subscribe(data => {
+    this.comicService.getAllComics().subscribe(data => {
       this.comics = BaseApiService.getObjectArrayFromApi<ComicModel>(data, ComicModel);
     }, error => {
       if (error.statusText === 'Unauthorized') {

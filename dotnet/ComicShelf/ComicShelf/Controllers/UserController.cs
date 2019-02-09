@@ -57,7 +57,7 @@ namespace ComicShelf.Api.Controllers
 			return Ok(userDtos);
 		}
 
-		[Authorize]
+		[AllowAnonymous]
 		[HttpGet("{id}")]
 		[Produces("application/json", Type = typeof(UserDto))]
 		public IActionResult GetById(int id)

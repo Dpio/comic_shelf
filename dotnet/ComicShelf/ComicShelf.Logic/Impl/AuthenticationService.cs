@@ -39,7 +39,7 @@ namespace ComicShelf.Logic.Impl
 		{
 			string clientId = "654449040707-68osetc7oe7jgbrhi9gqs81abg1q6l72.apps.googleusercontent.com";
 			string clientSecret = "PnMvDLoP4qQg_Rnti0TmfpH8";
-			string redirect_uri = "http://localhost:5001/getGoogleToken";
+			string redirect_uri = "https://localhost:5001/api/Authentication/getGoogleToken";
 			var content = new StringContent
 			(
 				"code=" + code
