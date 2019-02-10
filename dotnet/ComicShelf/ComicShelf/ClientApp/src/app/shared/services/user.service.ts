@@ -7,11 +7,13 @@ import { AuthenticateResponse } from '../models/authenticate.model';
 @Injectable()
 export class UserService {
 
-    constructor(private http: HttpClient) {
+    constructor(
+        private http: HttpClient
+    ) {
     }
 
     getUser(id: number): Observable<AuthenticateResponse> {
         const apiUrl = environment.baseApiUrl;
-            return this.http.get<AuthenticateResponse>(apiUrl + '/User/' + id);
+        return this.http.get<AuthenticateResponse>(apiUrl + '/User/' + id);
     }
 }

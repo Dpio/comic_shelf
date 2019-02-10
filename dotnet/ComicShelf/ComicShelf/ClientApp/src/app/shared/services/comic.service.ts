@@ -7,11 +7,13 @@ import { ComicModel } from '../models/comic.model';
 @Injectable()
 export class ComicService {
 
-    constructor(private http: HttpClient) {
+    constructor(
+        private http: HttpClient
+    ) {
     }
 
     getAllComics(): Observable<Array<ComicModel>> {
         const apiUrl = environment.baseApiUrl;
-            return this.http.get<Array<ComicModel>>(apiUrl + '/Comic/getAll');
+        return this.http.get<Array<ComicModel>>(apiUrl + '/Comic/getAll');
     }
 }

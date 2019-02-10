@@ -6,7 +6,9 @@ import { Observable } from 'rxjs/Observable';
 @Injectable()
 export class AuthenticateService {
 
-    constructor(private http: HttpClient) {
+    constructor(
+        private http: HttpClient
+        ) {
     }
 
     signInWithGoogle(): Observable<string> {
