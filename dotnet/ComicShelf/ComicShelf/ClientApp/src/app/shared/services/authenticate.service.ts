@@ -11,13 +11,7 @@ export class AuthenticateService {
 
     signInWithGoogle(): Observable<string> {
         const apiUrl = environment.baseApiUrl;
-        return this.http.post<string>(apiUrl + '/Authentication/signInWithGoogle', {}, { responseType: 'text' });
-        //    const response = this.http.post<string>(
-        //         apiUrl + '/Authentication/signInWithGoogle',
-        //         {},
-        //         {responseType: 'text'}
-        //       );
-        //       return response;
+        return this.http.post(apiUrl + '/Authentication/signInWithGoogle', {}, { responseType: 'text' });
     }
 
     logout() {

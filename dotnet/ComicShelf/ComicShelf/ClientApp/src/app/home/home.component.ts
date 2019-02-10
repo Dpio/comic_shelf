@@ -25,5 +25,6 @@ export class HomeComponent implements OnInit {
 
   logout() {
     this.authenticateService.logout();
+    window.location.reload();
   }
 }
