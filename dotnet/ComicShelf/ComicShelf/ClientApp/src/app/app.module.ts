@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
@@ -16,6 +16,7 @@ import { AuthGuard } from './login/auth.guard';
 import { AuthenticateService } from './shared/services/authenticate.service';
 import { LoggedComponent } from './logged/logged.component';
 import { UserService } from './shared/services/user.service';
+import { JwtInterceptor } from './login/jwt.interceptor';
 
 
 @NgModule({
@@ -37,7 +38,9 @@ import { UserService } from './shared/services/user.service';
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'counter', component: CounterComponent },
       { path: 'fetch-data', component: FetchDataComponent },
-      { path: 'comic', component: ComicComponent, canActivate: [AuthGuard]  },
+      { path: 'comic', component: ComicComponent, canActivate: [AuthGuard] },
+      { path: 'Logged', component: LoggedComponent },
+      { path: 'Logged/:id/:token', component: LoggedComponent },
     ]),
     ToastrModule.forRoot(),
   ],
@@ -46,7 +49,8 @@ import { UserService } from './shared/services/user.service';
     ToastrService,
     AuthenticateService,
     UserService,
-    AuthGuard
+    AuthGuard,
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
   ],
   bootstrap: [AppComponent]
 })
