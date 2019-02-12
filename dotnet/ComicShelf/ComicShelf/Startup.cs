@@ -19,7 +19,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ComicShelf
+namespace ComicShelf.Api
 {
 	public class Startup
 	{
@@ -36,14 +36,13 @@ namespace ComicShelf
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services)
 		{
-			var appSettingsSection = Configuration.GetSection("AppSettings");
-			services.Configure<AppSettings>(appSettingsSection);
-
 			services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+			services.AddSingleton<IConfiguration>(Configuration);
+			services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
 
-			var appSettings = appSettingsSection.Get<AppSettings>();
+			string secret = Configuration.GetSection("AppSettings:Secret").Value;
+			var key = Encoding.ASCII.GetBytes(secret);
 
-			var key = Encoding.ASCII.GetBytes(appSettings.Secret);
 			services.AddAuthentication(x =>
 			{
 				x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -125,7 +124,7 @@ namespace ComicShelf
 			else
 			{
 				app.UseExceptionHandler("/Error");
-				app.UseHsts();
+				
 			}
 
 			//app.UseHttpsRedirection();
