@@ -28,9 +28,9 @@ namespace ComicShelf.Tests.Controllers
                 .Build();
             Server = new TestServer(new WebHostBuilder()
 				.UseEnvironment("Testing")
-				.UseStartup<Startup>().UseConfiguration(Configuration));
+				.UseStartup<TestStartup>().UseConfiguration(Configuration));
 			Context = Server.Host.Services.GetService(typeof(ApplicationDbContext)) as ApplicationDbContext;
-            var authService = Fixture.Freeze<Mock<IAuthenticationService>>();
+            //var authService = Fixture.Freeze<Mock<IAuthenticationService>>();
             Client = Server.CreateClient();
 		}
 	}
