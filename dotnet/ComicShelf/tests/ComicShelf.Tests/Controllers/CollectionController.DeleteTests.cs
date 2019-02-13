@@ -26,7 +26,7 @@ namespace ComicShelf.Tests.Controllers
 			Assert.Equal(HttpStatusCode.OK, response.StatusCode);
 			var check = await Client.GetAsync($"api/Collection/{id}");
 			Assert.Equal(HttpStatusCode.NotFound, check.StatusCode);
-			var dbTest = Context.Comics.FirstOrDefault(c => c.Id == id);
+			var dbTest = Context.Collections.FirstOrDefault(c => c.Id == id);
 			Assert.Null(dbTest);
 		}
 	}
