@@ -1,8 +1,6 @@
 ﻿using AutoFixture;
-using ComicShelf.Api.Controllers;
-using ComicShelf.DataAccess.Entities;
-using ComicShelf.Models.Authenticate;
 using ComicShelf.Models.Comic;
+using ComicShelf.Tests.Utilities;
 using Newtonsoft.Json;
 using System.Net;
 using System.Threading.Tasks;
@@ -10,26 +8,22 @@ using Xunit;
 
 namespace ComicShelf.Tests.Controllers
 {
-	public class ComicController_GetTests : BaseTestController
+	public class ComicController_PostTests : BaseTestController
 	{
 		[Fact]
-		public async Task ShouldGetComic()
+		public async Task ShouldAddComic()
 		{
-			var expected = Fixture.Build<Comic>().With(t => t.Id, 1).Create();
-			Context.Comics.Add(expected);
-			Context.SaveChanges();
+			var expected = Fixture.Build<CreateComicDto>().With(t => t.Title, "test").Create();
 
 			// Act
-			
-			var id = 1;
-			var response = await Client.GetAsync($"api/Comic/{id}");
+			var response = await Client.PostAsync("api/Comic", new JsonContent(expected));
 			response.EnsureSuccessStatusCode();
 
 			// Assert
 			Assert.Equal(HttpStatusCode.OK, response.StatusCode);
 			string jsonResult = await response.Content.ReadAsStringAsync();
-			var actual = JsonConvert.DeserializeObject<ComicDto>(jsonResult);
-			Assert.Equal(expected.Id, actual.Id);
+			var deserializeObject = JsonConvert.DeserializeObject<ComicDto>(jsonResult);
+			var actual = Context.Comics.Find(deserializeObject.Id);
 			Assert.Equal(expected.Title, actual.Title);
 			Assert.Equal(expected.Publisher, actual.Publisher);
 			Assert.Equal(expected.Issue, actual.Issue);
