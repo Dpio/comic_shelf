@@ -6,7 +6,7 @@ namespace ComicShelf.Logic.Impl
 {
 	public interface IComicCollectionService
 	{
-		IEnumerable<ComicCollection> GetComicsCollection(int userId);
+		IEnumerable<ComicCollectionDto> GetComicsCollection(int userId);
 		ComicCollectionDto AddToCollection(CreateComicCollectionDto comicCollection);
 		void DeleteComicFromCollection(int id);
 	}
