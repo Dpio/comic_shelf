@@ -27,13 +27,13 @@ namespace ComicShelf.Api.Controllers
 		[Authorize]
 		[HttpPost("addToCollection")]
 		[Produces("application/json", Type = typeof(ComicCollectionDto))]
-		public IActionResult AddToCollection([FromBody]CreateComicCollectionDto comicCollectionDto)
+		public IActionResult AddToCollection([FromBody]CreateComicCollectionDto createComicCollectionDto)
 		{
 			try
 			{
 				// save 
-				_comicCollectionService.AddToCollection(comicCollectionDto);
-				return Ok();
+				var comicCollectionDto = _comicCollectionService.AddToCollection(createComicCollectionDto);
+				return Ok(comicCollectionDto);
 			}
 			catch (AppException ex)
 			{

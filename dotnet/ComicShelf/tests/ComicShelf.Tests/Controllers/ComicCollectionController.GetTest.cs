@@ -22,8 +22,8 @@ namespace ComicShelf.Tests.Controllers
             Context.Comics.Add(comics);
 		    Context.SaveChanges();
 		    var comicCollections = Fixture.Build<ComicCollection>().With(c => c.ComicId, comics.Id).CreateMany(5).OrderBy(p => p.Id).ToList();
-			var comicCollection = Fixture.Build<ComicCollection>().With(t => t.UserId, user.Id).With(t => t.ComicId, comics.Id).Create();
-			Context.ComicCollections.Add(comicCollection);
+			var comicCollection = Fixture.Build<ComicCollection>().With(t => t.UserId, user.Id).With(t => t.ComicId, comics.Id).CreateMany(2);
+			Context.ComicCollections.AddRange(comicCollection);
 			Context.ComicCollections.AddRange(comicCollections);
 			Context.SaveChanges();
 
@@ -35,8 +35,8 @@ namespace ComicShelf.Tests.Controllers
 			Assert.Equal(HttpStatusCode.OK, response.StatusCode);
 			string jsonResult = await response.Content.ReadAsStringAsync();
 			var actual = JsonConvert.DeserializeObject<IEnumerable<ComicCollectionDto>>(jsonResult).ToList();
-			Assert.Contains(actual, dto => dto.UserId == comicCollection.UserId);
-			Assert.Equal(1, actual: actual.Count);
+			Assert.Contains(actual, dto => dto.UserId == user.Id);
+			Assert.Equal(2, actual: actual.Count);
 		}
 	}
 }

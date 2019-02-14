@@ -11,6 +11,7 @@ namespace ComicShelf.Tests.Controllers
 {
 	public class ComicCollectionController_DeleteTests : BaseTestController
 	{
+		[Fact]
 		public async Task ShouldDeleteComicCollection()
 		{
 			var expected = Fixture.Build<ComicCollection>().With(t => t.Id, 1).Create();
@@ -25,8 +26,6 @@ namespace ComicShelf.Tests.Controllers
 
 			// Assert
 			Assert.Equal(HttpStatusCode.OK, response.StatusCode);
-			var check = await Client.GetAsync($"api/ComicCollection/getComicsCollection");
-			Assert.Equal(HttpStatusCode.NotFound, check.StatusCode);
 			var dbTest = Context.ComicCollections.FirstOrDefault(c => c.Id == id);
 			Assert.Null(dbTest);
 		}

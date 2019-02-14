@@ -34,9 +34,11 @@ namespace ComicShelf.Logic.Impl
 			return userCollectionDto;
 		}
 
-		public IEnumerable<UserCollection> GetUserCollection(int collectionId)
+		public IEnumerable<UserCollectionDto> GetUserCollection(int collectionId)
 		{
-			return _userCollectionRepository.GetUserCollection(collectionId);
+			var userCollections = _userCollectionRepository.GetUserCollection(collectionId);
+			var result = _mapper.Map<IEnumerable<UserCollectionDto>>(userCollections);
+			return result;
 		}
 
 		public void DeleteCollectionFromUserCollection(int id)
