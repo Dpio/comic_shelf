@@ -1,0 +1,26 @@
+<h1>Comics</h1>
+
+<p>List of comics.</p>
+
+<p *ngIf="!comics"><em>Loading...</em></p>
+
+<table class='table table-hover table-bordered' *ngIf="comics">
+    <thead>
+        <tr>
+            <th>Lp</th>
+            <th>Title</th>
+            <th>Issue</th>
+            <th>Publisher</th>
+            <th>Note</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let comic of comics; let i = index;">
+            <td>{{ i+1 }}</td>
+            <td>{{ comic.title }}</td>
+            <td>{{ comic.issue }}</td>
+            <td>{{ comic.publisher }}</td>
+            <td>{{ comic.note }}</td>
+        </tr>
+    </tbody>
+</table>

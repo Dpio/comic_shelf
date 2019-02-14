@@ -9,7 +9,7 @@ using System.Collections.Generic;
 
 namespace ComicShelf.Api.Controllers
 {
-	[Authorize]
+	
 	[ApiController]
 	[Route("api/[controller]")]
 	public class UserController : Controller
@@ -26,7 +26,7 @@ namespace ComicShelf.Api.Controllers
 			_mapper = mapper;
 		}
 
-		[Authorize]
+		[AllowAnonymous]
 		[HttpPost("register")]
 		[Produces("application/json", Type = typeof(UserDto))]
 		public IActionResult Register([FromBody]CreateUserDto userdto)
@@ -38,7 +38,7 @@ namespace ComicShelf.Api.Controllers
 			{
 				// save 
 				_userService.Create(user);
-				return Ok();
+				return Ok(user);
 			}
 			catch (AppException ex)
 			{
@@ -57,7 +57,7 @@ namespace ComicShelf.Api.Controllers
 			return Ok(userDtos);
 		}
 
-		[Authorize]
+		[AllowAnonymous]
 		[HttpGet("{id}")]
 		[Produces("application/json", Type = typeof(UserDto))]
 		public IActionResult GetById(int id)
@@ -68,19 +68,18 @@ namespace ComicShelf.Api.Controllers
 		}
 
 		[Authorize]
-		[HttpPut("{id}")]
+		[HttpPut()]
 		[Produces("application/json", Type = typeof(UserDto))]
-		public IActionResult Update(int id, [FromBody]UserDto userdto)
+		public IActionResult Update([FromBody]UserDto userdto)
 		{
 			// map dto to entity and set id
 			var user = _mapper.Map<User>(userdto);
-			user.Id = id;
 
 			try
 			{
 				// save 
 				_userService.Update(user);
-				return Ok();
+				return Ok(user);
 			}
 			catch (AppException ex)
 			{

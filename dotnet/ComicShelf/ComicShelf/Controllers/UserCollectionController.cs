@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using ComicShelf.DataAccess.Entities;
 using ComicShelf.Logic.Helpers;
 using ComicShelf.Logic.Impl;
 using ComicShelf.Models.UserCollection;
@@ -27,13 +26,13 @@ namespace ComicShelf.Api.Controllers
 		[Authorize]
 		[HttpPost("addToUserCollection")]
 		[Produces("application/json", Type = typeof(UserCollectionDto))]
-		public IActionResult AddToCollection([FromBody]CreateUserCollectionDto UserCollectionDto)
+		public IActionResult AddToCollection([FromBody]CreateUserCollectionDto createUserCollectionDto)
 		{
 			try
 			{
 				// save 
-				_userCollectionService.AddToUserCollection(UserCollectionDto);
-				return Ok();
+				var userCollectionDto = _userCollectionService.AddToUserCollection(createUserCollectionDto);
+				return Ok(userCollectionDto);
 			}
 			catch (AppException ex)
 			{
@@ -43,7 +42,7 @@ namespace ComicShelf.Api.Controllers
 		}
 
 		[Authorize]
-		[HttpDelete("deleteCollectionFromUserCollection")]
+		[HttpDelete("deleteCollectionFromUserCollection/{id}")]
 		public IActionResult DeleteCollectionFromUserCollection(int id)
 		{
 			_userCollectionService.DeleteCollectionFromUserCollection(id);
@@ -51,13 +50,12 @@ namespace ComicShelf.Api.Controllers
 		}
 
 		[Authorize]
-		[HttpGet("getUserCollection")]
-		[Produces("application/json", Type = typeof(IEnumerable<UserCollection>))]
-		public IActionResult GetUsersCollection(int collectionId)
+		[HttpGet("getUserCollection/{id}")]
+		[Produces("application/json", Type = typeof(IEnumerable<UserCollectionDto>))]
+		public IActionResult GetUsersCollection(int id)
 		{
-			var userCollections = _userCollectionService.GetUserCollection(collectionId);
-			var usercollectionsDtos = _mapper.Map<IList<UserCollectionDto>>(userCollections);
-			return Ok(usercollectionsDtos);
+			var userCollections = _userCollectionService.GetUserCollection(id);
+			return Ok(userCollections);
 		}
 	}
 }

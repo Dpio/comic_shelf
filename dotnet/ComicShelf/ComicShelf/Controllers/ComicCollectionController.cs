@@ -27,13 +27,13 @@ namespace ComicShelf.Api.Controllers
 		[Authorize]
 		[HttpPost("addToCollection")]
 		[Produces("application/json", Type = typeof(ComicCollectionDto))]
-		public IActionResult AddToCollection([FromBody]CreateComicCollectionDto comicCollectionDto)
+		public IActionResult AddToCollection([FromBody]CreateComicCollectionDto createComicCollectionDto)
 		{
 			try
 			{
 				// save 
-				_comicCollectionService.AddToCollection(comicCollectionDto);
-				return Ok();
+				var comicCollectionDto = _comicCollectionService.AddToCollection(createComicCollectionDto);
+				return Ok(comicCollectionDto);
 			}
 			catch (AppException ex)
 			{
@@ -43,7 +43,7 @@ namespace ComicShelf.Api.Controllers
 		}
 
 		[Authorize]
-		[HttpDelete("deleteFromCollection")]
+		[HttpDelete("deleteFromCollection/{id}")]
 		public IActionResult DeleteFromCollection(int id)
 		{
 			_comicCollectionService.DeleteComicFromCollection(id);
@@ -51,13 +51,12 @@ namespace ComicShelf.Api.Controllers
 		}
 
 		[Authorize]
-		[HttpGet("getComicsCollection")]
-		[Produces("application/json", Type = typeof(IEnumerable<ComicCollection>))]
-		public IActionResult GetComicsCollection(int userId)
+		[HttpGet("getComicsCollection/{id}")]
+		[Produces("application/json", Type = typeof(IEnumerable<ComicCollectionDto>))]
+		public IActionResult GetComicsCollection(int id)
 		{
-			var comics = _comicCollectionService.GetComicsCollection(userId);
-			var comicsDtos = _mapper.Map<IList<ComicCollectionDto>>(comics);
-			return Ok(comicsDtos);
+			var comics = _comicCollectionService.GetComicsCollection(id);
+			return Ok(comics);
 		}
 	}
 }

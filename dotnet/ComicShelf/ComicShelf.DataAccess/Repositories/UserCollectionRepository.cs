@@ -16,8 +16,12 @@ namespace ComicShelf.DataAccess.Repositories
 
 		public IEnumerable<UserCollection> GetUserCollection(int collectionId)
 		{
-			var userCollections = _context.UserCollections.Include(uc => uc.ComicCollections).Include(uc => uc.Collections).Where(uc => uc.CollectionId == collectionId);
-			return userCollections;
+			var usercollection = Entities
+				.Include(e => e.Collections)
+				.Include(e => e.ComicCollections)
+				.Where(e => e.CollectionId == collectionId)
+				.OrderBy(e => e.Id);
+			return usercollection.ToList();
 		}
 	}
 }

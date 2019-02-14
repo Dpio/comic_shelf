@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 
-namespace ComicShelf
+namespace ComicShelf.Api
 {
 	public class Program
 	{
