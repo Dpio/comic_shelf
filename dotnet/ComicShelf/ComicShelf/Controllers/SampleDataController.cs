@@ -1,7 +1,10 @@
+using ComicShelf.Api;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace ComicShelf.Controllers
 {
@@ -38,6 +41,21 @@ namespace ComicShelf.Controllers
 					return 32 + (int)(TemperatureC / 0.5556);
 				}
 			}
+		}
+
+		[HttpPost("upload")]
+		public void PostFile(IFormFile uploadedFile)
+		{
+			
+		}
+
+		[HttpPost]
+		[Route("create")]
+		public async Task<IActionResult> Create(IFormFile uploadedFile)
+		{
+			var stream = uploadedFile.OpenReadStream();
+			//await Execute(new CreateCmiCommand(stream));
+			return Ok();
 		}
 	}
 }
