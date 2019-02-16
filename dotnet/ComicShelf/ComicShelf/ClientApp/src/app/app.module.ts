@@ -17,6 +17,7 @@ import { AuthenticateService } from './shared/services/authenticate.service';
 import { LoggedComponent } from './logged/logged.component';
 import { UserService } from './shared/services/user.service';
 import { JwtInterceptor } from './login/jwt.interceptor';
+import { ComicDetailsComponent } from './comic/comic-details/comic-details.component';
 
 
 @NgModule({
@@ -28,6 +29,7 @@ import { JwtInterceptor } from './login/jwt.interceptor';
     FetchDataComponent,
     ComicComponent,
     LoggedComponent,
+    ComicDetailsComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

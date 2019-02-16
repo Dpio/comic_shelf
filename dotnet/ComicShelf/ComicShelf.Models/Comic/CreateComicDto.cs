@@ -7,7 +7,7 @@ namespace ComicShelf.Models.Comic
 	{
 		public string Title { get; set; }
 		public int Issue { get; set; }
-		public string Volume { get; set; }
+		public int Volume { get; set; }
 		public string Publisher { get; set; }
 		public string Series { get; set; }
 		public string ScriptWriter { get; set; }

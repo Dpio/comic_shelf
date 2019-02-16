@@ -32,4 +32,5 @@ export class ComicComponent implements OnInit {
     }
     );
   }
+
 }
