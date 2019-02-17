@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ComicService } from '../shared/services/comic.service';
 import { ToastrService } from 'ngx-toastr';
 import { ComicModel } from '../shared/models/comic.model';
 import { BaseApiService } from '../shared/services/base.service';
+import { ComicDetailsComponent } from './comic-details/comic-details.component';
+import { AuthenticateService } from '../shared/services/authenticate.service';
 
 @Component({
   selector: 'app-comic',
@@ -10,12 +12,13 @@ import { BaseApiService } from '../shared/services/base.service';
   styleUrls: ['./comic.component.css']
 })
 export class ComicComponent implements OnInit {
-
+  @ViewChild('comicDetailsModal') comicDetailsModal: ComicDetailsComponent;
   comics: Array<ComicModel>;
 
   constructor(
     private comicService: ComicService,
     private toastr: ToastrService,
+    private authenticateService: AuthenticateService,
   ) {
   }
   ngOnInit(): void {
@@ -24,6 +27,7 @@ export class ComicComponent implements OnInit {
     }, error => {
       if (error.statusText === 'Unauthorized') {
         this.toastr.error(error.statusText);
+        this.authenticateService.logout();
       } else {
         const response = error.response.replace(/['"]+/g, '');
         const message = response.replace('message:', '');
@@ -33,4 +37,10 @@ export class ComicComponent implements OnInit {
     );
   }
 
+  comicDetails(id: number) {
+    this.comicDetailsModal.show(id);
+  }
+
+  addToCollection(id: number) {
+  }
 }

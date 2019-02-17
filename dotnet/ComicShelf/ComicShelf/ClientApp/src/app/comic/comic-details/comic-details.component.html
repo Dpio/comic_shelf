@@ -1,0 +1,32 @@
+<div bsModal #comicDetailsModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="comicDetailsModal"
+    aria-hidden="true" [config]="{backdrop: 'static'}">
+    <div class="modal-dialog" role="document">
+        <div #modalContent class="modal-content">
+            <div class="container-fluid" style="margin: 0px 10px">
+                <div class="card main-content" style="margin: 10px 10px 10px 10px">
+                    <div class="header text-center">
+                        <h2>{{comic.title}}</h2>
+                    </div>
+                    <div class="body">
+                        <img class="img-responsive" style="overflow: auto; float:left;  margin: 0px 10px 30px;" src="data:image/jpeg;base64,{{comic.image}}" />
+                        <p> Issue: {{comic.issue}}</p>
+                        <p> Publisher: {{comic.publisher}}</p>
+                        <p> Volume: {{comic.volume}}</p>
+                        <p> Series: {{comic.series}}</p>
+                        <p> Script writer: {{comic.scriptWriter}}</p>
+                        <p> Draftsman: {{comic.draftsman}}</p>
+                        <p> Translator: {{comic.translator}}</p>
+                        <p> Cover: {{comic.cover}}</p>
+                        <p> Premier date: {{premierDate}}</p>
+                        <p> Note: {{comic.note}}</p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default waves-effect" (click)="close()">
+                        Cancel
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

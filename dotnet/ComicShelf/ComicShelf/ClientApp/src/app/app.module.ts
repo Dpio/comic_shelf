@@ -18,6 +18,7 @@ import { LoggedComponent } from './logged/logged.component';
 import { UserService } from './shared/services/user.service';
 import { JwtInterceptor } from './login/jwt.interceptor';
 import { ComicDetailsComponent } from './comic/comic-details/comic-details.component';
+import { ModalModule } from 'ngx-bootstrap';
 
 
 @NgModule({
@@ -35,6 +36,7 @@ import { ComicDetailsComponent } from './comic/comic-details/comic-details.compo
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
     FormsModule,
+    ModalModule.forRoot(),
     BrowserAnimationsModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },

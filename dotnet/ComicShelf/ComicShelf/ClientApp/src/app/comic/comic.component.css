@@ -1,4 +1,5 @@
 div.gallery {
+    position: relative;
     margin: 30px;
     width: 200px;
     display: inline-block;
@@ -6,9 +7,9 @@ div.gallery {
     padding-top:25px;
   }
   
-  div.gallery:hover {
+  /* div.gallery:hover {
     border: 1px solid #777;
-  }
+  } */
   
   div.gallery img {
     position:relative;
@@ -20,3 +21,23 @@ div.gallery {
     padding: 0px;
     text-align: center;
   }
+
+ div.gallery:hover img{
+    opacity:0.5;
+ }
+
+ div.gallery:hover button {
+  display: block;
+}
+div.gallery button {
+  position:absolute;
+  display:none;
+}
+div.gallery button.details {
+  top:40%;
+  left:35%;
+}
+div.gallery button.addtocollection {
+  top:48%;
+  left:20%;
+}

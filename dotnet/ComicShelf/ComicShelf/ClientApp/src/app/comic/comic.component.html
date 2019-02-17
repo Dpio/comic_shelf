@@ -8,10 +8,13 @@
                         <div class="row clearfix">
                             <div class="col-sm-12">
                                 <div class="gallery" *ngFor="let comic of comics">
-                                    <img class="img-responsive thumbnail" src="data:image/jpeg;base64,{{comic.image}}" />
+                                    <img  class="img-responsive thumbnail" src="data:image/jpeg;base64,{{comic.image}}" />
                                     <div class="desc">
                                         {{comic.title}}
                                     </div>
+                                    <div class="overlay"></div>
+                                   <button class="details" (click)="comicDetails(comic.id)">Details</button> 
+                                   <button class="addtocollection" (click)="addToCollection(comic.id)">Add to collection</button>
                                 </div>
                             </div>
                         </div>
@@ -22,7 +25,7 @@
     </div>
 </section>
 
-
+<comic-details-modal #comicDetailsModal></comic-details-modal>
 <!-- <div class="card">
         <div class="container-fluid">
         <div class="row clearfix">
