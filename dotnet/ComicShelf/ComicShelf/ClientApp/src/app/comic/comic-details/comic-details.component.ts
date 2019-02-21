@@ -4,6 +4,7 @@ import { ComicModel } from '../../shared/models/comic.model';
 import { ComicService } from '../../shared/services/comic.service';
 import { Moment } from 'moment';
 import moment = require('moment');
+import { ComicAddToCollectionComponent } from '../comic-addToCollection/comic-addToCollection.component';
 
 @Component({
     // tslint:disable-next-line:component-selector
@@ -14,6 +15,7 @@ import moment = require('moment');
 export class ComicDetailsComponent implements OnInit {
     @ViewChild('comicDetailsModal') modal: ModalDirective;
     @ViewChild('modalContent') modalContent: ElementRef;
+    @ViewChild('comicAddToCollectionModal') comicAddToCollectionModal: ComicAddToCollectionComponent;
     comic: ComicModel = new ComicModel();
     error: any;
     premierDate: string;
@@ -41,5 +43,9 @@ export class ComicDetailsComponent implements OnInit {
 
     close(): void {
         this.modal.hide();
+    }
+
+    addToCollection(id: number) {
+        this.comicAddToCollectionModal.show(id);
     }
 }

@@ -42,6 +42,7 @@ export class NavMenuComponent extends AppComponent implements OnInit {
       this.menuItems = [
         new MenuItem('Homepage', 'home', '/'),
         new MenuItem('Comic', 'book', '/comic'),
+        new MenuItem('Collection', 'star', '/collection')
       ];
     }
   }

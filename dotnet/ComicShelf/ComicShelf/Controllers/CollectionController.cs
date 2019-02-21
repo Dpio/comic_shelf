@@ -61,5 +61,14 @@ namespace ComicShelf.Api.Controllers
 			}
 			return Ok(dto);
 		}
+
+		[AllowAnonymous]
+		[HttpGet("getUserCollectionNames/{id}")]
+		[Produces("application/json", Type = typeof(IEnumerable<string>))]
+		public IActionResult getUserCollectionNames(int id)
+		{
+			var names = _service.GetUserCollection(id);
+			return Ok(names);
+		}
 	}
 }

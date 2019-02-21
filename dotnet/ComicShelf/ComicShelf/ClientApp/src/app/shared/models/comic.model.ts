@@ -16,5 +16,5 @@ export class ComicModel extends BaseModel {
     premierDate: moment.Moment;
     note: string;
     image: File;
-    ComicsCollections: Array<ComicCollectionModel>;
+    comicsCollections: Array<ComicCollectionModel>;
 }

@@ -6,7 +6,7 @@ namespace ComicShelf.DataAccess.Entities
 	{
 		public int CollectionId { get; set; }
 		public int ComicCollectionId { get; set; }
-		public virtual ICollection<Collection> Collections { get; set; }
-		public virtual ICollection<ComicCollection> ComicCollections { get; set; }
+		public virtual ICollection<Collection> Collection { get; set; }
+		public virtual ICollection<ComicCollection> ComicCollection { get; set; }
 	}
 }

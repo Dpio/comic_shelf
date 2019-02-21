@@ -5,6 +5,8 @@ import { ComicModel } from '../shared/models/comic.model';
 import { BaseApiService } from '../shared/services/base.service';
 import { ComicDetailsComponent } from './comic-details/comic-details.component';
 import { AuthenticateService } from '../shared/services/authenticate.service';
+import { ComicAddToCollectionComponent } from './comic-addToCollection/comic-addToCollection.component';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-comic',
@@ -13,12 +15,14 @@ import { AuthenticateService } from '../shared/services/authenticate.service';
 })
 export class ComicComponent implements OnInit {
   @ViewChild('comicDetailsModal') comicDetailsModal: ComicDetailsComponent;
+  @ViewChild('comicAddToCollectionModal') comicAddToCollectionModal: ComicAddToCollectionComponent;
   comics: Array<ComicModel>;
 
   constructor(
     private comicService: ComicService,
     private toastr: ToastrService,
     private authenticateService: AuthenticateService,
+    private sanitizer: DomSanitizer,
   ) {
   }
   ngOnInit(): void {
@@ -42,5 +46,6 @@ export class ComicComponent implements OnInit {
   }
 
   addToCollection(id: number) {
+    this.comicAddToCollectionModal.show(id);
   }
 }

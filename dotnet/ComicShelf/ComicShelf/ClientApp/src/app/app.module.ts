@@ -1,4 +1,4 @@
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, DomSanitizer } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -19,6 +19,11 @@ import { UserService } from './shared/services/user.service';
 import { JwtInterceptor } from './login/jwt.interceptor';
 import { ComicDetailsComponent } from './comic/comic-details/comic-details.component';
 import { ModalModule } from 'ngx-bootstrap';
+import { ComicAddToCollectionComponent } from './comic/comic-addToCollection/comic-addToCollection.component';
+import { UserComicCollectionComponent } from './user-comic-collection/user-comic-collection.component';
+import { UserCollectionService } from './shared/services/userCollection.service';
+import { ComicCollectionService } from './shared/services/comicCollection.service';
+import { CollectionService } from './shared/services/collection.service';
 
 
 @NgModule({
@@ -31,6 +36,8 @@ import { ModalModule } from 'ngx-bootstrap';
     ComicComponent,
     LoggedComponent,
     ComicDetailsComponent,
+    ComicAddToCollectionComponent,
+    UserComicCollectionComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -43,6 +50,7 @@ import { ModalModule } from 'ngx-bootstrap';
       { path: 'counter', component: CounterComponent },
       { path: 'fetch-data', component: FetchDataComponent },
       { path: 'comic', component: ComicComponent, canActivate: [AuthGuard] },
+      { path: 'collection', component: UserComicCollectionComponent, canActivate: [AuthGuard] },
       { path: 'Logged', component: LoggedComponent },
       { path: 'Logged/:id/:token', component: LoggedComponent },
     ]),
@@ -54,6 +62,9 @@ import { ModalModule } from 'ngx-bootstrap';
     AuthenticateService,
     UserService,
     AuthGuard,
+    ComicCollectionService,
+    UserCollectionService,
+    CollectionService,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
   ],
   bootstrap: [AppComponent]

@@ -7,5 +7,6 @@ namespace ComicShelf.Logic.Impl
 	public interface ICollectionService : ICrudAppService<CollectionDto, CreateCollectionDto, CollectionDto>
 	{
 		IEnumerable<CollectionDto> GetAll();
+		IEnumerable<string> GetUserCollection(int userId);
 	}
 }
