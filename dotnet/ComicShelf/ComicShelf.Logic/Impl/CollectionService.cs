@@ -40,7 +40,7 @@ namespace ComicShelf.Logic.Impl
 			foreach(var id in comicCollection.Select(cc => cc.Id))
 			{
 				var userCollection = _userCollectionRepository.GetUserCollectionByComicCollectionId(id);
-				IEnumerable<string> currentUserCollectionNames = userCollection.SelectMany(us => us.Collection).Select(c => c.Name).Distinct();
+				IEnumerable<string> currentUserCollectionNames = userCollection.Select(us => us.Collection).Select(c => c.Name).Distinct();
 				collectionNames.AddRange(currentUserCollectionNames);
 			}
 			return collectionNames;

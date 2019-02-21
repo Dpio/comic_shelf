@@ -32,7 +32,7 @@ namespace ComicShelf.DataAccess.Repositories
 				.Where(e => e.ComicCollectionId == comicCollectionId)
 				.OrderBy(e => e.Id);
 
-			var test = usercollection.SelectMany(uc => uc.ComicCollection).ToList();
+			var test = usercollection.Select(uc => uc.ComicCollection).ToList();
 
 			return usercollection.ToList();
 		}
@@ -46,7 +46,7 @@ namespace ComicShelf.DataAccess.Repositories
 				.OrderBy(e => e.Id);
 			List<UserCollection> userCollections = usercollection.ToList();
 
-			var users = userCollections.SelectMany(uc => uc.ComicCollection).Select(cc => cc.User).Distinct(); 
+			var users = userCollections.Select(uc => uc.ComicCollection).Select(cc => cc.User).Distinct(); 
 
 			return userCollections;
 		}
