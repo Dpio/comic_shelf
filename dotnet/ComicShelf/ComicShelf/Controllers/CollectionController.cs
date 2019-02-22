@@ -63,7 +63,7 @@ namespace ComicShelf.Api.Controllers
 			return Ok(dto);
 		}
 
-		[AllowAnonymous]
+		[Authorize]
 		[HttpGet("getUserCollectionNames/{id}")]
 		[Produces("application/json", Type = typeof(IEnumerable<string>))]
 		public IActionResult getUserCollectionNames(int id)
@@ -72,7 +72,7 @@ namespace ComicShelf.Api.Controllers
 			return Ok(names);
 		}
 
-		[AllowAnonymous]
+		[Authorize]
 		[HttpGet("getCollectionByName/{name}")]
 		[Produces("application/json", Type = typeof(CollectionDto))]
 		public IActionResult getCollectionByName(string name)
@@ -81,7 +81,7 @@ namespace ComicShelf.Api.Controllers
 			return Ok(collection);
 		}
 
-		[AllowAnonymous]
+		[Authorize]
 		[HttpGet("getComics/{collectionId}/{userId}")]
 		[Produces("application/json", Type = typeof(IEnumerable<ComicDto>))]
 		public IActionResult getComics(int collectionId, int userId)
