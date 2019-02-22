@@ -1,5 +1,5 @@
 ﻿using ComicShelf.DataAccess.Entities;
-using System.Collections.Generic;
+using System.Linq;
 
 namespace ComicShelf.DataAccess.Repositories
 {
@@ -10,6 +10,13 @@ namespace ComicShelf.DataAccess.Repositories
 		public CollectionRepository(ApplicationDbContext context) : base(context)
 		{
 			_context = context;
+		}
+
+		public Collection getByName(string name)
+		{
+			var collection = Entities
+				.Where(c => c.Name == name);
+			return collection.FirstOrDefault();
 		}
 	}
 }

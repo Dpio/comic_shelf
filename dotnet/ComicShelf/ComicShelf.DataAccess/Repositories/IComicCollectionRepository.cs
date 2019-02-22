@@ -6,5 +6,6 @@ namespace ComicShelf.DataAccess.Repositories
 	public interface IComicCollectionRepository : IGenericRepository<ComicCollection>
 	{
 		IEnumerable<ComicCollection> GetComicsCollection(int userId);
+		ComicCollection GetWithDetails(int id);
 	}
 }

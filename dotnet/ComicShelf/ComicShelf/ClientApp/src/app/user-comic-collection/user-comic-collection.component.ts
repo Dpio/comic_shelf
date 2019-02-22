@@ -34,29 +34,5 @@ export class UserComicCollectionComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.collections = [];
-        this.comicCollectionService.getCollection(this.currentUser.id).subscribe(data => {
-            this.comicCollections = BaseApiService.getObjectArrayFromApi<ComicCollectionModel>(data, ComicCollectionModel);
-            console.log(this.comicCollections);
-            this.comicCollections.forEach(comicCollection => {
-                this.userCollectionService.getCollection(comicCollection.id).subscribe(userCollectionData => {
-                    this.userCollections = BaseApiService.getObjectArrayFromApi<UserCollectionModel>
-                        (userCollectionData, UserCollectionModel);
-                    console.log(this.userCollections);
-                    this.userCollections.forEach(userCollection => {
-                        this.collectionService.getCollection(userCollection.collectionId).subscribe(collectionData => {
-                            this.collection = new CollectionModel().deserialize(collectionData);
-                            if (this.collections.length === 0) {
-                                this.collections.push(this.collection);
-                            }
-                            if (this.collections.some(c => c.id !== this.collection.id)) {
-                                this.collections.push(this.collection);
-                            }
-                            console.log(this.collections);
-                        });
-                    });
-                });
-            });
-        });
     }
 }

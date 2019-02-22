@@ -1,5 +1,6 @@
 ﻿using ComicShelf.Logic.Impl;
 using ComicShelf.Models.Collection;
+using ComicShelf.Models.Comic;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
@@ -69,6 +70,24 @@ namespace ComicShelf.Api.Controllers
 		{
 			var names = _service.GetUserCollection(id);
 			return Ok(names);
+		}
+
+		[AllowAnonymous]
+		[HttpGet("getCollectionByName/{name}")]
+		[Produces("application/json", Type = typeof(CollectionDto))]
+		public IActionResult getCollectionByName(string name)
+		{
+			var collection = _service.GetByName(name);
+			return Ok(collection);
+		}
+
+		[AllowAnonymous]
+		[HttpGet("getComics/{collectionId}/{userId}")]
+		[Produces("application/json", Type = typeof(IEnumerable<ComicDto>))]
+		public IActionResult getComics(int collectionId, int userId)
+		{
+			var comics = _service.getComicsForUser(collectionId, userId);
+			return Ok(comics);
 		}
 	}
 }
