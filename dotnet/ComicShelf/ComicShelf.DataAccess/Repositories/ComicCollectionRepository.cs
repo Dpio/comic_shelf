@@ -32,5 +32,14 @@ namespace ComicShelf.DataAccess.Repositories
 				.Where(e => e.Id == id);
 			return comicCollection.FirstOrDefault();
 		}
+
+		public ComicCollection getComicCollection(int userId, int comicId)
+		{
+			var comicCollection = Entities
+				.Include(e => e.Comic)
+				.Include(e => e.UserCollection)
+				.Where(e => e.UserId == userId && e.ComicId == comicId);
+			return comicCollection.FirstOrDefault();
+		}
 	}
 }

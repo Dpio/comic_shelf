@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using ComicShelf.DataAccess.Entities;
 using ComicShelf.Logic.Helpers;
 using ComicShelf.Logic.Impl;
 using ComicShelf.Models.ComicCollection;
@@ -57,6 +56,15 @@ namespace ComicShelf.Api.Controllers
 		{
 			var comics = _comicCollectionService.GetComicsCollection(id);
 			return Ok(comics);
+		}
+
+		[Authorize]
+		[HttpGet("getComicCollection/{userId}/{comicId}")]
+		[Produces("application/json", Type = typeof(IEnumerable<ComicCollectionDto>))]
+		public IActionResult GetComicCollection(int userId, int comicId)
+		{
+			var comicCollection = _comicCollectionService.GetComicCollection(userId, comicId);
+			return Ok(comicCollection);
 		}
 	}
 }

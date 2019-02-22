@@ -50,9 +50,7 @@ export class UserComicCollectionComponent implements OnInit {
                 this.toastr.error(error.statusText);
                 this.authenticateService.logout();
             } else {
-                const response = error.response.replace(/['"]+/g, '');
-                const message = response.replace('message:', '');
-                this.toastr.error(message.replace(/[{}]+/g, ''));
+                this.toastr.error(error.error);
             }
         });
     }
@@ -71,9 +69,7 @@ export class UserComicCollectionComponent implements OnInit {
                 this.toastr.error(error.statusText);
                 this.authenticateService.logout();
             } else {
-                const response = error.response.replace(/['"]+/g, '');
-                const message = response.replace('message:', '');
-                this.toastr.error(message.replace(/[{}]+/g, ''));
+                this.toastr.error(error.error);
             }
         });
     }

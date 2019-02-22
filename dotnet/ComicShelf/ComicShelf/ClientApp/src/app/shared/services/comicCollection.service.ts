@@ -23,4 +23,8 @@ export class ComicCollectionService {
     deleteCollection(id: number) {
         this.http.delete(this.apiUrl + '/ComicCollection/deleteFromCollection/' + id);
     }
+
+    getComicCollection(userId: number, comicId): Observable<ComicCollectionModel> {
+        return this.http.get<ComicCollectionModel>(this.apiUrl + '/ComicCollection/getComicCollection/' + userId + '/' + comicId);
+    }
 }

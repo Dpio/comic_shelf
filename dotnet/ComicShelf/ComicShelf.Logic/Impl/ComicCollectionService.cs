@@ -22,7 +22,7 @@ namespace ComicShelf.Logic.Impl
 		public ComicCollectionDto AddToCollection(CreateComicCollectionDto input)
 		{
 			if (_comicCollectionRepository.GetAll().Any(x => x.UserId == input.UserId && x.ComicId == input.ComicId))
-				throw new AppException(" Already in collection");
+				throw new AppException("Already in collection");
 			var comicCollection = new ComicCollection()
 			{
 				ComicId = input.ComicId,
@@ -49,6 +49,12 @@ namespace ComicShelf.Logic.Impl
 				_comicCollectionRepository.Remove(id);
 				_comicCollectionRepository.SaveChanges();
 			}
+		}
+
+		public ComicCollectionDto GetComicCollection(int userId, int comicId)
+		{
+			var comicCollection = _comicCollectionRepository.getComicCollection(userId, comicId);
+			return _mapper.Map<ComicCollectionDto>(comicCollection);
 		}
 	}
 }
