@@ -57,5 +57,14 @@ namespace ComicShelf.Api.Controllers
 			var userCollections = _userCollectionService.GetUserCollection(id);
 			return Ok(userCollections);
 		}
+
+		[Authorize]
+		[HttpGet("getUserCollectionByComicCollectionIdAndCollectionId/{comicCollectionId}/{collectionId}")]
+		[Produces("application/json", Type = typeof(UserCollectionDto))]
+		public IActionResult getUserCollectionByComicCollectionIdAndCollectionId(int comicCollectionId, int collectionId)
+		{
+			var userCollection = _userCollectionService.GetUserCollectionByComicCollectionIdAndCollectionId(comicCollectionId, collectionId);
+			return Ok(userCollection);
+		}
 	}
 }

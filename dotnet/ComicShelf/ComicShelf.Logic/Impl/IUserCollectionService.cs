@@ -8,5 +8,6 @@ namespace ComicShelf.Logic.Impl
 		IEnumerable<UserCollectionDto> GetUserCollection(int collectionId);
 		UserCollectionDto AddToUserCollection(CreateUserCollectionDto userCollection);
 		void DeleteCollectionFromUserCollection(int id);
+		UserCollectionDto GetUserCollectionByComicCollectionIdAndCollectionId(int comicCollectionId, int collectionId);
 	}
 }

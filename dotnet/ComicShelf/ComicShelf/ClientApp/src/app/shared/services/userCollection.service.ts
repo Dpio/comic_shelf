@@ -20,7 +20,12 @@ export class UserCollectionService {
         return this.http.post<UserCollectionModel>(this.apiUrl + '/UserCollection/addToUserCollection', userCollection);
     }
 
-    deleteCollection(id: number) {
-        this.http.delete(this.apiUrl + '/UserCollection/deleteCollectionFromUserCollection/' + id);
+    deleteCollection(id: number):  Observable<void> {
+        return this.http.delete<void>(this.apiUrl + '/UserCollection/deleteCollectionFromUserCollection/' + id);
+    }
+
+    getCollectionByComicCollectionIdAndCollectionId(comicCollectionId: number, collectionId: number): Observable<UserCollectionModel> {
+        return this.http.get<UserCollectionModel>
+            (this.apiUrl + '/UserCollection/getUserCollectionByComicCollectionIdAndCollectionId/' + comicCollectionId + '/' + collectionId);
     }
 }

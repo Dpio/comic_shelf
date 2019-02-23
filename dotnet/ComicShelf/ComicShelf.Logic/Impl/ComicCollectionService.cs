@@ -5,18 +5,26 @@ using ComicShelf.DataAccess.Entities;
 using ComicShelf.DataAccess.Repositories;
 using ComicShelf.Logic.Helpers;
 using ComicShelf.Models.ComicCollection;
+using ComicShelf.Models.User;
+using ComicShelf.Models.UserCollection;
 
 namespace ComicShelf.Logic.Impl
 {
 	public class ComicCollectionService : IComicCollectionService
 	{
 		private readonly IComicCollectionRepository _comicCollectionRepository;
+		private readonly IUserRepository _userRepository;
 		private readonly IMapper _mapper; 
 
-		public ComicCollectionService(IComicCollectionRepository comicCollectionRepository, IMapper mapper)
+		public ComicCollectionService(
+			IComicCollectionRepository comicCollectionRepository,
+			IMapper mapper,
+			IUserRepository userRepository
+			)
 		{
 			_comicCollectionRepository = comicCollectionRepository;
 			_mapper = mapper;
+			_userRepository = userRepository;
 		}
 
 		public ComicCollectionDto AddToCollection(CreateComicCollectionDto input)
@@ -55,6 +63,18 @@ namespace ComicShelf.Logic.Impl
 		{
 			var comicCollection = _comicCollectionRepository.getComicCollection(userId, comicId);
 			return _mapper.Map<ComicCollectionDto>(comicCollection);
+		}
+
+		public IEnumerable<UserDto> GetUsersWithComic(int comicId)
+		{
+			var comicCollections = _comicCollectionRepository.getUserWithComic(comicId);
+			var users = new List<UserDto>();
+			foreach (var comicCollection in comicCollections)
+			{
+				var user = _userRepository.Get(comicCollection.UserId);
+				users.Add(_mapper.Map<UserDto>(user));
+			}
+			return users;
 		}
 	}
 }

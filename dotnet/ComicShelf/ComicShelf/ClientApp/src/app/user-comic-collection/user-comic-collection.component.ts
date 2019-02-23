@@ -28,12 +28,14 @@ export class UserComicCollectionComponent implements OnInit {
     comics: Array<ComicModel>;
     collection: CollectionModel;
     collectionNames: Array<String>;
+    collectionId: number;
 
     constructor(
         private collectionService: CollectionService,
         private toastr: ToastrService,
         private authenticateService: AuthenticateService,
-        private sanitizer: DomSanitizer,
+        private userCollectionService: UserCollectionService,
+        private comicCollectionService: ComicCollectionService,
     ) {
         this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
     }
@@ -43,6 +45,8 @@ export class UserComicCollectionComponent implements OnInit {
     }
 
     getComics(id: number) {
+        this.comics = new Array<ComicModel>();
+        this.collectionId = id;
         this.collectionService.getComics(id, this.currentUser.id).subscribe(data => {
             this.comics = data;
         }, error => {
@@ -76,5 +80,17 @@ export class UserComicCollectionComponent implements OnInit {
 
     comicDetails(id: number) {
         this.comicDetailsModal.show(id);
+    }
+
+    deleteComicFromCollection(comicId: number) {
+        const collectionid = this.collectionId;
+        this.comicCollectionService.getComicCollection(this.currentUser.id, comicId).subscribe(comicCollectionData => {
+            this.userCollectionService.getCollectionByComicCollectionIdAndCollectionId(comicCollectionData.id, collectionid)
+                .subscribe(userCollectionData => {
+                    this.userCollectionService.deleteCollection(userCollectionData.id).subscribe( () => {
+                        this.getComics(collectionid);
+                    });
+                });
+        });
     }
 }

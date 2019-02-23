@@ -20,8 +20,8 @@ export class ComicCollectionService {
         return this.http.post<ComicCollectionModel>(this.apiUrl + '/ComicCollection/addToCollection', comicCollection);
     }
 
-    deleteCollection(id: number) {
-        this.http.delete(this.apiUrl + '/ComicCollection/deleteFromCollection/' + id);
+    deleteCollection(id: number):  Observable<void> {
+        return this.http.delete<void>(this.apiUrl + '/ComicCollection/deleteFromCollection/' + id);
     }
 
     getComicCollection(userId: number, comicId): Observable<ComicCollectionModel> {

@@ -50,5 +50,11 @@ namespace ComicShelf.Logic.Impl
 				_userCollectionRepository.SaveChanges();
 			}
 		}
+
+		public UserCollectionDto GetUserCollectionByComicCollectionIdAndCollectionId(int comicCollectionId, int collectionId)
+		{
+			var userCollection = _userCollectionRepository.GetUserCollectionByComicCollectionIdAndCollectionId(comicCollectionId, collectionId);
+			return _mapper.Map<UserCollectionDto>(userCollection);
+		}
 	}
 }
