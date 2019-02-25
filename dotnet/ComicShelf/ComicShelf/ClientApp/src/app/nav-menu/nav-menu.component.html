@@ -1,17 +1,19 @@
-<a class="closebtn" onclick="closeNav()">×</a>
-<a class='navbar-brand' [routerLink]='["/"]'>ComicShelf</a>
-<ng-template ngFor let-menuItem [ngForOf]="menuItems" let-mainMenuItemIndex="index">
-    <ul class='navbar-brand'>
-        <li [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]='{ exact: true }'>
-            <a [routerLink]="[menuItem.route]" *ngIf="!menuItem.items && menuItem.route.indexOf('http') != 0" onclick="closeNav()">
-                <span *ngIf="menuItem.icon" class='glyphicon glyphicon-{{menuItem.icon}}'></span>
-                {{menuItem.name}}
-            </a>
-            <a href="{{menuItem.route}}" target="_blank" *ngIf="!menuItem.items  && menuItem.route.indexOf('http') == 0"
-                (click)='collapse()'>
-                <span *ngIf="menuItem.icon" class='glyphicon glyphicon-{{menuItem.icon}}'></span>
-                {{menuItem.name}}
-            </a>
-        </li>
-    </ul>
-</ng-template>
+<div class="brand"><a class="brand" [routerLink]='["/"]'>ComicShelf<a class="closebtn" onclick="closeNav()">×</a></a></div>
+<div class="menu-list">
+    <ng-template ngFor let-menuItem [ngForOf]="menuItems" let-mainMenuItemIndex="index">
+        <ul id="menu-content" class="menu-content collapse out">
+            <li [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]='{ exact: true }' [routerLink]="[menuItem.route]"
+                *ngIf="!menuItem.items && menuItem.route.indexOf('http') != 0" onclick="closeNav()">
+                <a>
+                    <span *ngIf="menuItem.icon" class='glyphicon glyphicon-{{menuItem.icon}}'></span>
+                    {{menuItem.name}}
+                </a>
+                <a href="{{menuItem.route}}" target="_blank" *ngIf="!menuItem.items  && menuItem.route.indexOf('http') == 0"
+                    (click)='collapse()'>
+                    <span *ngIf="menuItem.icon" class='glyphicon glyphicon-{{menuItem.icon}}'></span>
+                    {{menuItem.name}}
+                </a>
+            </li>
+        </ul>
+    </ng-template>
+</div>

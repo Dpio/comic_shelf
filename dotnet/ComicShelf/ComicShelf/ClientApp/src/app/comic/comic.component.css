@@ -96,4 +96,8 @@ input[type=text] {
  input[type=text] {
     border: 1px solid #ccc;  
   }
+  div.gallery
+  {
+    left: 0px;
+  }
 }
