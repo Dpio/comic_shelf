@@ -8,13 +8,22 @@
                         <div class="row clearfix">
                             <div class="col-sm-12">
                                 <div class="gallery" *ngFor="let comic of comics">
-                                    <img  class="img-responsive thumbnail" src="data:image/jpeg;base64,{{comic.image}}" />
+                                    <img class="img-responsive thumbnail" src="data:image/jpeg;base64,{{comic.image}}" />
                                     <div class="desc">
                                         {{comic.title}}
                                     </div>
                                     <div class="overlay"></div>
-                                   <button class="details" (click)="comicDetails(comic.id)">Details</button> 
-                                   <button class="addtocollection" (click)="addToCollection(comic.id)">Add to collection</button>
+                                    <button class="details" (click)="comicDetails(comic.id)">Details</button>
+                                    <button class="addtocollection" (click)="addToCollection(comic.id)">Add to
+                                        collection</button>
+                                    <button type="button" class="addtocollection dropdown-toggle"
+                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                        Add to collection
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li><a *ngFor="let collection of collections" class=" waves-effect waves-block"
+                                                (click)="addToCollection(collection.name,comic.id)">{{collection.name}}</a></li>
+                                    </ul>
                                 </div>
                             </div>
                         </div>
@@ -26,18 +35,3 @@
 </section>
 
 <comic-details-modal #comicDetailsModal></comic-details-modal>
-<comic-addToCollection-modal #comicAddToCollectionModal></comic-addToCollection-modal>
-<!-- <div class="card">
-        <div class="container-fluid">
-        <div class="row clearfix">
-            <div class="col-md-4" *ngFor="let comic of comics">
-                <div class="thumbnail">
-                    <img src="data:image/jpeg;base64,{{comic.image}}" style="width:40%">
-                    <div class="caption">
-                        <h3 class="text-center">{{comic.title}}</h3>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div> -->

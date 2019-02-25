@@ -41,3 +41,10 @@ div.gallery button.addtocollection {
   top:48%;
   left:20%;
 }
+div.gallery ul.dropdown-menu{
+  top:30%;
+  left:20%;
+}
+div.gallery .dropup{
+  margin-right: 10px;
+}
