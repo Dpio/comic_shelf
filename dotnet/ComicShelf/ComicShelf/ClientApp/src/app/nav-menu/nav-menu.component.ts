@@ -2,6 +2,7 @@ import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { AuthenticateResponse } from '../shared/models/authenticate.model';
 import { MenuItem } from './menu-items';
 import { AppComponent } from '../app.component';
+import { AuthenticateService } from '../shared/services/authenticate.service';
 
 @Component({
   selector: 'app-nav-menu',
@@ -15,9 +16,9 @@ export class NavMenuComponent extends AppComponent implements OnInit {
   menuItems: MenuItem[] = [
     new MenuItem('Homepage', 'home', '/'),
   ];
-
-  constructor() {
-    super();
+   base: AuthenticateService;
+  constructor(authenticateService: AuthenticateService) {
+    super(authenticateService);
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
   }
 

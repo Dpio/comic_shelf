@@ -1,7 +1,7 @@
 <a class="closebtn" onclick="closeNav()">×</a>
 <a class='navbar-brand' [routerLink]='["/"]'>ComicShelf</a>
 <ng-template ngFor let-menuItem [ngForOf]="menuItems" let-mainMenuItemIndex="index">
-    <ul class='nav navbar-nav'>
+    <ul class='navbar-brand'>
         <li [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]='{ exact: true }'>
             <a [routerLink]="[menuItem.route]" *ngIf="!menuItem.items && menuItem.route.indexOf('http') != 0" onclick="closeNav()">
                 <span *ngIf="menuItem.icon" class='glyphicon glyphicon-{{menuItem.icon}}'></span>
