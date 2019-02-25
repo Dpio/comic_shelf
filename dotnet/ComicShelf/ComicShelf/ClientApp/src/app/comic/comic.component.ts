@@ -28,6 +28,7 @@ export class ComicComponent implements OnInit {
   collection: CollectionModel;
   collectionNames: Array<String>;
   collectionName: string;
+  searchText: string;
 
   constructor(
     private comicService: ComicService,

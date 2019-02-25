@@ -4,10 +4,14 @@
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class='card' style="width: 100%">
                     <div class="body">
-                        <h2 class="card-inside-title">Comics</h2>
+                        <h2 class="card-inside-title">Comics <div class="search-container">
+                                <input type="text" [(ngModel)]="searchText" placeholder="Search.." name="search">
+                                <button type="submit"><i class="glyphicon glyphicon-search"></i></button>
+                            </div>
+                        </h2>
                         <div class="row clearfix">
                             <div class="col-sm-12">
-                                <div class="gallery" *ngFor="let comic of comics">
+                                <div class="gallery" *ngFor="let comic of comics | filter: searchText">
                                     <img class="img-responsive thumbnail" src="data:image/jpeg;base64,{{comic.image}}" />
                                     <div class="desc">
                                         {{comic.title}}
@@ -16,8 +20,8 @@
                                     <button class="details" (click)="comicDetails(comic.id)">Details</button>
                                     <button class="addtocollection" (click)="addToCollection(comic.id)">Add to
                                         collection</button>
-                                    <button type="button" class="addtocollection dropdown-toggle"
-                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                    <button type="button" class="addtocollection dropdown-toggle" data-toggle="dropdown"
+                                        aria-haspopup="true" aria-expanded="true">
                                         Add to collection
                                     </button>
                                     <ul class="dropdown-menu">
@@ -33,5 +37,4 @@
         </div>
     </div>
 </section>
-
 <comic-details-modal #comicDetailsModal></comic-details-modal>

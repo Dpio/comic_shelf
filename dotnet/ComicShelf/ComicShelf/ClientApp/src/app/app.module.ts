@@ -18,12 +18,13 @@ import { LoggedComponent } from './logged/logged.component';
 import { UserService } from './shared/services/user.service';
 import { JwtInterceptor } from './login/jwt.interceptor';
 import { ComicDetailsComponent } from './comic/comic-details/comic-details.component';
-import { ModalModule, BsDropdownModule, TypeaheadModule } from 'ngx-bootstrap';
+import { ModalModule, TypeaheadModule } from 'ngx-bootstrap';
 import { ComicAddToCollectionComponent } from './comic/comic-addToCollection/comic-addToCollection.component';
 import { UserComicCollectionComponent } from './user-comic-collection/user-comic-collection.component';
 import { UserCollectionService } from './shared/services/userCollection.service';
 import { ComicCollectionService } from './shared/services/comicCollection.service';
 import { CollectionService } from './shared/services/collection.service';
+import { FilterPipe } from './shared/Utils/filter-pipe';
 
 
 @NgModule({
@@ -38,13 +39,13 @@ import { CollectionService } from './shared/services/collection.service';
     ComicDetailsComponent,
     ComicAddToCollectionComponent,
     UserComicCollectionComponent,
+    FilterPipe,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
     FormsModule,
     ModalModule.forRoot(),
-    BsDropdownModule.forRoot(),
     TypeaheadModule.forRoot(),
     BrowserAnimationsModule,
     RouterModule.forRoot([
