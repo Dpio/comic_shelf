@@ -4,18 +4,22 @@
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class='card' style="width: 100%;">
                     <div class="body">
-                        <h2 class="card-inside-title">My Collection
-                            <div class="btn-group " dropdown style="margin-left: 90%;">
-                                <button id="button-basic" dropdownToggle type="button" class="btn btn-primary dropdown-toggle"
-                                    aria-controls="dropdown-basic">
-                                    Collections <span class="caret"></span>
-                                </button>
-                                <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu" role="menu" aria-labelledby="button-basic">
-                                    <li role="menuitem" *ngFor="let collection of collections"><a class="dropdown-item"
-                                            (click)="getComics(collection.id)">{{collection.name}}</a></li>
-                                </ul>
-                            </div>
-                        </h2>
+                        <div class="header">
+                            <h2>My Collection
+                            </h2>
+                            <ul class="header-dropdown m-r--5">
+                                <li class="dropdown">
+                                    <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                                        aria-expanded="true">
+                                        <i class='glyphicon glyphicon-th-list'></i>
+                                    </a>
+                                    <ul class="dropdown-menu pull-right">
+                                        <li><a class="waves-effect waves-block" *ngFor="let collection of collections"
+                                                (click)="getComics(collection.id)">{{collection.name}}</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
                         <div class="row clearfix">
                             <div class="col-sm-12">
                                 <div class="gallery" *ngFor="let comic of comics">
@@ -25,7 +29,8 @@
                                     </div>
                                     <div class="overlay"></div>
                                     <button class="details" (click)="comicDetails(comic.id)">Details</button>
-                                    <button class="addtocollection" (click)="deleteComicFromCollection(comic.id)">Delete from collection</button>
+                                    <button class="addtocollection" (click)="deleteComicFromCollection(comic.id)">Delete
+                                        from collection</button>
                                 </div>
                             </div>
                         </div>
