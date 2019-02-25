@@ -82,7 +82,9 @@ input[type=text] {
 .search-container {
     float: none;
   }
-.topnav input[type=text], .search-container button {
+    input[type=text], 
+    .search-container button 
+    {
     float: none;
     display: block;
     text-align: left;

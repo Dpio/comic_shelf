@@ -1,6 +1,14 @@
-<div class='col-sm-3'>
+<!-- <div class='col-sm-3'>
   <app-nav-menu></app-nav-menu>
 </div>
 <div class='col-sm-9 '>
+  <router-outlet></router-outlet>
+</div> -->
+<div id="mySidebar" class="sidebar">
+  <app-nav-menu></app-nav-menu>
+</div>
+
+<div id="main">
+    <button class="openbtn" onclick="openNav()">☰ Menu</button>  
   <router-outlet></router-outlet>
 </div>
