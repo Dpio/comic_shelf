@@ -23,6 +23,7 @@ import { UserCollectionService } from './shared/services/userCollection.service'
 import { ComicCollectionService } from './shared/services/comicCollection.service';
 import { CollectionService } from './shared/services/collection.service';
 import { FilterPipe } from './shared/Utils/filter-pipe';
+import { AddCollectionComponent } from './user-comic-collection/add-collection/add-collection.component';
 
 
 @NgModule({
@@ -36,6 +37,7 @@ import { FilterPipe } from './shared/Utils/filter-pipe';
     ComicAddToCollectionComponent,
     UserComicCollectionComponent,
     FilterPipe,
+    AddCollectionComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

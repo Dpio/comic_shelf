@@ -1,0 +1,36 @@
+<div bsModal #addCollectionModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="addCollectionModal"
+    aria-hidden="true" [config]="{backdrop: 'static'}">
+    <div class="modal-dialog" role="document">
+        <div #modalContent class="modal-content">
+            <form #editExerciseForm="ngForm" id="frm_edit_exercise" novalidate (ngSubmit)="save()">
+                <div class="modal-header">
+                    <button type="button" class="close" (click)="close()" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title">
+                        <span>Add Collection</span>
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row clearfix" style="margin-top:10px;">
+                        <div class="col-sm-12">
+                                    <input id="collectionName" type="text" name="CollectionName" placeholder="Name" [(ngModel)]="collection.name"
+                                        required maxlength="32" minlength="2" class="validate form-control" style="margin: 20px 20px 20px 0px;">
+                                    <input id="collectionDescription" type="text" name="CollectionDescription"
+                                        [(ngModel)]="collection.description" required 
+                                        class="validate form-control" placeholder="Description">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button [disabled]="saving" type="button" class="btn btn-default waves-effect" (click)="close()">
+                        Cancel
+                    </button>
+                    <button type="submit" class="btn btn-primary waves-effect">
+                        Save
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

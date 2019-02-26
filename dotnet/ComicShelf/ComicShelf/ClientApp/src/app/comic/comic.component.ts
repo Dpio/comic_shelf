@@ -14,6 +14,7 @@ import { UserCollectionService } from '../shared/services/userCollection.service
 import { ComicCollectionService } from '../shared/services/comicCollection.service';
 import { ComicCollectionModel } from '../shared/models/comicCollection.model';
 import { UserCollectionModel } from '../shared/models/userCollection.model';
+import { AddCollectionComponent } from '../user-comic-collection/add-collection/add-collection.component';
 
 @Component({
   selector: 'app-comic',
@@ -22,6 +23,8 @@ import { UserCollectionModel } from '../shared/models/userCollection.model';
 })
 export class ComicComponent implements OnInit {
   @ViewChild('comicDetailsModal') comicDetailsModal: ComicDetailsComponent;
+  @ViewChild('addCollectionModal') addCollectionModal: AddCollectionComponent;
+
   comics: Array<ComicModel>;
   currentUser: AuthenticateResponse = new AuthenticateResponse();
   collections: Array<CollectionModel>;
@@ -129,5 +132,9 @@ export class ComicComponent implements OnInit {
         }
       });
     });
+  }
+
+  addCollection() {
+    this.addCollectionModal.show();
   }
 }

@@ -11,7 +11,7 @@
                         </h2>
                         <div class="row clearfix">
                             <div class="col-sm-12" id="gallery">
-                                <div class="gallery" *ngFor="let comic of comics | filter: searchText" >
+                                <div class="gallery" *ngFor="let comic of comics | filter: searchText">
                                     <img class="img-responsive thumbnail" src="data:image/jpeg;base64,{{comic.image}}" />
                                     <div class="desc">
                                         {{comic.title}}
@@ -27,6 +27,8 @@
                                     <ul class="dropdown-menu">
                                         <li><a *ngFor="let collection of collections" class=" waves-effect waves-block"
                                                 (click)="addToCollection(collection.name,comic.id)">{{collection.name}}</a></li>
+                                        <li role="separator" class="divider"></li>
+                                        <li><a class=" waves-effect waves-block" (click)="addCollection()">New collection</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -38,3 +40,4 @@
     </div>
 </section>
 <comic-details-modal #comicDetailsModal></comic-details-modal>
+<add-collection-modal #addCollectionModal></add-collection-modal>
