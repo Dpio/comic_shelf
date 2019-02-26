@@ -10,22 +10,22 @@
 
 <div id="main">
     <nav class="navbar navbar-inverse">
-        <div class="container-fluid">
+        <div class="container-fluid" style="background-color: #2e353d;">
           <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>                        
             </button>
-            <a class="navbar-brand" onclick="openNav()">☰ Menu</a>
+            <a class="navbar-brand" onclick="openNav()" style="cursor: pointer;">☰ Menu</a>
           </div>
           <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
               <a href="/" class="navbar-brand" style="display: inline-block;margin-left: 80px; text-align: center;">Comic Shelf</a>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-              <li><a *ngIf="!currentUser" (click)="signInWithGoogle()" style="float: right"><span class="glyphicon glyphicon-log-in"></span>Login</a></li>
-              <li><a *ngIf="currentUser" (click)="logout()" style="float: right"><span class="glyphicon glyphicon-log-out"></span>Log out</a></li>
+              <li><a *ngIf="!currentUser" (click)="signInWithGoogle()" style="float: right; cursor: pointer;"><span class="glyphicon glyphicon-log-in"></span>Login</a></li>
+              <li><a *ngIf="currentUser" (click)="logout()" style="float: right; cursor: pointer;"><span class="glyphicon glyphicon-log-out"></span>Log out</a></li>
             </ul>
           </div>
         </div>
