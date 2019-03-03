@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace ComicShelf.DataAccess.Entities
 {
@@ -17,6 +16,5 @@ namespace ComicShelf.DataAccess.Entities
 		public DateTime PremierDate { get; set; }
 		public string Note { get; set; }
 		public byte[] Image { get; set; }
-		public virtual ICollection<ComicCollection> ComicsCollections { get; set; }
 	}
 }

@@ -84,9 +84,9 @@ namespace ComicShelf.Api.Controllers
 		[Authorize]
 		[HttpGet("getComics/{collectionId}/{userId}")]
 		[Produces("application/json", Type = typeof(IEnumerable<ComicDto>))]
-		public IActionResult getComics(int collectionId, int userId)
+		public IActionResult GetComics(int collectionId, int userId)
 		{
-			var comics = _service.getComicsForUser(collectionId, userId);
+			var comics = _service.GetComicsForUser(collectionId, userId);
 			return Ok(comics);
 		}
 	}

@@ -10,6 +10,6 @@ namespace ComicShelf.Logic.Impl
 		IEnumerable<CollectionDto> GetAll();
 		IEnumerable<string> GetUserCollection(int userId);
 		CollectionDto GetByName(string name);
-		IEnumerable<ComicDto> getComicsForUser(int collectionId, int userId);
+		IEnumerable<ComicDto> GetComicsForUser(int collectionId, int userId);
 	}
 }

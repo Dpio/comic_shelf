@@ -1,4 +1,5 @@
-﻿using ComicShelf.DataAccess.Entities;
+﻿using System.Collections.Generic;
+using ComicShelf.DataAccess.Entities;
 using System.Linq;
 
 namespace ComicShelf.DataAccess.Repositories
@@ -12,11 +13,17 @@ namespace ComicShelf.DataAccess.Repositories
 			_context = context;
 		}
 
-		public Collection getByName(string name)
+		public Collection GetByName(string name)
 		{
 			var collection = Entities
 				.Where(c => c.Name == name);
 			return collection.FirstOrDefault();
 		}
+
+	    public IEnumerable<Collection> GetByUserId(int userId)
+	    {
+	        var user = _context.Users.FirstOrDefault(u => u.Id == userId);
+	        return user.ComicsCollections.ToList();
+	    }
 	}
 }

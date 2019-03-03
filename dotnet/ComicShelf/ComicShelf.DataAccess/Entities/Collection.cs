@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 
 namespace ComicShelf.DataAccess.Entities
 {
@@ -7,6 +8,7 @@ namespace ComicShelf.DataAccess.Entities
 		public string Name { get; set; }
 		public string Description { get; set; }
 		public bool IsPublic { get; set; }
-        public virtual ICollection<UserCollection> UserCollection { get; set; }
-	}
+        public virtual ICollection<Comic> Comics { get; set; }
+        public bool IsWantList { get; set; }
+    }
 }
