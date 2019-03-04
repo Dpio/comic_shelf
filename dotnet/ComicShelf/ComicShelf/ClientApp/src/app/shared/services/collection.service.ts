@@ -3,6 +3,7 @@ import { environment } from '../../../environments/environment';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { CollectionModel } from '../models/collection.model';
+import { ComicCollectionModel } from '../models/comicCollection.model';
 import { ComicModel } from '../models/comic.model';
 
 @Injectable()
@@ -25,15 +26,27 @@ export class CollectionService {
         this.http.delete(this.apiUrl + '/Collection/' + id);
     }
 
-    getUserCollectionNames(id: number): Observable<Array<String>> {
-        return this.http.get<Array<String>>(this.apiUrl + '/Collection/getUserCollectionNames/' + id);
+    getCollectionsForUser(id: number): Observable<Array<CollectionModel>> {
+        return this.http.get<Array<CollectionModel>>(this.apiUrl + '/Collection/getCollectionsForUser/' + id);
     }
 
-    getCollectionByName(name: String): Observable<CollectionModel> {
-        return this.http.get<CollectionModel>(this.apiUrl + '/Collection/getCollectionByName/' + name);
+    addComicToCollection(comicCollection: ComicCollectionModel): Observable<ComicCollectionModel> {
+        return this.http.post<ComicCollectionModel>(this.apiUrl + '/Collection/addComicToCollection', comicCollection);
     }
 
-    getComics(collectionId: number, userId: number): Observable<Array<ComicModel>> {
-        return this.http.get<Array<ComicModel>>(this.apiUrl + '/Collection/getComics/' + collectionId + '/' + userId);
+    getComicsInCollection(id: number): Observable<Array<ComicModel>> {
+        return this.http.get<Array<ComicModel>>(this.apiUrl + '/Collection/getComicsInCollection/' + id);
+    }
+
+    deleteComicFromCollection(id: number): Observable<void> {
+       return this.http.delete<void>(this.apiUrl + '/Collection/deleteComicFromCollection/' + id);
+    }
+
+    getComicCollection(comicId: number, collectionId: number): Observable<ComicCollectionModel> {
+        return this.http.get<ComicCollectionModel>(this.apiUrl + '/Collection/getComicCollection/' + comicId + '/' + collectionId);
+    }
+
+    getCollectionByName(name: string, userId: number): Observable<CollectionModel> {
+        return this.http.get<CollectionModel>(this.apiUrl + '/Collection/getCollectionByName/' + name + '/' + userId);
     }
 }

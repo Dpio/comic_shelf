@@ -10,10 +10,10 @@ namespace ComicShelf.Logic.Profiles
 		{
 			CreateMap<User, UserDto>();
 			CreateMap<UserDto, User>()
-				.ForMember(x => x.ComicsCollections, e => e.Ignore());
+				.ForMember(x => x.Collections, e => e.Ignore());
 			CreateMap<CreateUserDto, User>()
 				.ForMember(x => x.Id, e => e.Ignore())
-				.ForMember(x => x.ComicsCollections, e => e.Ignore());
+				.ForMember(x => x.Collections, e => e.Ignore());
 		}
 	}
 }

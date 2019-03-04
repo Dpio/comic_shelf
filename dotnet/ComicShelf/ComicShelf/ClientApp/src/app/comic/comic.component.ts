@@ -5,16 +5,11 @@ import { ComicModel } from '../shared/models/comic.model';
 import { BaseApiService } from '../shared/services/base.service';
 import { ComicDetailsComponent } from './comic-details/comic-details.component';
 import { AuthenticateService } from '../shared/services/authenticate.service';
-import { ComicAddToCollectionComponent } from './comic-addToCollection/comic-addToCollection.component';
-import { DomSanitizer } from '@angular/platform-browser';
 import { CollectionModel } from '../shared/models/collection.model';
 import { AuthenticateResponse } from '../shared/models/authenticate.model';
-import { CollectionService } from '../shared/services/collection.service';
-import { UserCollectionService } from '../shared/services/userCollection.service';
-import { ComicCollectionService } from '../shared/services/comicCollection.service';
-import { ComicCollectionModel } from '../shared/models/comicCollection.model';
-import { UserCollectionModel } from '../shared/models/userCollection.model';
 import { AddCollectionComponent } from '../user-comic-collection/add-collection/add-collection.component';
+import { CollectionService } from '../shared/services/collection.service';
+import { ComicCollectionModel } from '../shared/models/comicCollection.model';
 
 @Component({
   selector: 'app-comic',
@@ -38,8 +33,6 @@ export class ComicComponent implements OnInit {
     private toastr: ToastrService,
     private authenticateService: AuthenticateService,
     private collectionService: CollectionService,
-    private userCollectionService: UserCollectionService,
-    private comicCollectionService: ComicCollectionService,
   ) {
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
   }
@@ -63,14 +56,8 @@ export class ComicComponent implements OnInit {
   }
 
   getCollections() {
-    this.collections = [];
-    this.collectionService.getUserCollectionNames(this.currentUser.id).subscribe(data => {
-      this.collectionNames = data;
-      this.collectionNames.forEach(name => {
-        this.collectionService.getCollectionByName(name).subscribe(collectionData => {
-          this.collections.push(collectionData);
-        });
-      });
+    this.collectionService.getCollectionsForUser(this.currentUser.id).subscribe(data => {
+      this.collections = data;
     }, error => {
       if (error.statusText === 'Unauthorized') {
         this.toastr.error(error.statusText);
@@ -81,57 +68,15 @@ export class ComicComponent implements OnInit {
     });
   }
 
-  addToCollection(collectionName: String, comicId: number) {
-    this.collectionService.getCollectionByName(collectionName).subscribe(col => {
-      this.collection = col;
-      const comicCollection = new ComicCollectionModel;
-      comicCollection.userId = this.currentUser.id;
-      comicCollection.comicId = comicId;
-      const userCollection = new UserCollectionModel;
-      this.comicCollectionService.getComicCollection(this.currentUser.id, comicId).subscribe(comcolData => {
-        if (comcolData) {
-          userCollection.collectionId = col.id;
-          userCollection.comicCollectionId = comcolData.id;
-          this.userCollectionService.createCollection(userCollection).subscribe(userColData => {
-          }, error => {
-            if (error.statusText === 'Unauthorized') {
-              this.toastr.error(error.statusText);
-              this.authenticateService.logout();
-            } else {
-              this.toastr.error(error.error);
-            }
-          });
-        } else {
-          this.comicCollectionService.createCollection(comicCollection).subscribe(comicData => {
-            userCollection.collectionId = col.id;
-            userCollection.comicCollectionId = comicData.id;
-            this.userCollectionService.createCollection(userCollection).subscribe(userColData => {
-            }, error => {
-              if (error.statusText === 'Unauthorized') {
-                this.toastr.error(error.statusText);
-                this.authenticateService.logout();
-              } else {
-                this.toastr.error(error.error);
-              }
-            });
-          }, error => {
-            if (error.statusText === 'Unauthorized') {
-              this.toastr.error(error.statusText);
-              this.authenticateService.logout();
-            } else {
-              this.toastr.error(error.error);
-            }
-          });
-        }
-      }, error => {
-        if (error.statusText === 'Unauthorized') {
-          this.toastr.error(error.statusText);
-          this.authenticateService.logout();
-        } else {
-          this.toastr.error(error.error);
-        }
-      });
-    });
+  addToCollection(collectionId: number, comicId: number) {
+    const comicCollection = new ComicCollectionModel();
+    comicCollection.collectionId = collectionId;
+    comicCollection.comicId = comicId;
+    this.collectionService.addComicToCollection(comicCollection).subscribe(() => {
+    }, error => {
+      this.toastr.error(error.error.message);
+    }
+    );
   }
 
   addCollection() {

@@ -19,8 +19,6 @@ import { ComicDetailsComponent } from './comic/comic-details/comic-details.compo
 import { ModalModule, TypeaheadModule } from 'ngx-bootstrap';
 import { ComicAddToCollectionComponent } from './comic/comic-addToCollection/comic-addToCollection.component';
 import { UserComicCollectionComponent } from './user-comic-collection/user-comic-collection.component';
-import { UserCollectionService } from './shared/services/userCollection.service';
-import { ComicCollectionService } from './shared/services/comicCollection.service';
 import { CollectionService } from './shared/services/collection.service';
 import { FilterPipe } from './shared/Utils/filter-pipe';
 import { AddCollectionComponent } from './user-comic-collection/add-collection/add-collection.component';
@@ -61,8 +59,6 @@ import { AddCollectionComponent } from './user-comic-collection/add-collection/a
     AuthenticateService,
     UserService,
     AuthGuard,
-    ComicCollectionService,
-    UserCollectionService,
     CollectionService,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
   ],

@@ -4,7 +4,7 @@ namespace ComicShelf.Models.ComicCollection
 {
 	public class CreateComicCollectionDto : ICreateEntityDto
 	{
+		public int CollectionId { get; set; }
 		public int ComicId { get; set; }
-		public int UserId { get; set; }
 	}
 }

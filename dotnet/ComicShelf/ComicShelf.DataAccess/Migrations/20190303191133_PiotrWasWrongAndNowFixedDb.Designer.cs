@@ -4,14 +4,16 @@ using ComicShelf.DataAccess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ComicShelf.DataAccess.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190303191133_PiotrWasWrongAndNowFixedDb")]
+    partial class PiotrWasWrongAndNowFixedDb
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -33,7 +35,7 @@ namespace ComicShelf.DataAccess.Migrations
 
                     b.Property<string>("Name");
 
-                    b.Property<int>("UserId");
+                    b.Property<int?>("UserId");
 
                     b.HasKey("Id");
 
@@ -50,6 +52,8 @@ namespace ComicShelf.DataAccess.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int?>("CollectionId");
 
                     b.Property<string>("Cover");
 
@@ -77,32 +81,12 @@ namespace ComicShelf.DataAccess.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CollectionId");
+
                     b.HasIndex("Id")
                         .IsUnique();
 
                     b.ToTable("Comics");
-                });
-
-            modelBuilder.Entity("ComicShelf.DataAccess.Entities.ComicCollection", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("CollectionId");
-
-                    b.Property<int>("ComicId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CollectionId");
-
-                    b.HasIndex("ComicId");
-
-                    b.HasIndex("Id")
-                        .IsUnique();
-
-                    b.ToTable("ComicCollections");
                 });
 
             modelBuilder.Entity("ComicShelf.DataAccess.Entities.User", b =>
@@ -132,22 +116,15 @@ namespace ComicShelf.DataAccess.Migrations
             modelBuilder.Entity("ComicShelf.DataAccess.Entities.Collection", b =>
                 {
                     b.HasOne("ComicShelf.DataAccess.Entities.User")
-                        .WithMany("Collections")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .WithMany("ComicsCollections")
+                        .HasForeignKey("UserId");
                 });
 
-            modelBuilder.Entity("ComicShelf.DataAccess.Entities.ComicCollection", b =>
+            modelBuilder.Entity("ComicShelf.DataAccess.Entities.Comic", b =>
                 {
-                    b.HasOne("ComicShelf.DataAccess.Entities.Collection", "Collection")
-                        .WithMany("ComicsCollection")
-                        .HasForeignKey("CollectionId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("ComicShelf.DataAccess.Entities.Comic", "Comic")
-                        .WithMany()
-                        .HasForeignKey("ComicId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                    b.HasOne("ComicShelf.DataAccess.Entities.Collection")
+                        .WithMany("Comics")
+                        .HasForeignKey("CollectionId");
                 });
 #pragma warning restore 612, 618
         }

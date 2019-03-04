@@ -13,9 +13,7 @@ namespace ComicShelf.Tests
 			{
 				c.AddProfile(new UserMappingProfile());
 				c.AddProfile(new ComicMappingProfile());
-				c.AddProfile(new ComicCollectionMappingProfile());
 				c.AddProfile(new CollectionMappingProfile());
-				c.AddProfile(new UserCollectionMappingProfile());
 				c.Advanced.AllowAdditiveTypeMapCreation = true;
 			});
 		}

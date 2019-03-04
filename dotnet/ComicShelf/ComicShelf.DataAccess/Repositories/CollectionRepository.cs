@@ -1,4 +1,5 @@
 ﻿using ComicShelf.DataAccess.Entities;
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
 
 namespace ComicShelf.DataAccess.Repositories
@@ -12,11 +13,12 @@ namespace ComicShelf.DataAccess.Repositories
 			_context = context;
 		}
 
-		public Collection getByName(string name)
+		public Collection GetCollectionByName(string name, int userId)
 		{
 			var collection = Entities
-				.Where(c => c.Name == name);
-			return collection.FirstOrDefault();
+				.Where(e => e.Name == name && e.UserId == userId)
+				.Include(e => e.ComicsCollection);
+			return collection.First();
 		}
 	}
 }
