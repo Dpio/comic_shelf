@@ -68,9 +68,22 @@ export class UserComicCollectionComponent implements OnInit {
     deleteComicFromCollection(comicId: number) {
         const collectionid = this.collectionId;
         this.collectionService.getComicCollection(comicId, collectionid).subscribe(data => {
-            this.collectionService.deleteComicFromCollection(data.id).subscribe( () => {
+            this.collectionService.deleteComicFromCollection(data.id).subscribe(() => {
                 this.getComics(collectionid);
             });
+        });
+    }
+
+    deleteCollection(id: number) {
+        this.collectionService.getComicCollectionByCollectionId(id).subscribe(data => {
+            const comicCollections = data;
+            comicCollections.forEach(comicCollection => {
+                this.collectionService.deleteComicFromCollection(comicCollection.id);
+                this.comics = new Array<ComicModel>();
+            });
+        });
+        this.collectionService.deleteCollection(id).subscribe(() => {
+            this.getCollections();
         });
     }
 }

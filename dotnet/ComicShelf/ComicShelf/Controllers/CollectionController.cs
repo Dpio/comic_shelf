@@ -134,5 +134,27 @@ namespace ComicShelf.Api.Controllers
 				return NotFound();
 			return Ok(dto);
 		}
+
+		[Authorize]
+		[HttpGet("getWantListForUser/{userId}")]
+		[Produces("application/json", Type = typeof(IEnumerable<CollectionDto>))]
+		public IActionResult GetWantListForUser(int userId)
+		{
+			var dto = _service.GetWantListForUser(userId);
+			if (dto == null)
+				return NotFound();
+			return Ok(dto);
+		}
+
+		[Authorize]
+		[HttpGet("getComicCollectionsByCollectionId/{collectionId}")]
+		[Produces("application/json", Type = typeof(IEnumerable<ComicCollectionDto>))]
+		public IActionResult GetComicCollectionsByCollectionId(int collectionId)
+		{
+			var dto = _service.GetComicCollectionsByCollectionId(collectionId);
+			if (dto == null)
+				return NotFound();
+			return Ok(dto);
+		}
 	}
 }

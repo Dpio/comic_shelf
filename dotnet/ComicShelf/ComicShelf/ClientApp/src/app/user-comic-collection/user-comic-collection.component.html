@@ -20,6 +20,7 @@
                                 </li>
                             </ul>
                         </div>
+                        <button class="deletecollection" *ngIf="collectionId" (click)="deleteCollection(collectionId)">Delete collection</button>
                         <div class="row clearfix">
                             <div class="col-sm-12" id="gallery">
                                 <div class="gallery" *ngFor="let comic of comics">

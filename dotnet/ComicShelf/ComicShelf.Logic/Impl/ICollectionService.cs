@@ -15,5 +15,7 @@ namespace ComicShelf.Logic.Impl
 		void DeleteComicFromCollection(int id);
 		ComicCollectionDto GetComicCollection(int comicId, int collectionId);
 		CollectionDto GetCollectionByName(string name, int userId);
+		IEnumerable<CollectionDto> GetWantListForUser(int userId);
+		IEnumerable<ComicCollectionDto> GetComicCollectionsByCollectionId(int collectionId);
 	}
 }

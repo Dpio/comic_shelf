@@ -22,8 +22,8 @@ export class CollectionService {
         return this.http.post<CollectionModel>(this.apiUrl + '/Collection', collection);
     }
 
-    deleteCollection(id: number) {
-        this.http.delete(this.apiUrl + '/Collection/' + id);
+    deleteCollection(id: number): Observable<void> {
+        return this.http.delete<void>(this.apiUrl + '/Collection/' + id);
     }
 
     getCollectionsForUser(id: number): Observable<Array<CollectionModel>> {
@@ -39,7 +39,7 @@ export class CollectionService {
     }
 
     deleteComicFromCollection(id: number): Observable<void> {
-       return this.http.delete<void>(this.apiUrl + '/Collection/deleteComicFromCollection/' + id);
+        return this.http.delete<void>(this.apiUrl + '/Collection/deleteComicFromCollection/' + id);
     }
 
     getComicCollection(comicId: number, collectionId: number): Observable<ComicCollectionModel> {
@@ -48,5 +48,13 @@ export class CollectionService {
 
     getCollectionByName(name: string, userId: number): Observable<CollectionModel> {
         return this.http.get<CollectionModel>(this.apiUrl + '/Collection/getCollectionByName/' + name + '/' + userId);
+    }
+
+    getWantListForUser(id: number): Observable<Array<CollectionModel>> {
+        return this.http.get<Array<CollectionModel>>(this.apiUrl + '/Collection/getWantListForUser/' + id);
+    }
+
+    getComicCollectionByCollectionId(id: number): Observable<Array<ComicCollectionModel>> {
+        return this.http.get<Array<ComicCollectionModel>>(this.apiUrl + '/Collection/getComicCollectionsByCollectionId/' + id);
     }
 }

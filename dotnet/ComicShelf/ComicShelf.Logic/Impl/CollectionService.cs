@@ -83,5 +83,17 @@ namespace ComicShelf.Logic.Impl
 			var collection = _collectionRepository.GetCollectionByName(name, userId);
 			return Mapper.Map<CollectionDto>(collection);
 		}
+
+		public IEnumerable<CollectionDto> GetWantListForUser(int userId)
+		{
+			var collections = _userRepository.GetWantListForUser(userId);
+			return Mapper.Map<IEnumerable<CollectionDto>>(collections);
+		}
+
+		public IEnumerable<ComicCollectionDto> GetComicCollectionsByCollectionId(int collectionId)
+		{
+			var comicCollections = _comicCollectionRepository.GetComicCollectionsByCollectionId(collectionId);
+			return Mapper.Map<IEnumerable<ComicCollectionDto>>(comicCollections);
+		}
 	}
 }

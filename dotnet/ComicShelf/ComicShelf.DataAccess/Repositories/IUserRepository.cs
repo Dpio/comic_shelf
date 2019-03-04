@@ -7,5 +7,6 @@ namespace ComicShelf.DataAccess.Repositories
 	{
 		void Update(User user);
 		IEnumerable<Collection> GetCollectionForUser(int userId);
+		IEnumerable<Collection> GetWantListForUser(int userId);
 	}
 }

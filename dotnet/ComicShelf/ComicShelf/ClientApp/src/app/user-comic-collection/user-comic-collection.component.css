@@ -87,3 +87,7 @@ div.gallery button.addtocollection
 {
   margin-top: 5px; 
 }
+
+button.deletecollection{
+  float: right;
+}
