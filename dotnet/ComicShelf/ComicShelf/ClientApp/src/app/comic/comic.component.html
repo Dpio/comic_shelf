@@ -26,7 +26,7 @@
                                     </button>
                                     <ul class="dropdown-menu">
                                         <li><a *ngFor="let collection of collections" class=" waves-effect waves-block"
-                                                (click)="addToCollection(collection.name,comic.id)">{{collection.name}}</a></li>
+                                                (click)="addToCollection(collection.id,comic.id)">{{collection.name}}</a></li>
                                         <li role="separator" class="divider"></li>
                                         <li><a class=" waves-effect waves-block" (click)="addCollection()">New collection</a></li>
                                     </ul>

@@ -1,4 +1,7 @@
 ﻿using ComicShelf.DataAccess.Entities;
+using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace ComicShelf.DataAccess.Repositories
 {
@@ -14,6 +17,14 @@ namespace ComicShelf.DataAccess.Repositories
 		public void Update(User user)
 		{
 			_context.Update(user);
+		}
+
+		public IEnumerable<Collection> GetCollectionForUser(int userId)
+		{
+			var user = Entities.
+				Include(e => e.Collections)
+				.Where(e => e.Id == userId);
+			return user.SelectMany(e => e.Collections);
 		}
 	}
 }

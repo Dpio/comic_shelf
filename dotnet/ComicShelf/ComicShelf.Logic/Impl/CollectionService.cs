@@ -2,8 +2,10 @@
 using ComicShelf.DataAccess.Entities;
 using ComicShelf.DataAccess.Repositories;
 using ComicShelf.Logic.Base;
+using ComicShelf.Logic.Helpers;
 using ComicShelf.Models.Collection;
 using ComicShelf.Models.Comic;
+using ComicShelf.Models.ComicCollection;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -13,14 +15,20 @@ namespace ComicShelf.Logic.Impl
 	{
 		private readonly ICollectionRepository _collectionRepository;
 		private readonly IMapper _mapper;
+		private readonly IUserRepository _userRepository;
+		private readonly IComicCollectionRepository _comicCollectionRepository;
 
 		public CollectionService(
 			ICollectionRepository repository,
-			IMapper mapper)
+			IMapper mapper,
+			IUserRepository userRepository,
+			IComicCollectionRepository comicCollectionRepository)
 			: base(repository, mapper)
 		{
 			_collectionRepository = repository;
 			_mapper = mapper;
+			_userRepository = userRepository;
+			_comicCollectionRepository = comicCollectionRepository;
 		}
 
 		public IEnumerable<CollectionDto> GetAll()
@@ -30,26 +38,50 @@ namespace ComicShelf.Logic.Impl
 			return result;
 		}
 
-		public IEnumerable<string> GetUserCollection(int userId)
+		public IEnumerable<CollectionDto> GetCollectionsForUser(int userId)
 		{
-		    IEnumerable<Collection> comicsCollection = _collectionRepository.GetByUserId(userId);
-
-		    IEnumerable<Comic> comics = comicsCollection.SelectMany(c => c.Comics);
-		    return comics.Select(c => c.Title);
-        }
-
-		public CollectionDto GetByName(string name)
-		{
-			return _mapper.Map<CollectionDto>(_collectionRepository.GetByName(name));
+			var collections = _userRepository.GetCollectionForUser(userId);
+			return Mapper.Map<IEnumerable<CollectionDto>>(collections);
 		}
 
-        // TODO I don't know why function name is GetComicsForUser and there is collectionId? It was needed?
-        public IEnumerable<ComicDto> GetComicsForUser(int collectionId, int userId)
+		public ComicCollectionDto AddComicToCollection(CreateComicCollectionDto input)
 		{
-		    IEnumerable<Collection> comicsCollection = _collectionRepository.GetByUserId(userId);
+			if (_comicCollectionRepository.GetAll().Any(x => x.CollectionId == input.CollectionId && x.ComicId == input.ComicId))
+				throw new AppException(" Already in collection");
 
-		    var comics = comicsCollection.SelectMany(c => c.Comics);
-		    return _mapper.Map<IEnumerable<ComicDto>>(comics);
+			var comicCollection = new ComicCollection()
+			{
+				CollectionId = input.CollectionId,
+				ComicId = input.ComicId
+			};
+			_comicCollectionRepository.Add(comicCollection);
+			_comicCollectionRepository.SaveChanges();
+			var comicCollectionDto = _mapper.Map<ComicCollectionDto>(comicCollection);
+			return comicCollectionDto;
+		}
+
+		public IEnumerable<ComicDto> GetComicsInCollection(int collectionId)
+		{
+			var comics = _comicCollectionRepository.GetComicsInCollection(collectionId);
+			return Mapper.Map<IEnumerable<ComicDto>>(comics);
+		}
+
+		public void DeleteComicFromCollection(int id)
+		{
+			_comicCollectionRepository.Remove(id);
+			_comicCollectionRepository.SaveChanges();
+		}
+
+		public ComicCollectionDto GetComicCollection(int comicId, int collectionId)
+		{
+			var comicCollection = _comicCollectionRepository.GetComicCollection(comicId, collectionId);
+			return Mapper.Map<ComicCollectionDto>(comicCollection);
+		}
+
+		public CollectionDto GetCollectionByName(string name, int userId)
+		{
+			var collection = _collectionRepository.GetCollectionByName(name, userId);
+			return Mapper.Map<CollectionDto>(collection);
 		}
 	}
 }

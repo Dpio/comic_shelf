@@ -3,6 +3,7 @@ import { ModalDirective } from 'ngx-bootstrap';
 import { ToastrService } from 'ngx-toastr';
 import { CollectionModel } from '../../shared/models/collection.model';
 import { CollectionService } from '../../shared/services/collection.service';
+import { AuthenticateResponse } from '../../shared/models/authenticate.model';
 
 @Component({
     // tslint:disable-next-line:component-selector
@@ -18,11 +19,13 @@ export class AddCollectionComponent {
     saving = false;
     collection: CollectionModel = new CollectionModel();
     error: any;
+    currentUser: AuthenticateResponse = new AuthenticateResponse();
 
     constructor(
         private collectionService: CollectionService,
         private toastr: ToastrService
     ) {
+        this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
     }
 
     show(): void {
@@ -37,7 +40,11 @@ export class AddCollectionComponent {
 
     save(): void {
         this.saving = true;
+        // TODO Public private collections.
         this.collection.isPublic = false;
+        // TODO Want lists.
+        this.collection.isWantList = false;
+        this.collection.userId = this.currentUser.id;
         this.collectionService.createCollection(this.collection).subscribe(() => {
             this.close();
             this.modalSave.emit(null);

@@ -23,7 +23,6 @@ namespace ComicShelf.Api
 		{
 			services.AddScoped<IUserService, UserService>();
 			services.AddScoped<IComicService, ComicService>();
-			services.AddScoped<IComicCollectionService, ComicCollectionService>();
 			services.AddScoped<IAuthenticationService, AuthenticationService>();
 			services.AddScoped<ICollectionService, CollectionService>();
 		}
@@ -33,6 +32,7 @@ namespace ComicShelf.Api
 			services.AddScoped<IUserRepository, UserRepository>();
 			services.AddScoped<IComicRepository, ComicRepository>();
 			services.AddScoped<ICollectionRepository, CollectionRepository>();
+			services.AddScoped<IComicCollectionRepository, ComicCollectionRepository>();
 		}
 	}
 }

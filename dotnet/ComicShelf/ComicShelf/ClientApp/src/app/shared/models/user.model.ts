@@ -1,5 +1,5 @@
 import { BaseModel } from './base.model';
-import { ComicCollectionModel } from './comicCollection.model';
+import { CollectionModel } from './collection.model';
 
 export class UserModel extends BaseModel {
     GoogleId: string;
@@ -7,6 +7,6 @@ export class UserModel extends BaseModel {
     GivenName: string;
     Email: string;
     Picture: string;
-    ComicsCollections: Array<ComicCollectionModel>;
+    Collections: Array<CollectionModel>;
 }
 

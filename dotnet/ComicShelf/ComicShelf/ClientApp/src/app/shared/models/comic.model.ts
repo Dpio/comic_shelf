@@ -1,5 +1,4 @@
 import { BaseModel } from './base.model';
-import { ComicCollectionModel } from './comicCollection.model';
 import * as moment from 'moment';
 
 export class ComicModel extends BaseModel {
@@ -16,5 +15,4 @@ export class ComicModel extends BaseModel {
     premierDate: moment.Moment;
     note: string;
     image: File;
-    comicsCollections: Array<ComicCollectionModel>;
 }
