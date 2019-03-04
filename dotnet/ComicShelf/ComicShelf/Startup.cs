@@ -91,6 +91,7 @@ namespace ComicShelf.Api
 				c.AddSecurityRequirement(new Dictionary<string, IEnumerable<string>> {
 							   { "Bearer", Enumerable.Empty<string>() },
 						   });
+				c.OperationFilter<FileUploadOperation>();
 			});
 
 			if (_env.IsEnvironment("Testing"))

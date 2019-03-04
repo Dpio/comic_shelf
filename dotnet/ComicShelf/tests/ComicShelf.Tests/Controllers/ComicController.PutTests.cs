@@ -22,11 +22,9 @@ namespace ComicShelf.Tests.Controllers
 			// Act
 			expected.Title = "New Title";
 			expected.Publisher = "New Publisher";
-			expected.Issue = "New Issue";
+			expected.Issue = 2;
 			expected.Note = "New Note";
-			expected.Image = 1;
-			expected.StartDate = DateTime.Now;
-			expected.EndDate = DateTime.Now;
+			
 			var response = await Client.PutAsync($"api/Comic", new JsonContent(expected));
 			response.EnsureSuccessStatusCode();
 
@@ -41,8 +39,6 @@ namespace ComicShelf.Tests.Controllers
 			Assert.Equal(expected.Issue, actual.Issue);
 			Assert.Equal(expected.Image, actual.Image);
 			Assert.Equal(expected.Note, actual.Note);
-			Assert.Equal(expected.StartDate, actual.StartDate);
-			Assert.Equal(expected.EndDate, actual.EndDate);
 		}
 	}
 }

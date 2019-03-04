@@ -35,8 +35,7 @@ namespace ComicShelf.Tests.Controllers
 			Assert.Equal(expected.Issue, actual.Issue);
 			Assert.Equal(expected.Image, actual.Image);
 			Assert.Equal(expected.Note, actual.Note);
-			Assert.Equal(expected.StartDate, actual.StartDate);
-			Assert.Equal(expected.EndDate, actual.EndDate);
+			
 		}
 	}
 }

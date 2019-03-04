@@ -16,4 +16,9 @@ export class ComicService {
         const apiUrl = environment.baseApiUrl;
         return this.http.get<Array<ComicModel>>(apiUrl + '/Comic/getAll');
     }
+
+    getComic(id: number): Observable<ComicModel> {
+        const apiUrl = environment.baseApiUrl;
+        return this.http.get<ComicModel>(apiUrl + '/Comic/' + id);
+    }
 }

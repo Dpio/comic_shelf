@@ -1,0 +1,36 @@
+<div bsModal #comicDetailsModal="bs-modal" class="modal fade in" id="largeModal" tabindex="-1" role="dialog"
+    aria-labelledby="comicDetailsModal" aria-hidden="true" [config]="{backdrop: 'static'}" style>
+    <div class="modal-dialog " role="document">
+        <div #modalContent class="modal-content">
+            <div class="container-fluid">
+                <div class="moda-header text-center" style="margin: 20px 20px 20px 20px">
+                    <h2>{{comic.title}}</h2>
+                </div>
+                <div class="modal-body">
+                    <img class="img-responsive" src="data:image/jpeg;base64,{{comic.image}}" />
+                    <div class="text">
+                        <p> Issue: {{comic.issue}}</p>
+                        <p> Publisher: {{comic.publisher}}</p>
+                        <p> Volume: {{comic.volume}}</p>
+                        <p> Series: {{comic.series}}</p>
+                        <p> Script writer: {{comic.scriptWriter}}</p>
+                        <p> Draftsman: {{comic.draftsman}}</p>
+                        <p> Translator: {{comic.translator}}</p>
+                        <p> Cover: {{comic.cover}}</p>
+                        <p> Premier date: {{premierDate}}</p>
+                        <p> Note: {{comic.note}}</p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default waves-effect" (click)="close()">
+                        Cancel
+                    </button>
+                    <button type="button" class="btn btn-default waves-effect" (click)="addToCollection(comic.id)">
+                        Add to collection
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<comic-addToCollection-modal #comicAddToCollectionModal></comic-addToCollection-modal>

@@ -17,14 +17,4 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  signInWithGoogle() {
-    this.authenticateService.signInWithGoogle().subscribe(response => {
-      window.location.href = response;
-    });
-  }
-
-  logout() {
-    this.authenticateService.logout();
-    window.location.reload();
-  }
 }

@@ -1,0 +1,89 @@
+div.gallery {
+    position: relative;
+    margin: 30px;
+    left: 100px;
+    width: 200px;
+    display: inline-block;
+    vertical-align:top;
+    padding-top:25px;
+  }
+  
+  /* div.gallery:hover {
+    border: 1px solid #777;
+  } */
+  
+  div.gallery img 
+  {
+    position:relative;
+    width: auto;
+    height: auto;
+  }
+  
+  div.desc 
+  {
+    padding: 0px;
+    text-align: center;
+  }
+
+ div.gallery:hover img
+ {
+    opacity:0.5;
+ }
+
+ div.gallery:hover button 
+ {
+  display: block;
+}
+div.gallery button 
+{
+  position:absolute;
+  display:none;
+}
+div.gallery button.details 
+{
+  top:40%;
+  left:35%;
+}
+div.gallery button.addtocollection 
+{
+  top:48%;
+  left:12%;
+}
+.card .header .header-dropdown 
+{
+  position: absolute;
+  top: 20px;
+  right: 15px;
+  list-style: none; 
+}
+  .card .header .header-dropdown .dropdown-menu li 
+  {
+    display: block !important; 
+  }
+  .card .header .header-dropdown li 
+  {
+    display: inline-block; 
+  }
+  .card .header .header-dropdown i 
+  {
+    font-size: 20px;
+    color: #999;
+    -moz-transition: all 0.5s;
+    -o-transition: all 0.5s;
+    -webkit-transition: all 0.5s;
+    transition: all 0.5s; 
+  }
+    .card .header .header-dropdown i:hover 
+    {
+      color: #000; }
+.card .header h2 
+{
+  margin: 0;
+  font-size: 18px;
+  font-weight: normal;
+  color: #111; 
+}
+.card .header .col-xs-12 h2 
+{
+  margin-top: 5px; 
+}
