@@ -8,8 +8,8 @@
                             <h3 *ngIf="!collection">My Collection
                             </h3>
                             <h3 *ngIf="collection">{{collection.name}}
-                                    <h2>{{collection.description}}</h2>
-                                </h3>
+                                <h2>{{collection.description}}</h2>
+                            </h3>
                             <ul class="header-dropdown m-r--5">
                                 <li class="dropdown">
                                     <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
@@ -19,12 +19,19 @@
                                     <ul class="dropdown-menu pull-right">
                                         <li><a class="waves-effect waves-block" *ngFor="let collection of collections"
                                                 (click)="getComics(collection)">{{collection.name}}</a></li>
+                                        <li role="separator" class="divider">Want List:</li>
+                                        <li><a class="waves-effect waves-block" *ngFor="let wantlist of wantLists"
+                                                (click)="getComics(wantlist)">{{wantlist.name}}</a></li>
                                     </ul>
                                 </li>
+                                <button class="deletecollection" style="margin-left: 10px;" *ngIf="collection && !collection.isWantList"
+                                    (click)="deleteCollection(collection.id)">Delete
+                                    collection</button>
+                                <button class="deletecollection" style="margin-left: 10px;" *ngIf="collection && collection.isWantList"
+                                    (click)="deleteCollection(collection.id)">Delete
+                                    wantlist</button>
                             </ul>
                         </div>
-                        <button class="deletecollection" *ngIf="collection" (click)="deleteCollection(collection.id)">Delete
-                            collection</button>
                         <div class="row clearfix">
                             <div class="col-sm-12" id="gallery">
                                 <div class="gallery" *ngFor="let comic of comics">
@@ -34,8 +41,11 @@
                                     </div>
                                     <div class="overlay"></div>
                                     <button class="details" (click)="comicDetails(comic.id)">Details</button>
-                                    <button class="addtocollection" (click)="deleteComicFromCollection(comic.id)">Delete
+                                    <button class="addtocollection" *ngIf="collection && !collection.isWantList"
+                                        (click)="deleteComicFromCollection(comic.id)">Delete
                                         from collection</button>
+                                    <button class="addtocollection" *ngIf="collection && collection.isWantList" (click)="deleteComicFromCollection(comic.id)">Delete
+                                        from wantlist</button>
                                 </div>
                             </div>
                         </div>

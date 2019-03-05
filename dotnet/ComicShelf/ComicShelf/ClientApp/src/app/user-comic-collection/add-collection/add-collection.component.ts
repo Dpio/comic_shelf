@@ -20,6 +20,7 @@ export class AddCollectionComponent {
     collection: CollectionModel = new CollectionModel();
     error: any;
     currentUser: AuthenticateResponse = new AuthenticateResponse();
+    isWantList: boolean;
 
     constructor(
         private collectionService: CollectionService,
@@ -28,7 +29,8 @@ export class AddCollectionComponent {
         this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
     }
 
-    show(): void {
+    show(isWantList: boolean): void {
+        this.isWantList = isWantList;
         this.modal.show();
     }
 
@@ -42,8 +44,14 @@ export class AddCollectionComponent {
         this.saving = true;
         // TODO Public private collections.
         this.collection.isPublic = false;
-        // TODO Want lists.
-        this.collection.isWantList = false;
+        if (this.isWantList) {
+            const isWantList = this.isWantList;
+            if (isWantList) {
+                this.collection.isWantList = true;
+            } else {
+                this.collection.isWantList = false;
+            }
+        }
         this.collection.userId = this.currentUser.id;
         this.collectionService.createCollection(this.collection).subscribe(() => {
             this.close();

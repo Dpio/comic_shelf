@@ -18,6 +18,7 @@ export class UserComicCollectionComponent implements OnInit {
     collections: Array<CollectionModel>;
     comics: Array<ComicModel>;
     collection: CollectionModel;
+    wantLists: Array<CollectionModel>;
 
     constructor(
         private collectionService: CollectionService,
@@ -29,6 +30,7 @@ export class UserComicCollectionComponent implements OnInit {
 
     ngOnInit(): void {
         this.getCollections();
+        this.getWantLists();
     }
 
     getComics(collection: CollectionModel) {
@@ -83,6 +85,20 @@ export class UserComicCollectionComponent implements OnInit {
         });
         this.collectionService.deleteCollection(id).subscribe(() => {
             this.getCollections();
+            this.getWantLists();
+        });
+    }
+
+    getWantLists() {
+        this.collectionService.getWantListForUser(this.currentUser.id).subscribe(data => {
+            this.wantLists = data;
+        }, error => {
+            if (error.statusText === 'Unauthorized') {
+                this.toastr.error(error.statusText);
+                this.authenticateService.logout();
+            } else {
+                this.toastr.error(error.error);
+            }
         });
     }
 }
