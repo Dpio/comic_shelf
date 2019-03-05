@@ -5,8 +5,11 @@
                 <div class='card' style="width: 100%;">
                     <div class="body">
                         <div class="header">
-                            <h3>My Collection
+                            <h3 *ngIf="!collection">My Collection
                             </h3>
+                            <h3 *ngIf="collection">{{collection.name}}
+                                    <h2>{{collection.description}}</h2>
+                                </h3>
                             <ul class="header-dropdown m-r--5">
                                 <li class="dropdown">
                                     <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
@@ -15,12 +18,13 @@
                                     </a>
                                     <ul class="dropdown-menu pull-right">
                                         <li><a class="waves-effect waves-block" *ngFor="let collection of collections"
-                                                (click)="getComics(collection.id)">{{collection.name}}</a></li>
+                                                (click)="getComics(collection)">{{collection.name}}</a></li>
                                     </ul>
                                 </li>
                             </ul>
                         </div>
-                        <button class="deletecollection" *ngIf="collectionId" (click)="deleteCollection(collectionId)">Delete collection</button>
+                        <button class="deletecollection" *ngIf="collection" (click)="deleteCollection(collection.id)">Delete
+                            collection</button>
                         <div class="row clearfix">
                             <div class="col-sm-12" id="gallery">
                                 <div class="gallery" *ngFor="let comic of comics">

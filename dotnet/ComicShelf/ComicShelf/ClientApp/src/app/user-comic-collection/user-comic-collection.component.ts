@@ -18,8 +18,6 @@ export class UserComicCollectionComponent implements OnInit {
     collections: Array<CollectionModel>;
     comics: Array<ComicModel>;
     collection: CollectionModel;
-    collectionNames: Array<String>;
-    collectionId: number;
 
     constructor(
         private collectionService: CollectionService,
@@ -33,10 +31,10 @@ export class UserComicCollectionComponent implements OnInit {
         this.getCollections();
     }
 
-    getComics(id: number) {
+    getComics(collection: CollectionModel) {
         this.comics = new Array<ComicModel>();
-        this.collectionId = id;
-        this.collectionService.getComicsInCollection(id).subscribe(data => {
+        this.collection = collection;
+        this.collectionService.getComicsInCollection(collection.id).subscribe(data => {
             this.comics = data;
         }, error => {
             if (error.statusText === 'Unauthorized') {
@@ -66,10 +64,11 @@ export class UserComicCollectionComponent implements OnInit {
     }
 
     deleteComicFromCollection(comicId: number) {
-        const collectionid = this.collectionId;
-        this.collectionService.getComicCollection(comicId, collectionid).subscribe(data => {
+        const collection = this.collection;
+        this.collectionService.getComicCollection(comicId, collection.id).subscribe(data => {
             this.collectionService.deleteComicFromCollection(data.id).subscribe(() => {
-                this.getComics(collectionid);
+                this.getComics(collection);
+                this.collection = new CollectionModel();
             });
         });
     }
