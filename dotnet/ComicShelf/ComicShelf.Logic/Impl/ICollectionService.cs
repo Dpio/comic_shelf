@@ -2,6 +2,7 @@
 using ComicShelf.Models.Collection;
 using ComicShelf.Models.Comic;
 using ComicShelf.Models.ComicCollection;
+using ComicShelf.Models.User;
 using System.Collections.Generic;
 
 namespace ComicShelf.Logic.Impl
@@ -17,5 +18,6 @@ namespace ComicShelf.Logic.Impl
 		CollectionDto GetCollectionByName(string name, int userId);
 		IEnumerable<CollectionDto> GetWantListForUser(int userId);
 		IEnumerable<ComicCollectionDto> GetComicCollectionsByCollectionId(int collectionId);
+		IEnumerable<UserDto> FindUsersWithComic(int userId, int comicId);
 	}
 }

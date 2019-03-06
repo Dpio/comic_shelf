@@ -21,16 +21,16 @@ namespace ComicShelf.DataAccess.Repositories
 
 		public IEnumerable<Collection> GetCollectionForUser(int userId)
 		{
-			var user = Entities.
-				Include(e => e.Collections)
+			var user = Entities
+				.Include(e => e.Collections)
 				.Where(e => e.Id == userId);
 			return user.SelectMany(e => e.Collections).Where(e => e.IsWantList == false);
 		}
 
 		public IEnumerable<Collection> GetWantListForUser(int userId)
 		{
-			var user = Entities.
-				Include(e => e.Collections)
+			var user = Entities
+				.Include(e => e.Collections)
 				.Where(e => e.Id == userId);
 			return user.SelectMany(e => e.Collections).Where(e => e.IsWantList == true);
 		}

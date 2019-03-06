@@ -22,6 +22,7 @@ import { UserComicCollectionComponent } from './user-comic-collection/user-comic
 import { CollectionService } from './shared/services/collection.service';
 import { FilterPipe } from './shared/Utils/filter-pipe';
 import { AddCollectionComponent } from './user-comic-collection/add-collection/add-collection.component';
+import { MessageService } from './shared/services/messsage.service';
 
 
 @NgModule({
@@ -60,6 +61,7 @@ import { AddCollectionComponent } from './user-comic-collection/add-collection/a
     UserService,
     AuthGuard,
     CollectionService,
+    MessageService,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
   ],
   bootstrap: [AppComponent]

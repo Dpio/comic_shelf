@@ -6,6 +6,7 @@ using ComicShelf.Logic.Helpers;
 using ComicShelf.Models.Collection;
 using ComicShelf.Models.Comic;
 using ComicShelf.Models.ComicCollection;
+using ComicShelf.Models.User;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -75,25 +76,42 @@ namespace ComicShelf.Logic.Impl
 		public ComicCollectionDto GetComicCollection(int comicId, int collectionId)
 		{
 			var comicCollection = _comicCollectionRepository.GetComicCollection(comicId, collectionId);
-			return Mapper.Map<ComicCollectionDto>(comicCollection);
+			var comicCollectionDto = Mapper.Map<ComicCollectionDto>(comicCollection);
+			return comicCollectionDto;
 		}
 
 		public CollectionDto GetCollectionByName(string name, int userId)
 		{
 			var collection = _collectionRepository.GetCollectionByName(name, userId);
-			return Mapper.Map<CollectionDto>(collection);
+			var collectionDto = Mapper.Map<CollectionDto>(collection);
+			return collectionDto;
 		}
 
 		public IEnumerable<CollectionDto> GetWantListForUser(int userId)
 		{
 			var collections = _userRepository.GetWantListForUser(userId);
-			return Mapper.Map<IEnumerable<CollectionDto>>(collections);
+			var collectionDtos = Mapper.Map<IEnumerable<CollectionDto>>(collections);
+			return collectionDtos;
 		}
 
 		public IEnumerable<ComicCollectionDto> GetComicCollectionsByCollectionId(int collectionId)
 		{
 			var comicCollections = _comicCollectionRepository.GetComicCollectionsByCollectionId(collectionId);
-			return Mapper.Map<IEnumerable<ComicCollectionDto>>(comicCollections);
+			var comicCollectionDtos = Mapper.Map<IEnumerable<ComicCollectionDto>>(comicCollections);
+			return comicCollectionDtos;
+		}
+
+		public IEnumerable<UserDto> FindUsersWithComic(int userId, int comicId)
+		{
+			var comicCollections = _comicCollectionRepository.GetComicCollectionsByComicId(comicId);
+			var userDtos = new List<UserDto>();
+			foreach(var comicCollection in comicCollections)
+			{
+				var user = _userRepository.Get(comicCollection.Collection.UserId);
+				if(userId != user.Id)
+				userDtos.Add(Mapper.Map<UserDto>(user));
+			}
+			return userDtos;
 		}
 	}
 }

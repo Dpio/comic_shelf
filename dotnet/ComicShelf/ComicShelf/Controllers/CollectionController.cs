@@ -3,6 +3,7 @@ using ComicShelf.Logic.Impl;
 using ComicShelf.Models.Collection;
 using ComicShelf.Models.Comic;
 using ComicShelf.Models.ComicCollection;
+using ComicShelf.Models.User;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
@@ -152,6 +153,17 @@ namespace ComicShelf.Api.Controllers
 		public IActionResult GetComicCollectionsByCollectionId(int collectionId)
 		{
 			var dto = _service.GetComicCollectionsByCollectionId(collectionId);
+			if (dto == null)
+				return NotFound();
+			return Ok(dto);
+		}
+
+		[Authorize]
+		[HttpGet("findUsersWithComic/{userId}/{comicId}")]
+		[Produces("application/json", Type = typeof(IEnumerable<UserDto>))]
+		public IActionResult FindUsersWithComic(int userId, int comicId)
+		{
+			var dto = _service.FindUsersWithComic(userId, comicId);
 			if (dto == null)
 				return NotFound();
 			return Ok(dto);

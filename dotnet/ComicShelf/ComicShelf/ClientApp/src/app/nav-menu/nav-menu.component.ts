@@ -3,6 +3,7 @@ import { AuthenticateResponse } from '../shared/models/authenticate.model';
 import { MenuItem } from './menu-items';
 import { AppComponent } from '../app.component';
 import { AuthenticateService } from '../shared/services/authenticate.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-nav-menu',
@@ -17,8 +18,8 @@ export class NavMenuComponent extends AppComponent implements OnInit {
     new MenuItem('Homepage', 'home', '/'),
   ];
    base: AuthenticateService;
-  constructor(authenticateService: AuthenticateService) {
-    super(authenticateService);
+  constructor(authenticateService: AuthenticateService , toastr: ToastrService) {
+    super(authenticateService, toastr);
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
   }
 

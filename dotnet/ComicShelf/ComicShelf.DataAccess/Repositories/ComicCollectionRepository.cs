@@ -28,6 +28,7 @@ namespace ComicShelf.DataAccess.Repositories
 
 		public ComicCollection GetComicCollection(int comicId, int collectionId)
 		{
+			// TODO: Catch error if there's more than one
 				var comicCollection = Entities
 				.Where(e => e.CollectionId == collectionId && e.ComicId == comicId)
 				.Include(e => e.Collection)
@@ -39,6 +40,15 @@ namespace ComicShelf.DataAccess.Repositories
 		{
 			var comicCollections = Entities
 				.Where(e => e.CollectionId == collectionId)
+				.Include(e => e.Collection)
+				.Include(e => e.Comic);
+			return comicCollections.ToList();
+		}
+
+		public IEnumerable<ComicCollection> GetComicCollectionsByComicId(int comicId)
+		{
+			var comicCollections = Entities
+				.Where(e => e.ComicId == comicId)
 				.Include(e => e.Collection)
 				.Include(e => e.Comic);
 			return comicCollections.ToList();
