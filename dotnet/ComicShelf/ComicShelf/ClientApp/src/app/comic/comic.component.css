@@ -46,6 +46,10 @@ div.gallery button.addtowantlist {
   top:56%;
   left:22%;
 }
+div.gallery button.requestRent {
+  top:64%;
+  left:22%;
+}
 div.gallery ul.dropdown-menu{
   top:31%;
   left:65%;

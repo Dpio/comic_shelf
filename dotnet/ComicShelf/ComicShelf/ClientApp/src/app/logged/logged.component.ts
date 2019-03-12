@@ -21,7 +21,7 @@ export class LoggedComponent implements OnInit {
                 this.userService.getUser(pr.id).subscribe(data => {
                     const guser = new AuthenticateResponse();
                     guser.id = data.id;
-                    guser.username = data.username;
+                    guser.givenName = data.givenName;
                     guser.emailAddress = data.emailAddress;
                     guser.token = pr.token;
                     localStorage.setItem('currentUser', JSON.stringify(guser));

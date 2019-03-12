@@ -4,6 +4,7 @@ import { AuthenticateService } from './shared/services/authenticate.service';
 import { HubConnection } from '@aspnet/signalr';
 import { ToastrService } from 'ngx-toastr';
 import signalR = require('@aspnet/signalr');
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -13,12 +14,12 @@ import signalR = require('@aspnet/signalr');
 export class AppComponent implements OnInit {
   title = 'app';
   private _hubConnection: HubConnection;
-
   currentUser: AuthenticateResponse = new AuthenticateResponse();
 
   constructor(
     private authenticateService: AuthenticateService,
     private toastr: ToastrService,
+    private router: Router,
   ) {
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
   }
@@ -43,9 +44,15 @@ export class AppComponent implements OnInit {
 
     this._hubConnection.on('BroadcastMessageForUser', (userId: number, msg: string) => {
       if (userId === this.currentUser.id) {
-        this.toastr.info(msg);
+        this.toastr.info(msg).onTap.subscribe(() => {
+          this.router.navigate(['rent']);
+        });
       }
     });
+  }
+
+  onClick() {
+    console.log('WORKS');
   }
 
   signInWithGoogle() {

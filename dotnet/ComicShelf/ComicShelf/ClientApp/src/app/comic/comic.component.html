@@ -46,6 +46,7 @@
                                                     list</a></li>
                                         </ul>
                                     </div>
+                                    <button class="requestRent" (click)="RequestComic(comic.id)">Request comic</button>
                                 </div>
                             </div>
                         </div>
@@ -57,3 +58,4 @@
 </section>
 <comic-details-modal #comicDetailsModal></comic-details-modal>
 <add-collection-modal #addCollectionModal (modalSave)="getCollections()"></add-collection-modal>
+<request-rent-modal #requestRentModal></request-rent-modal>

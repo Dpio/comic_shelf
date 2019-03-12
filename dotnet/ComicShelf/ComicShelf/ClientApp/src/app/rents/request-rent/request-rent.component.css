@@ -1,0 +1,19 @@
+.profile {
+    width: 40%;
+    display: block;
+    text-align: center;
+  padding-bottom: 15px;
+}
+.profile .name {
+    text-align: center;
+}
+.profile > img.img-responsive {
+    vertical-align: middle; 
+    border: 2px solid;
+    padding: 2px;
+    margin: 2px;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    border-radius: 50%; 
+}

@@ -28,6 +28,7 @@ export class UserComicCollectionComponent implements OnInit {
         this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
     }
 
+    // TODO: Grey out comics that are currently rented.
     ngOnInit(): void {
         this.getCollections();
         this.getWantLists();

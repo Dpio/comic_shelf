@@ -13,7 +13,7 @@ export class MessageService {
     ) {
     }
 
-    BroadcastMessageForUser(message: MessageModel): Observable<MessageModel> {
-        return this.http.post<MessageModel>(this.apiUrl + '/Message/PostForUser', message);
+    BroadcastMessageForUser(message: MessageModel): Observable<string> {
+        return this.http.post<string>(this.apiUrl + '/Message/PostForUser', message);
     }
 }

@@ -6,7 +6,7 @@ export class BaseApiService {
         const value: Array<T> = [];
         arr.forEach(element => {
             const object: T = Object.create(type.prototype);
-            object.deserialise(element);
+            object.deserialize(element);
             value.push(object);
         });
         return value;

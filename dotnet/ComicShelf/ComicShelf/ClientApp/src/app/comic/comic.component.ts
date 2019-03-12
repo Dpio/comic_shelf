@@ -10,6 +10,8 @@ import { AuthenticateResponse } from '../shared/models/authenticate.model';
 import { AddCollectionComponent } from '../user-comic-collection/add-collection/add-collection.component';
 import { CollectionService } from '../shared/services/collection.service';
 import { ComicCollectionModel } from '../shared/models/comicCollection.model';
+import { RentService } from '../shared/services/rent.service';
+import { RequestRentComponent } from '../rents/request-rent/request-rent.component';
 
 @Component({
   selector: 'app-comic',
@@ -19,6 +21,7 @@ import { ComicCollectionModel } from '../shared/models/comicCollection.model';
 export class ComicComponent implements OnInit {
   @ViewChild('comicDetailsModal') comicDetailsModal: ComicDetailsComponent;
   @ViewChild('addCollectionModal') addCollectionModal: AddCollectionComponent;
+  @ViewChild('requestRentModal') requestRentModal: RequestRentComponent;
 
   comics: Array<ComicModel>;
   currentUser: AuthenticateResponse = new AuthenticateResponse();
@@ -87,14 +90,18 @@ export class ComicComponent implements OnInit {
 
   getWantLists() {
     this.collectionService.getWantListForUser(this.currentUser.id).subscribe(data => {
-        this.wantLists = data;
+      this.wantLists = data;
     }, error => {
-        if (error.statusText === 'Unauthorized') {
-            this.toastr.error(error.statusText);
-            this.authenticateService.logout();
-        } else {
-            this.toastr.error(error.error);
-        }
+      if (error.statusText === 'Unauthorized') {
+        this.toastr.error(error.statusText);
+        this.authenticateService.logout();
+      } else {
+        this.toastr.error(error.error);
+      }
     });
-}
+  }
+
+  RequestComic(id: number) {
+    this.requestRentModal.show(id);
+  }
 }

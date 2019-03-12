@@ -4,6 +4,7 @@ import { MenuItem } from './menu-items';
 import { AppComponent } from '../app.component';
 import { AuthenticateService } from '../shared/services/authenticate.service';
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-nav-menu',
@@ -18,8 +19,8 @@ export class NavMenuComponent extends AppComponent implements OnInit {
     new MenuItem('Homepage', 'home', '/'),
   ];
    base: AuthenticateService;
-  constructor(authenticateService: AuthenticateService , toastr: ToastrService) {
-    super(authenticateService, toastr);
+  constructor(authenticateService: AuthenticateService , toastr: ToastrService, router: Router) {
+    super(authenticateService, toastr, router);
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
   }
 
@@ -45,6 +46,7 @@ export class NavMenuComponent extends AppComponent implements OnInit {
         new MenuItem('Homepage', 'home', '/'),
         new MenuItem('Comic', 'book', '/comic'),
         new MenuItem('Collection', 'star', '/collection'),
+        new MenuItem('Rent', 'transfer', '/rent'),
       ];
     }
   }

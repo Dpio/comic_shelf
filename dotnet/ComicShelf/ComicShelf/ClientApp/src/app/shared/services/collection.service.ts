@@ -5,6 +5,7 @@ import { Observable } from 'rxjs/Observable';
 import { CollectionModel } from '../models/collection.model';
 import { ComicCollectionModel } from '../models/comicCollection.model';
 import { ComicModel } from '../models/comic.model';
+import { UserModel } from '../models/user.model';
 
 @Injectable()
 export class CollectionService {
@@ -56,5 +57,9 @@ export class CollectionService {
 
     getComicCollectionByCollectionId(id: number): Observable<Array<ComicCollectionModel>> {
         return this.http.get<Array<ComicCollectionModel>>(this.apiUrl + '/Collection/getComicCollectionsByCollectionId/' + id);
+    }
+
+    findUsersWithComic(userId: number, comicId: number): Observable<Array<UserModel>> {
+        return this.http.get<Array<UserModel>>(this.apiUrl + '/Collection/findUsersWithComic/' + userId + '/' + comicId);
     }
 }

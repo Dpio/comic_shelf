@@ -105,11 +105,14 @@ namespace ComicShelf.Logic.Impl
 		{
 			var comicCollections = _comicCollectionRepository.GetComicCollectionsByComicId(comicId);
 			var userDtos = new List<UserDto>();
-			foreach(var comicCollection in comicCollections)
+			foreach (var comicCollection in comicCollections)
 			{
 				var user = _userRepository.Get(comicCollection.Collection.UserId);
-				if(userId != user.Id)
-				userDtos.Add(Mapper.Map<UserDto>(user));
+				var userDto = Mapper.Map<UserDto>(user);
+				if (userId != user.Id && !userDtos.Any(e => e.Id == userDto.Id))
+				{
+					userDtos.Add(userDto);
+				}
 			}
 			return userDtos;
 		}
