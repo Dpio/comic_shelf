@@ -31,8 +31,7 @@ export class RequestRentComponent implements OnInit {
     comic: ComicModel;
 
     // TODO:  Nake html if there is no user with comic in collection
-    // Center the picture if there is only one user
-    // User can make only 4 request and users for requests should random
+    // User can make only 4 request
     constructor(
         private rentService: RentService,
         private collectionService: CollectionService,
@@ -66,7 +65,7 @@ export class RequestRentComponent implements OnInit {
         this.modal.hide();
     }
 
-    // TODO: User can only make 3 requests for a comic.
+    // TODO: User can only make 4 requests for a comic.
     save(): void {
         this.users.filter(e => e.isSelected).forEach(e => {
             this.saving = true;

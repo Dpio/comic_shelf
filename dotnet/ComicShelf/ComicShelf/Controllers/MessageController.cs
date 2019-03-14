@@ -32,7 +32,7 @@ namespace ComicShelf.Api.Controllers
 		}
 
 		[HttpPost("PostForUser")]
-		public string PostForUser([FromBody]MessageForUser msg)
+		public void PostForUser([FromBody]MessageForUser msg)
 		{
 			string retMessage = string.Empty;
 			try
@@ -44,7 +44,6 @@ namespace ComicShelf.Api.Controllers
 			{
 				retMessage = e.ToString();
 			}
-			return retMessage;
 		}
 	}
 }

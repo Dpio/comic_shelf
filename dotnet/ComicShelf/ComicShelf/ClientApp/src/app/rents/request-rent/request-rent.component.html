@@ -10,21 +10,22 @@
                     <div class="nousers" *ngIf="users.length == 0">No users have this comic </div>
                     <div class="oneuser" *ngIf="users.length == 1">
                         <div class="profile" *ngFor="let user of users" style="margin-left: 160px;">
-                            <img class="img-responsive" src="{{user.picture}}" />
+                            <label for="user-{{user.googleId}}">
+                                <input type="checkbox" name="user" class="filled-in" id="user-{{user.googleId}}"
+                                    [checked]="user.isSelected" (change)="user.isSelected = !user.isSelected" />
+                                <img class="test" src="{{user.picture}}" />
+                            </label>
                             <div class="name">{{user.givenName}}</div>
-                            <input type="checkbox" name="user" class="filled-in" id="user-{{user.googleId}}" [checked]="user.isSelected"
-                                (change)="user.isSelected = !user.isSelected"/>
                         </div>
                     </div>
                     <div *ngIf="users.length > 1">
                         <div class="profile" *ngFor="let user of users">
-                          
-                            <div class="name">{{user.givenName}}</div>
                             <label for="user-{{user.googleId}}">
-                            <input type="checkbox" name="user" class="filled-in" id="user-{{user.googleId}}" [checked]="user.isSelected"
-                                (change)="user.isSelected = !user.isSelected" />
+                                <input type="checkbox" name="user" class="filled-in" id="user-{{user.googleId}}"
+                                    [checked]="user.isSelected" (change)="user.isSelected = !user.isSelected" />
                                 <img class="test" src="{{user.picture}}" />
                             </label>
+                            <div class="name">{{user.givenName}}</div>
                         </div>
                     </div>
                 </div>

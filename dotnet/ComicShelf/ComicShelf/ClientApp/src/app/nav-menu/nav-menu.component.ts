@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, ViewChild } from '@angular/core';
 import { AuthenticateResponse } from '../shared/models/authenticate.model';
 import { MenuItem } from './menu-items';
 import { AppComponent } from '../app.component';
@@ -12,43 +12,42 @@ import { Router } from '@angular/router';
   styleUrls: ['./nav-menu.component.css'],
   encapsulation: ViewEncapsulation.None
 })
-export class NavMenuComponent extends AppComponent implements OnInit {
+export class NavMenuComponent implements OnInit {
   isExpanded = false;
   currentUser: AuthenticateResponse = new AuthenticateResponse;
+  requestCount: number;
   menuItems: MenuItem[] = [
     new MenuItem('Homepage', 'home', '/'),
   ];
-  base: AuthenticateService;
-  constructor(authenticateService: AuthenticateService, toastr: ToastrService, router: Router) {
-    super(authenticateService, toastr, router);
+  constructor() {
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
-  }
-
-  collapse() {
-    this.isExpanded = false;
-  }
-
-  toggle() {
-    this.isExpanded = !this.isExpanded;
-  }
-
-  showMenuItem(menuItem): boolean {
-    return true;
   }
 
   // TODO: If there is new request for comic show it on sidebar.
   ngOnInit(): void {
+    this.requestCount = JSON.parse(localStorage.getItem('rentRequests'));
     if (this.currentUser === null) {
       this.menuItems = [
         new MenuItem('Homepage', 'home', '/'),
       ];
     } else {
-      this.menuItems = [
-        new MenuItem('Homepage', 'home', '/'),
-        new MenuItem('Comic', 'book', '/comic'),
-        new MenuItem('Collection', 'star', '/collection'),
-        new MenuItem('Rent', 'transfer', '/rent'),
-      ];
+      if (this.requestCount === 0) {
+        this.menuItems = [
+          new MenuItem('Homepage', 'home', '/'),
+          new MenuItem('Comic', 'book', '/comic'),
+          new MenuItem('Collection', 'star', '/collection'),
+          new MenuItem('Rent', 'transfer', '/rent'),
+        ];
+      } else {
+        this.menuItems = [
+          new MenuItem('Homepage', 'home', '/'),
+          new MenuItem('Comic', 'book', '/comic'),
+          new MenuItem('Collection', 'star', '/collection'),
+          new MenuItem('Rent' + ' ' + this.requestCount, 'transfer', '/rent'),
+        ];
+      }
     }
   }
+
+
 }

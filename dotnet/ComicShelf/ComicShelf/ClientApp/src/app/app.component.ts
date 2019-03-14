@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { AuthenticateResponse } from './shared/models/authenticate.model';
 import { AuthenticateService } from './shared/services/authenticate.service';
 import { HubConnection } from '@aspnet/signalr';
 import { ToastrService } from 'ngx-toastr';
 import signalR = require('@aspnet/signalr');
 import { Router } from '@angular/router';
+import { NavMenuComponent } from './nav-menu/nav-menu.component';
 
 @Component({
   selector: 'app-root',
@@ -12,9 +13,11 @@ import { Router } from '@angular/router';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
+  @ViewChild(NavMenuComponent) sidebar: NavMenuComponent;
   title = 'app';
   private _hubConnection: HubConnection;
   currentUser: AuthenticateResponse = new AuthenticateResponse();
+  rentRequests: number;
 
   constructor(
     private authenticateService: AuthenticateService,
@@ -64,5 +67,9 @@ export class AppComponent implements OnInit {
   logout() {
     this.authenticateService.logout();
     window.location.reload();
+  }
+
+  getRentRequests() {
+    this.sidebar.ngOnInit();
   }
 }
