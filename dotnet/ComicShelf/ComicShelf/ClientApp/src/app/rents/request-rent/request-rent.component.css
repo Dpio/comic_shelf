@@ -1,13 +1,29 @@
 .profile {
+    margin-right: 20px;
+    margin-left: 28px;
+    position: relative;
     width: 40%;
-    display: block;
+    display: inline-block;
     text-align: center;
   padding-bottom: 15px;
 }
 .profile .name {
     text-align: center;
 }
-.profile > img.img-responsive {
+
+
+  input[type=checkbox] {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+    /* For mobile, it's typically better to position checkbox on top of clickable
+       area and turn opacity to 0 instead. */
+ }
+ 
+ /* Default State */
+ label img.test{
+     width: 60%;
+    position:relative;
     vertical-align: middle; 
     border: 2px solid;
     padding: 2px;
@@ -16,4 +32,9 @@
     -moz-border-radius: 50%;
     -ms-border-radius: 50%;
     border-radius: 50%; 
-}
+ }
+ 
+ /* Toggled State */
+ input[type=checkbox]:checked ~ img {
+    opacity: 0.5;
+ }

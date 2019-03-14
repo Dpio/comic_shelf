@@ -4,27 +4,37 @@
         <div #modalContent class="modal-content">
             <div class="container-fluid">
                 <div class="moda-header text-center" style="margin: 20px 20px 20px 20px">
-                    <h2>Requests</h2>
+                    <h2>Choose users for the request</h2>
                 </div>
-                <div class="modal-body" *ngFor="let user of users">
-                    <div class="profile">
-                        <img class="img-responsive" src="{{user.picture}}" />
-                        <div class="name">{{user.givenName}}</div>
-                        <!-- <input type="checkbox" checked> -->
-                        <input type="checkbox" name="user" class="filled-in" id="user-{{user.googleId}}" [checked]="user.isSelected"
-                            (change)="user.isSelected = !user.isSelected" />
+                <div class="modal-body">
+                    <div class="nousers" *ngIf="users.length == 0">No users have this comic </div>
+                    <div class="oneuser" *ngIf="users.length == 1">
+                        <div class="profile" *ngFor="let user of users" style="margin-left: 160px;">
+                            <img class="img-responsive" src="{{user.picture}}" />
+                            <div class="name">{{user.givenName}}</div>
+                            <input type="checkbox" name="user" class="filled-in" id="user-{{user.googleId}}" [checked]="user.isSelected"
+                                (change)="user.isSelected = !user.isSelected"/>
+                        </div>
+                    </div>
+                    <div *ngIf="users.length > 1">
+                        <div class="profile" *ngFor="let user of users">
+                          
+                            <div class="name">{{user.givenName}}</div>
+                            <label for="user-{{user.googleId}}">
+                            <input type="checkbox" name="user" class="filled-in" id="user-{{user.googleId}}" [checked]="user.isSelected"
+                                (change)="user.isSelected = !user.isSelected" />
+                                <img class="test" src="{{user.picture}}" />
+                            </label>
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button [disabled]="saving" type="button" class="btn btn-default waves-effect" (click)="close()">
                         Cancel
                     </button>
-                    <button type="submit" class="btn btn-primary waves-effect" (click)="save()">
-                            Save
-                        </button>
-                    <!-- <button type="button" class="btn btn-default waves-effect" (click)="addToCollection(comic.id)">
-                        Add to collection
-                    </button> -->
+                    <button *ngIf="users.length > 0" type="submit" class="btn btn-primary waves-effect" (click)="save()">
+                        Save
+                    </button>
                 </div>
             </div>
         </div>

@@ -28,4 +28,7 @@ export class RentService {
     deleteRent(id: number): Observable<void> {
         return this.http.delete<void>(this.apiUrl + '/Rent/' + id);
     }
+    getRentRequestsCount(id: number): Observable<number> {
+        return this.http.get<number>(this.apiUrl + '/Rent/getRentRequestsCount/' + id);
+    }
 }

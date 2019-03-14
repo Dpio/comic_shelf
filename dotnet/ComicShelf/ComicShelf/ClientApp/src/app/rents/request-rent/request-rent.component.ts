@@ -31,6 +31,8 @@ export class RequestRentComponent implements OnInit {
     comic: ComicModel;
 
     // TODO:  Nake html if there is no user with comic in collection
+    // Center the picture if there is only one user
+    // User can make only 4 request and users for requests should random
     constructor(
         private rentService: RentService,
         private collectionService: CollectionService,
@@ -42,6 +44,7 @@ export class RequestRentComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        this.users = [];
     }
 
     refresh(id: number): void {
@@ -63,9 +66,10 @@ export class RequestRentComponent implements OnInit {
         this.modal.hide();
     }
 
+    // TODO: User can only make 3 requests for a comic.
     save(): void {
-        this.saving = true;
         this.users.filter(e => e.isSelected).forEach(e => {
+            this.saving = true;
             const rent = new RentModel();
             rent.comicId = this.comic.id;
             rent.startDate = moment(Date.now());
@@ -76,10 +80,10 @@ export class RequestRentComponent implements OnInit {
                 const message = new MessageModel();
                 message.msg = this.currentUser.givenName + ' has requested: ' + this.comic.title;
                 message.userId = e.id;
-                this.messageService.BroadcastMessageForUser(message).subscribe( () => {
+                this.messageService.BroadcastMessageForUser(message).subscribe(() => {
                 });
                 this.close();
-                    this.modalSave.emit(null);
+                this.modalSave.emit(null);
             }, error => {
                 this.toastrService.error(error.error.message);
             });

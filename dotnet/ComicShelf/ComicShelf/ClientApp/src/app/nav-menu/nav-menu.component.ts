@@ -18,8 +18,8 @@ export class NavMenuComponent extends AppComponent implements OnInit {
   menuItems: MenuItem[] = [
     new MenuItem('Homepage', 'home', '/'),
   ];
-   base: AuthenticateService;
-  constructor(authenticateService: AuthenticateService , toastr: ToastrService, router: Router) {
+  base: AuthenticateService;
+  constructor(authenticateService: AuthenticateService, toastr: ToastrService, router: Router) {
     super(authenticateService, toastr, router);
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
   }
@@ -36,6 +36,7 @@ export class NavMenuComponent extends AppComponent implements OnInit {
     return true;
   }
 
+  // TODO: If there is new request for comic show it on sidebar.
   ngOnInit(): void {
     if (this.currentUser === null) {
       this.menuItems = [

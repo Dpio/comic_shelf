@@ -114,7 +114,7 @@ namespace ComicShelf.Logic.Impl
 					userDtos.Add(userDto);
 				}
 			}
-			return userDtos;
+			return userDtos.PickRandom(4);
 		}
 	}
 }

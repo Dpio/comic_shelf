@@ -26,6 +26,7 @@ export class RentComponent implements OnInit {
     }
 
     // TODO: Rents history show only pending and in progress.
+    // Change the dates to specific format.
     ngOnInit(): void {
         this.getRents();
     }
