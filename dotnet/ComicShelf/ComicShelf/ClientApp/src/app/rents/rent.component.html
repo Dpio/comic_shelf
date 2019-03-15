@@ -26,15 +26,18 @@
                                                 <td>{{rent.comic.title}}</td>
                                                 <td>{{rent.giver.givenName}}</td>
                                                 <td>{{rent.receiver.givenName}}</td>
-                                                <td *ngIf="rent">{{getStatusName(rent.status)}}</td>
+                                                <td *ngIf="rent && rent.status !=2 && rent.status !=4">{{getStatusName(rent.status)}}</td>
+                                                <td *ngIf="rent.status == 4">pending</td>
+                                                <td *ngIf="rent.status == 2">in progress</td>
                                                 <td>{{rent.startDate}}</td>
                                                 <td *ngIf="rent.status == 3">{{rent.endDate}}</td>
+                                                <td *ngIf="rent.status == 3"></td>
                                                 <div *ngIf="rent.status == 2">
                                                     <button type="button" class="btn btn-default btn-sm" (click)="Complete(rent)">
                                                         <span class="glyphicon glyphicon-ok"></span>
                                                     </button>
                                                 </div>
-                                                <div *ngIf="rent.status == 1 && rent.giver.id == currentUser.id">
+                                                <div *ngIf="rent.status == 1 && rent.giver.id == currentUser.id || rent.status == 4 && rent.giver.id == currentUser.id">
                                                     <button type="button" class="btn btn-default btn-sm" (click)="Accept(rent)">
                                                         <span class="glyphicon glyphicon-ok"></span>
                                                     </button>

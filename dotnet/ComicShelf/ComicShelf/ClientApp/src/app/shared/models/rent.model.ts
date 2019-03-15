@@ -26,6 +26,7 @@ export class RentModel extends BaseModel {
 
 export enum RentStatus {
     pending = 1,
-    inProgress,
-    complete
+    nProgress,
+    complete,
+    pendingNew
 }

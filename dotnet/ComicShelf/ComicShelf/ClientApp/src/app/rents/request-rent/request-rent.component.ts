@@ -72,7 +72,7 @@ export class RequestRentComponent implements OnInit {
             const rent = new RentModel();
             rent.comicId = this.comic.id;
             rent.startDate = moment(Date.now());
-            rent.status = 1;
+            rent.status = 4;
             rent.receiverId = this.currentUser.id;
             rent.giverId = e.id;
             this.rentService.createRent(rent).subscribe(() => {

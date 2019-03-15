@@ -56,7 +56,7 @@ import { RequestRentComponent } from './rents/request-rent/request-rent.componen
       { path: 'collection', component: UserComicCollectionComponent, canActivate: [AuthGuard] },
       { path: 'Logged', component: LoggedComponent },
       { path: 'Logged/:id/:token', component: LoggedComponent },
-      { path: 'rent', component: RentComponent },
+      { path: 'rent', component: RentComponent, canActivate: [AuthGuard] },
     ]),
     ToastrModule.forRoot({
       closeButton: true,

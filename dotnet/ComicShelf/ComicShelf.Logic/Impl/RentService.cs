@@ -23,5 +23,12 @@ namespace ComicShelf.Logic.Impl
 			var rentDtos = Mapper.Map<IEnumerable<RentDto>>(rents);
 			return rentDtos;
 		}
+
+		public int GetNewRequestsCount(int userId)
+		{
+			var requestsCount = _rentRepository.GetNewRequestsCount(userId);
+			return requestsCount;
+		}
+
 	}
 }

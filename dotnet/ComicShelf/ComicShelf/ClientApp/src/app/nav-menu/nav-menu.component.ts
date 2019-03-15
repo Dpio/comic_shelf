@@ -5,6 +5,7 @@ import { AppComponent } from '../app.component';
 import { AuthenticateService } from '../shared/services/authenticate.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
+import { RentService } from '../shared/services/rent.service';
 
 @Component({
   selector: 'app-nav-menu',
@@ -19,19 +20,20 @@ export class NavMenuComponent implements OnInit {
   menuItems: MenuItem[] = [
     new MenuItem('Homepage', 'home', '/'),
   ];
-  constructor() {
+  constructor(private rentService: RentService) {
     this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
   }
 
   // TODO: If there is new request for comic show it on sidebar.
   ngOnInit(): void {
-    this.requestCount = JSON.parse(localStorage.getItem('rentRequests'));
     if (this.currentUser === null) {
       this.menuItems = [
         new MenuItem('Homepage', 'home', '/'),
       ];
     } else {
-      if (this.requestCount === 0) {
+      this.rentService.getRentRequestsCount(this.currentUser.id).subscribe(count => {
+        const requestCount = count;
+      if (requestCount === 0) {
         this.menuItems = [
           new MenuItem('Homepage', 'home', '/'),
           new MenuItem('Comic', 'book', '/comic'),
@@ -43,11 +45,10 @@ export class NavMenuComponent implements OnInit {
           new MenuItem('Homepage', 'home', '/'),
           new MenuItem('Comic', 'book', '/comic'),
           new MenuItem('Collection', 'star', '/collection'),
-          new MenuItem('Rent' + ' ' + this.requestCount, 'transfer', '/rent'),
+          new MenuItem('Rent' + ' ' + requestCount, 'transfer', '/rent'),
         ];
       }
+    });
     }
   }
-
-
 }

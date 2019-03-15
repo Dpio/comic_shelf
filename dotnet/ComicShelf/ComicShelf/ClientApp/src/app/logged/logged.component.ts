@@ -14,7 +14,6 @@ export class LoggedComponent implements OnInit {
     constructor(private route: Router,
         private router: ActivatedRoute,
         private userService: UserService,
-        private rentService: RentService,
     ) { }
 
     ngOnInit(): void {
@@ -27,9 +26,6 @@ export class LoggedComponent implements OnInit {
                     guser.email = data.email;
                     guser.token = pr.token;
                     localStorage.setItem('currentUser', JSON.stringify(guser));
-                    this.rentService.getRentRequestsCount(data.id).subscribe( count => {
-                        localStorage.setItem('rentRequests', count.toString());
-                    });
                     this.route.navigate(['']);
                     location.reload(true);
                 });

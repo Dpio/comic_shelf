@@ -1,4 +1,4 @@
-import { OnInit, Component } from '@angular/core';
+import { OnInit, Component, ViewChild } from '@angular/core';
 import { AuthenticateResponse } from '../shared/models/authenticate.model';
 import { ToastrService } from 'ngx-toastr';
 import { RentService } from '../shared/services/rent.service';
@@ -7,6 +7,7 @@ import { BaseApiService } from '../shared/services/base.service';
 import { MessageModel } from '../shared/models/message.model';
 import { MessageService } from '../shared/services/messsage.service';
 import moment = require('moment');
+import { NavMenuComponent } from '../nav-menu/nav-menu.component';
 
 @Component({
     selector: 'app-rent',
@@ -34,6 +35,14 @@ export class RentComponent implements OnInit {
     getRents() {
         this.rentService.GetRentsForUser(this.currentUser.id).subscribe((data: Array<RentModel>) => {
             this.rents = BaseApiService.getObjectArrayFromApi<RentModel>(data, RentModel);
+            this.rents.forEach(rent => {
+                if (rent.status === 4) {
+                    const newRent = rent;
+                    newRent.status = 1;
+                    this.rentService.putRent(newRent).subscribe(() => {
+                    });
+                }
+            });
         });
     }
 
@@ -51,7 +60,7 @@ export class RentComponent implements OnInit {
         const message = new MessageModel();
         message.msg = giverName + ' has desclined your request of ' + title;
         message.userId = receiverId;
-        this.messageService.BroadcastMessageForUser(message).subscribe( () => {
+        this.messageService.BroadcastMessageForUser(message).subscribe(() => {
         });
     }
 

@@ -7,5 +7,6 @@ namespace ComicShelf.Logic.Impl
 	public interface IRentService : ICrudAppService<RentDto, CreateRentDto, RentDto>
 	{
 		IEnumerable<RentDto> GetRentsForUser(int userId);
+		int GetNewRequestsCount(int userId);
 	}
 }

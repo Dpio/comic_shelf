@@ -62,11 +62,12 @@ namespace ComicShelf.Api.Controllers
 			return Ok(dto);
 		}
 		[Authorize]
-		[HttpGet("GetRentRequestsCount/{id}")]
+		[HttpGet("GetNewRentRequestsCount/{id}")]
 		[Produces("application/json", Type = typeof(int))]
 		public IActionResult GetRentRequestsCount(int id)
 		{
-			return Ok(1);
+			var requestCount = _service.GetNewRequestsCount(id);
+			return Ok(requestCount);
 		}
 		
 	}

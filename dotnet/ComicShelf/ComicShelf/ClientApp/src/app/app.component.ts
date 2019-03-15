@@ -17,7 +17,6 @@ export class AppComponent implements OnInit {
   title = 'app';
   private _hubConnection: HubConnection;
   currentUser: AuthenticateResponse = new AuthenticateResponse();
-  rentRequests: number;
 
   constructor(
     private authenticateService: AuthenticateService,
@@ -46,11 +45,7 @@ export class AppComponent implements OnInit {
     });
 
     this._hubConnection.on('BroadcastMessageForUser', (userId: number, msg: string) => {
-      if (userId === this.currentUser.id) {
-        const countStr = localStorage.getItem('rentRequests');
-        let count = Number.parseInt(countStr);
-        count++;
-        localStorage.setItem('rentRequests', count.toString());
+      if (userId === this.currentUser.id && msg) {
         this.toastr.info(msg).onTap.subscribe(() => {
           this.router.navigate(['rent']);
         });

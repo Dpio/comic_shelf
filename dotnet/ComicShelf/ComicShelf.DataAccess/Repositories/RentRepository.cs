@@ -24,5 +24,16 @@ namespace ComicShelf.DataAccess.Repositories
 				.OrderBy(e => e.Id);
 			return rents.ToList();
 		}
+
+		public int GetNewRequestsCount(int userId)
+		{
+			var requestsCount = Entities
+				.Where(e => e.GiverId == userId && e.Status.ToString() == "PendingNew")
+				.Include(e => e.Giver)
+				.Include(e => e.Receiver)
+				.Include(e => e.Comic)
+				.OrderBy(e => e.Id);
+			return requestsCount.Count();
+		}
 	}
 }
