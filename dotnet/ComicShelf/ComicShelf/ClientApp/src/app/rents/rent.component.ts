@@ -1,4 +1,4 @@
-import { OnInit, Component, ViewChild } from '@angular/core';
+import { OnInit, Component } from '@angular/core';
 import { AuthenticateResponse } from '../shared/models/authenticate.model';
 import { ToastrService } from 'ngx-toastr';
 import { RentService } from '../shared/services/rent.service';
@@ -7,26 +7,35 @@ import { BaseApiService } from '../shared/services/base.service';
 import { MessageModel } from '../shared/models/message.model';
 import { MessageService } from '../shared/services/messsage.service';
 import moment = require('moment');
-import { NavMenuComponent } from '../nav-menu/nav-menu.component';
+import { Router, NavigationEnd } from '@angular/router';
 
 @Component({
     selector: 'app-rent',
     templateUrl: './rent.component.html',
-    styleUrls: ['./rent.component.css']
+    styleUrls: ['./rent.component.css'],
 })
 export class RentComponent implements OnInit {
     currentUser: AuthenticateResponse = new AuthenticateResponse();
     rents: Array<RentModel>;
 
     constructor(
-        private toastr: ToastrService,
         private rentService: RentService,
         private messageService: MessageService,
+        private router: Router,
     ) {
         this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        this.router.routeReuseStrategy.shouldReuseRoute = function () {
+            return false;
+        };
+        this.router.events.subscribe((evt) => {
+            if (evt instanceof NavigationEnd) {
+               this.router.navigated = false;
+               window.scrollTo(0, 0);
+            }
+        });
     }
 
-    // TODO: Rents history show only pending and in progress.
+    // TODO: Rents history, show only pending and in progress.
     // Change the dates to specific format.
     ngOnInit(): void {
         this.getRents();
