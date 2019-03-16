@@ -9,7 +9,7 @@ namespace ComicShelf.Api.Controllers
 	[Authorize]
 	[ApiController]
 	[Route("api/[controller]")]
-	public class RentController : CrudBaseController<RentDto, CreateRentDto, RentDto>
+	public class RentController : CrudBaseController<RentDto, CreateRentDto, UpdateRentDto>
 	{
 		private readonly IRentService _service;
 
@@ -43,8 +43,8 @@ namespace ComicShelf.Api.Controllers
 
 		[Authorize]
 		[HttpPut()]
-		[Produces("application/json", Type = typeof(RentDto))]
-		public override IActionResult Put([FromBody] RentDto input)
+		[Produces("application/json", Type = typeof(UpdateRentDto))]
+		public override IActionResult Put([FromBody] UpdateRentDto input)
 		{
 			return base.Put(input);
 		}

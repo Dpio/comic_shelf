@@ -19,6 +19,10 @@ namespace ComicShelf.Logic.Profiles
 				.ForMember(e => e.Giver, e => e.Ignore())
 				.ForMember(e => e.Receiver, e => e.Ignore())
 				.ForMember(e => e.Id, e => e.Ignore());
+			CreateMap<UpdateRentDto, Rent>()
+				.ForMember(e => e.Comic, e => e.Ignore())
+				.ForMember(e => e.Giver, e => e.Ignore())
+				.ForMember(e => e.Receiver, e => e.Ignore());
 		}
 	}
 }

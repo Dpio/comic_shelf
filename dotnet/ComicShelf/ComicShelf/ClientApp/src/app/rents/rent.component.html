@@ -29,8 +29,8 @@
                                                 <td *ngIf="rent && rent.status !=2 && rent.status !=4">{{getStatusName(rent.status)}}</td>
                                                 <td *ngIf="rent.status == 4">pending</td>
                                                 <td *ngIf="rent.status == 2">in progress</td>
-                                                <td>{{rent.startDate}}</td>
-                                                <td *ngIf="rent.status == 3">{{rent.endDate}}</td>
+                                                <td>{{rent.startDate | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                                                <td *ngIf="rent.status == 3">{{rent.endDate | date:'yyyy-MM-dd HH:mm:ss'}}</td>
                                                 <td *ngIf="rent.status == 3"></td>
                                                 <div *ngIf="rent.status == 2">
                                                     <button type="button" class="btn btn-default btn-sm" (click)="Complete(rent)">

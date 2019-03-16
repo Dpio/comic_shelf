@@ -8,7 +8,7 @@ using ComicShelf.Models.Rent;
 
 namespace ComicShelf.Logic.Impl
 {
-	public class RentService : CrudAppService<Rent, RentDto, CreateRentDto, RentDto>, IRentService
+	public class RentService : CrudAppService<Rent, RentDto, CreateRentDto, UpdateRentDto>, IRentService
 	{
 		private readonly IRentRepository _rentRepository;
 

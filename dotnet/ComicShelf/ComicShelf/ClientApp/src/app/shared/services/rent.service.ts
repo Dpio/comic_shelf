@@ -3,6 +3,7 @@ import { environment } from '../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { RentModel } from '../models/rent.model';
 import { Observable } from 'rxjs/Observable';
+import { UpdateRentModel } from '../models/updateRent.model';
 
 @Injectable()
 export class RentService {
@@ -21,8 +22,8 @@ export class RentService {
         return this.http.get<Array<RentModel>>(this.apiUrl + '/Rent/GetRentsForUser/' + id);
     }
 
-    putRent(rent: RentModel): Observable<RentModel> {
-        return this.http.put<RentModel>(this.apiUrl + '/Rent', rent);
+    putRent(rent: UpdateRentModel): Observable<UpdateRentModel> {
+        return this.http.put<UpdateRentModel>(this.apiUrl + '/Rent', rent);
     }
 
     deleteRent(id: number): Observable<void> {

@@ -1,6 +1,5 @@
 import { OnInit, Component } from '@angular/core';
 import { AuthenticateResponse } from '../shared/models/authenticate.model';
-import { ToastrService } from 'ngx-toastr';
 import { RentService } from '../shared/services/rent.service';
 import { RentModel, RentStatus } from '../shared/models/rent.model';
 import { BaseApiService } from '../shared/services/base.service';
@@ -8,6 +7,7 @@ import { MessageModel } from '../shared/models/message.model';
 import { MessageService } from '../shared/services/messsage.service';
 import moment = require('moment');
 import { Router, NavigationEnd } from '@angular/router';
+import { UpdateRentModel } from '../shared/models/updateRent.model';
 
 @Component({
     selector: 'app-rent',
@@ -36,7 +36,6 @@ export class RentComponent implements OnInit {
     }
 
     // TODO: Rents history, show only pending and in progress.
-    // Change the dates to specific format.
     ngOnInit(): void {
         this.getRents();
     }
@@ -46,7 +45,13 @@ export class RentComponent implements OnInit {
             this.rents = BaseApiService.getObjectArrayFromApi<RentModel>(data, RentModel);
             this.rents.forEach(rent => {
                 if (rent.status === 4) {
-                    const newRent = rent;
+                    const newRent = new UpdateRentModel();
+                    newRent.id = rent.id;
+                    newRent.comicId = rent.comicId;
+                    newRent.giverId = rent.giverId;
+                    newRent.receiverId = rent.receiverId;
+                    newRent.startDate = rent.startDate;
+                    newRent.endDate = rent.endDate;
                     newRent.status = 1;
                     this.rentService.putRent(newRent).subscribe(() => {
                     });
@@ -56,8 +61,15 @@ export class RentComponent implements OnInit {
     }
 
     Accept(rent: RentModel) {
-        rent.status = 2;
-        this.rentService.putRent(rent).subscribe(() => {
+        const newRent = new UpdateRentModel();
+        newRent.id = rent.id;
+        newRent.comicId = rent.comicId;
+        newRent.giverId = rent.giverId;
+        newRent.receiverId = rent.receiverId;
+        newRent.startDate = rent.startDate;
+        newRent.endDate = rent.endDate;
+        newRent.status = 2;
+        this.rentService.putRent(newRent).subscribe(() => {
             this.getRents();
         });
     }
@@ -74,10 +86,15 @@ export class RentComponent implements OnInit {
     }
 
     Complete(rent: RentModel) {
-        // TODO: Put shouldnt require comic and two users
-        rent.status = 3;
-        rent.endDate = moment(Date.now());
-        this.rentService.putRent(rent).subscribe(() => {
+        const newRent = new UpdateRentModel();
+        newRent.id = rent.id;
+        newRent.comicId = rent.comicId;
+        newRent.giverId = rent.giverId;
+        newRent.receiverId = rent.receiverId;
+        newRent.startDate = rent.startDate;
+        newRent.status = 3;
+        newRent.endDate = moment(Date.now());
+        this.rentService.putRent(newRent).subscribe(() => {
             this.getRents();
         });
     }
