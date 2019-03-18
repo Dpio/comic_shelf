@@ -104,16 +104,12 @@ namespace ComicShelf.Logic.Impl
 			return comicCollectionDtos;
 		}
 
-		// TODO:
-		// Dont show user if there is a pending request for that comic from that user
-		// Cancel request
-		// if u have comic in collection you cant rent it
 		public IEnumerable<UserDto> FindUsersWithComic(int userId, int comicId)
 		{
 			var comicCollections = _comicCollectionRepository.GetComicCollectionsByComicId(comicId);
-			var rentRequestsCount = _rentRepository.GetPendingRequestsForComicByUser(userId, comicId).Count();
+			var pendingRequests = _rentRepository.GetPendingRequestsForComicByUser(userId, comicId);
 			var rentInProgress = _rentRepository.GetRentRequestForuserInProgress(userId, comicId);
-			var requestsAvaible = 4 - rentRequestsCount;
+			var requestsAvaible = 4 - pendingRequests.Count();
 			var userDtos = new List<UserDto>();
 
 			if (requestsAvaible == 0)
@@ -130,6 +126,13 @@ namespace ComicShelf.Logic.Impl
 				{
 					userDtos.Add(userDto);
 				}
+			}
+
+			foreach (var pendingRequest in pendingRequests)
+			{
+				var userDtoToDelete = userDtos.Find(e => e.Id == pendingRequest.GiverId);
+				if (userDtoToDelete != null)
+					userDtos.Remove(userDtoToDelete);
 			}
 			return userDtos.PickRandom(requestsAvaible);
 		}

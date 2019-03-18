@@ -30,13 +30,15 @@ export class RentComponent implements OnInit {
         };
         this.router.events.subscribe((evt) => {
             if (evt instanceof NavigationEnd) {
-               this.router.navigated = false;
-               window.scrollTo(0, 0);
+                this.router.navigated = false;
+                window.scrollTo(0, 0);
             }
         });
     }
 
     // TODO: Rents history, show only pending and in progress.
+    // Cancel request
+    // if u have comic in collection you cant rent it
     ngOnInit(): void {
         this.getRents();
     }
@@ -76,7 +78,7 @@ export class RentComponent implements OnInit {
         this.rentService.GetPendingRequestsCountForComicByUser(this.currentUser.id, rent.comicId).subscribe(data => {
             this.toDelete = data;
             this.toDelete.forEach(rentToDelete => {
-                this.rentService.deleteRent(rentToDelete.id).subscribe( () => {
+                this.rentService.deleteRent(rentToDelete.id).subscribe(() => {
                     this.getRents();
                 });
             });
