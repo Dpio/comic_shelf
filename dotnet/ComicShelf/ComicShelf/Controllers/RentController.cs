@@ -1,4 +1,5 @@
-﻿using ComicShelf.Logic.Impl;
+﻿using ComicShelf.Logic.Helpers;
+using ComicShelf.Logic.Impl;
 using ComicShelf.Models.Rent;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -38,7 +39,15 @@ namespace ComicShelf.Api.Controllers
 		[Produces("application/json", Type = typeof(RentDto))]
 		public override IActionResult Post([FromBody] CreateRentDto value)
 		{
-			return base.Post(value);
+			try
+			{
+				var dto = _service.Create(value);
+				return Ok(dto);
+			}
+			catch (AppException ex)
+			{
+				return BadRequest(ex.Message);
+			}
 		}
 
 		[Authorize]

@@ -4,6 +4,7 @@ using AutoMapper;
 using ComicShelf.DataAccess.Entities;
 using ComicShelf.DataAccess.Repositories;
 using ComicShelf.Logic.Base;
+using ComicShelf.Logic.Helpers;
 using ComicShelf.Models.Rent;
 
 namespace ComicShelf.Logic.Impl
@@ -28,6 +29,16 @@ namespace ComicShelf.Logic.Impl
 		{
 			var requestsCount = _rentRepository.GetNewRequestsCount(userId);
 			return requestsCount;
+		}
+
+		public override RentDto Create(CreateRentDto input)
+		{
+			var pendingRequestsCount = _rentRepository.GetPendingRequestsCountForComicByUser(input.ReceiverId, input.ComicId);
+			var avaibleRequests = 4 - pendingRequestsCount;
+			if (avaibleRequests == 0)
+				throw new AppException("You can only make 4 requests for a comic");
+
+			return base.Create(input);
 		}
 
 	}

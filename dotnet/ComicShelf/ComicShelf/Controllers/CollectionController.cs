@@ -163,10 +163,15 @@ namespace ComicShelf.Api.Controllers
 		[Produces("application/json", Type = typeof(IEnumerable<UserDto>))]
 		public IActionResult FindUsersWithComic(int userId, int comicId)
 		{
-			var dto = _service.FindUsersWithComic(userId, comicId);
-			if (dto == null)
-				return NotFound();
-			return Ok(dto);
+			try
+			{
+				var dto = _service.FindUsersWithComic(userId, comicId);
+				return Ok(dto);
+			}
+			catch (AppException ex)
+			{
+				return BadRequest(ex.Message);
+			}
 		}
 	}
 }

@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using ComicShelf.DataAccess.Entities;
+﻿using ComicShelf.DataAccess.Entities;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace ComicShelf.DataAccess.Repositories
 {
@@ -34,6 +34,40 @@ namespace ComicShelf.DataAccess.Repositories
 				.Include(e => e.Comic)
 				.OrderBy(e => e.Id);
 			return requestsCount.Count();
+		}
+
+		public int GetPendingRequestsCountForComicByUser(int userId, int comicId)
+		{
+			var requestsCount = Entities
+				.Where(e => e.ReceiverId == userId && e.ComicId == comicId && e.Status.ToString() == "PendingNew" ||
+				e.Status.ToString() == "Pending" )
+				.Include(e => e.Giver)
+				.Include(e => e.Receiver)
+				.Include(e => e.Comic)
+				.OrderBy(e => e.Id);
+			return requestsCount.Count();
+		}
+
+		public Rent GetRentRequestForUserByComic(int userId, int comicId)
+		{
+			var rentRequest = Entities
+				.Where(e => e.GiverId == userId && e.ComicId == comicId)
+				.Include(e => e.Giver)
+				.Include(e => e.Receiver)
+				.Include(e => e.Comic)
+				.OrderBy(e => e.Id);
+			return rentRequest.FirstOrDefault();
+		}
+
+		public Rent GetRentRequestForuserInProgress(int userId, int comicId)
+		{
+			var rentRequest = Entities
+				.Where(e => e.ReceiverId == userId && e.ComicId == comicId && e.Status.ToString() == "InProgress")
+				.Include(e => e.Giver)
+				.Include(e => e.Receiver)
+				.Include(e => e.Comic)
+				.OrderBy(e => e.Id);
+			return rentRequest.FirstOrDefault();
 		}
 	}
 }

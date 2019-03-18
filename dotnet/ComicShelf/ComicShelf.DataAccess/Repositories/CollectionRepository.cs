@@ -15,11 +15,10 @@ namespace ComicShelf.DataAccess.Repositories
 
 		public Collection GetCollectionByName(string name, int userId)
 		{
-			// TODO: Catch error if there's more than one
 			var collection = Entities
 				.Where(e => e.Name == name && e.UserId == userId && e.IsWantList == false)
 				.Include(e => e.ComicsCollection);
-			return collection.First();
+			return collection.FirstOrDefault();
 		}
 	}
 }

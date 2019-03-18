@@ -28,12 +28,11 @@ namespace ComicShelf.DataAccess.Repositories
 
 		public ComicCollection GetComicCollection(int comicId, int collectionId)
 		{
-			// TODO: Catch error if there's more than one
 				var comicCollection = Entities
 				.Where(e => e.CollectionId == collectionId && e.ComicId == comicId)
 				.Include(e => e.Collection)
 				.Include(e => e.Comic);
-			return comicCollection.First();
+			return comicCollection.FirstOrDefault();
 		}
 
 		public IEnumerable<ComicCollection> GetComicCollectionsByCollectionId(int collectionId)

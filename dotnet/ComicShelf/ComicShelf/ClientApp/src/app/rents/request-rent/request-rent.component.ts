@@ -30,8 +30,7 @@ export class RequestRentComponent implements OnInit {
     users: Array<UserModel>;
     comic: ComicModel;
 
-    // TODO:  Nake html if there is no user with comic in collection
-    // User can make only 4 request
+    // TODO:  Make html if there is no user with comic in collection
     constructor(
         private rentService: RentService,
         private collectionService: CollectionService,
@@ -49,6 +48,9 @@ export class RequestRentComponent implements OnInit {
     refresh(id: number): void {
         this.collectionService.findUsersWithComic(this.currentUser.id, id).subscribe(data => {
             this.users = BaseApiService.getObjectArrayFromApi<UserModel>(data, UserModel);
+        }, error => {
+            this.close();
+            this.toastrService.error(error.error);
         });
     }
 
@@ -65,7 +67,6 @@ export class RequestRentComponent implements OnInit {
         this.modal.hide();
     }
 
-    // TODO: User can only make 4 requests for a comic.
     save(): void {
         this.users.filter(e => e.isSelected).forEach(e => {
             this.saving = true;
@@ -84,7 +85,7 @@ export class RequestRentComponent implements OnInit {
                 this.close();
                 this.modalSave.emit(null);
             }, error => {
-                this.toastrService.error(error.error.message);
+                this.toastrService.error(error.error);
             });
         });
     }

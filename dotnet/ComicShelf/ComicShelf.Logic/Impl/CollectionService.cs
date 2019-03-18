@@ -18,18 +18,21 @@ namespace ComicShelf.Logic.Impl
 		private readonly IMapper _mapper;
 		private readonly IUserRepository _userRepository;
 		private readonly IComicCollectionRepository _comicCollectionRepository;
+		private readonly IRentRepository _rentRepository;
 
 		public CollectionService(
 			ICollectionRepository repository,
 			IMapper mapper,
 			IUserRepository userRepository,
-			IComicCollectionRepository comicCollectionRepository)
+			IComicCollectionRepository comicCollectionRepository,
+			IRentRepository rentRepository)
 			: base(repository, mapper)
 		{
 			_collectionRepository = repository;
 			_mapper = mapper;
 			_userRepository = userRepository;
 			_comicCollectionRepository = comicCollectionRepository;
+			_rentRepository = rentRepository;
 		}
 
 		public IEnumerable<CollectionDto> GetAll()
@@ -101,10 +104,21 @@ namespace ComicShelf.Logic.Impl
 			return comicCollectionDtos;
 		}
 
+		// TODO:
+		// If there is rent in progress u cant rent that comic again
+		// If there is pending request show only 3 users
+		// Dont show user if there is a pending request for that comic from that user
+		// Cancel request
 		public IEnumerable<UserDto> FindUsersWithComic(int userId, int comicId)
 		{
 			var comicCollections = _comicCollectionRepository.GetComicCollectionsByComicId(comicId);
+			var rentRequestsCount = _rentRepository.GetPendingRequestsCountForComicByUser(userId, comicId);
+			var requestsAvaible = 4 - rentRequestsCount;
 			var userDtos = new List<UserDto>();
+
+			if (requestsAvaible == 0)
+				throw new AppException("You can only make 4 requests for one comic");
+
 			foreach (var comicCollection in comicCollections)
 			{
 				var user = _userRepository.Get(comicCollection.Collection.UserId);
@@ -114,7 +128,7 @@ namespace ComicShelf.Logic.Impl
 					userDtos.Add(userDto);
 				}
 			}
-			return userDtos.PickRandom(4);
+			return userDtos.PickRandom(requestsAvaible);
 		}
 	}
 }
