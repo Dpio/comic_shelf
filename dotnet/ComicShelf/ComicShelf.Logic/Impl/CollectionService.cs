@@ -131,7 +131,7 @@ namespace ComicShelf.Logic.Impl
 
 			foreach (var pendingRequest in pendingRequests)
 			{
-				if(pendingRequest.ReceiverId == userId)
+				if (pendingRequest.ReceiverId == userId)
 				{
 					var userDtoToDelete = userDtos.Find(e => e.Id == pendingRequest.GiverId);
 					if (userDtoToDelete != null)
@@ -139,6 +139,15 @@ namespace ComicShelf.Logic.Impl
 				}
 			}
 			return userDtos.PickRandom(requestsAvaible);
+		}
+
+		public override CollectionDto Create(CreateCollectionDto input)
+		{
+			var collection = _collectionRepository.GetCollectionByName(input.Name, input.UserId);
+			if (collection != null)
+				throw new AppException("Collection name is already taken");
+
+			return base.Create(input);
 		}
 	}
 }

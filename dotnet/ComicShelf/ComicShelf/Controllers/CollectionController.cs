@@ -42,7 +42,16 @@ namespace ComicShelf.Api.Controllers
 		[Produces("application/json", Type = typeof(CollectionDto))]
 		public override IActionResult Post([FromBody] CreateCollectionDto value)
 		{
-			return base.Post(value);
+			try
+			{
+				var dto = _service.Create(value);
+				return Ok(dto);
+			}
+			catch (AppException ex)
+			{
+
+				return BadRequest(ex.Message);
+			}
 		}
 
 		[Authorize]
