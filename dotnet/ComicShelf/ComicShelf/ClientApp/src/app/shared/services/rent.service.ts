@@ -32,4 +32,8 @@ export class RentService {
     getRentRequestsCount(id: number): Observable<number> {
         return this.http.get<number>(this.apiUrl + '/Rent/GetNewRentRequestsCount/' + id);
     }
+
+    GetPendingRequestsCountForComicByUser(userId: number, comicId: number): Observable<Array<RentModel>> {
+        return this.http.get<Array<RentModel>>(this.apiUrl + '/Rent/GetPendingRequestsCountForComicByUser/' + userId + '/' + comicId);
+    }
 }

@@ -78,6 +78,15 @@ namespace ComicShelf.Api.Controllers
 			var requestCount = _service.GetNewRequestsCount(id);
 			return Ok(requestCount);
 		}
+
 		
+		[Authorize]
+		[HttpGet("GetPendingRequestsCountForComicByUser/{userId}/{comicId}")]
+		[Produces("application/json", Type = typeof(int))]
+		public IActionResult GetPendingRequestsCountForComicByUser(int userId, int comicId)
+		{
+			var requests = _service.GetPendingRequestsForComicByUser(userId, comicId);
+			return Ok(requests);
+		}
 	}
 }

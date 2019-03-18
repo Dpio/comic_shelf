@@ -8,5 +8,6 @@ namespace ComicShelf.Logic.Impl
 	{
 		IEnumerable<RentDto> GetRentsForUser(int userId);
 		int GetNewRequestsCount(int userId);
+		IEnumerable<RentDto> GetPendingRequestsForComicByUser(int userId, int comicId);
 	}
 }

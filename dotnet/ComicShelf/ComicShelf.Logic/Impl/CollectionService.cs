@@ -105,14 +105,13 @@ namespace ComicShelf.Logic.Impl
 		}
 
 		// TODO:
-		// if user accepts to rent a comic cancel all other requests for that comic from that user
-		// If there is pending request show only 3 users
 		// Dont show user if there is a pending request for that comic from that user
 		// Cancel request
+		// if u have comic in collection you cant rent it
 		public IEnumerable<UserDto> FindUsersWithComic(int userId, int comicId)
 		{
 			var comicCollections = _comicCollectionRepository.GetComicCollectionsByComicId(comicId);
-			var rentRequestsCount = _rentRepository.GetPendingRequestsCountForComicByUser(userId, comicId);
+			var rentRequestsCount = _rentRepository.GetPendingRequestsForComicByUser(userId, comicId).Count();
 			var rentInProgress = _rentRepository.GetRentRequestForuserInProgress(userId, comicId);
 			var requestsAvaible = 4 - rentRequestsCount;
 			var userDtos = new List<UserDto>();

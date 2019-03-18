@@ -36,16 +36,16 @@ namespace ComicShelf.DataAccess.Repositories
 			return requestsCount.Count();
 		}
 
-		public int GetPendingRequestsCountForComicByUser(int userId, int comicId)
+		public IEnumerable<Rent> GetPendingRequestsForComicByUser(int userId, int comicId)
 		{
-			var requestsCount = Entities
+			var requests= Entities
 				.Where(e => e.ReceiverId == userId && e.ComicId == comicId && e.Status.ToString() == "PendingNew" ||
 				e.Status.ToString() == "Pending" )
 				.Include(e => e.Giver)
 				.Include(e => e.Receiver)
 				.Include(e => e.Comic)
 				.OrderBy(e => e.Id);
-			return requestsCount.Count();
+			return requests;
 		}
 
 		public Rent GetRentRequestForUserByComic(int userId, int comicId)

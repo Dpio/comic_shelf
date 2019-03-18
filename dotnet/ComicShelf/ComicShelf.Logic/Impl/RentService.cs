@@ -33,7 +33,7 @@ namespace ComicShelf.Logic.Impl
 
 		public override RentDto Create(CreateRentDto input)
 		{
-			var pendingRequestsCount = _rentRepository.GetPendingRequestsCountForComicByUser(input.ReceiverId, input.ComicId);
+			var pendingRequestsCount = _rentRepository.GetPendingRequestsForComicByUser(input.ReceiverId, input.ComicId).Count();
 			var avaibleRequests = 4 - pendingRequestsCount;
 			if (avaibleRequests == 0)
 				throw new AppException("You can only make 4 requests for a comic");
@@ -41,5 +41,11 @@ namespace ComicShelf.Logic.Impl
 			return base.Create(input);
 		}
 
+		public IEnumerable<RentDto> GetPendingRequestsForComicByUser(int userId, int comicId)
+		{
+			var rents = _rentRepository.GetPendingRequestsForComicByUser(userId, comicId);
+			var rentDtos = Mapper.Map<IEnumerable<RentDto>>(rents);
+			return rentDtos;
+		}
 	}
 }

@@ -17,6 +17,7 @@ import { UpdateRentModel } from '../shared/models/updateRent.model';
 export class RentComponent implements OnInit {
     currentUser: AuthenticateResponse = new AuthenticateResponse();
     rents: Array<RentModel>;
+    toDelete: Array<RentModel>;
 
     constructor(
         private rentService: RentService,
@@ -71,6 +72,14 @@ export class RentComponent implements OnInit {
         newRent.status = 2;
         this.rentService.putRent(newRent).subscribe(() => {
             this.getRents();
+        });
+        this.rentService.GetPendingRequestsCountForComicByUser(this.currentUser.id, rent.comicId).subscribe(data => {
+            this.toDelete = data;
+            this.toDelete.forEach(rentToDelete => {
+                this.rentService.deleteRent(rentToDelete.id).subscribe( () => {
+                    this.getRents();
+                });
+            });
         });
     }
 
