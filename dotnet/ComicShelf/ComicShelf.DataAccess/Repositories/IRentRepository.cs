@@ -10,5 +10,6 @@ namespace ComicShelf.DataAccess.Repositories
 		IEnumerable<Rent> GetPendingRequestsForComicByUser(int userId, int comicId);
 		Rent GetRentRequestForUserByComic(int userId, int comicId);
 		Rent GetRentRequestForuserInProgress(int userId, int comicId);
+		IEnumerable<Rent> GetInProgressRentsForGiverId(int giverId, int comicId);
 	}
 }

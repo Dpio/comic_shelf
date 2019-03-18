@@ -121,8 +121,9 @@ namespace ComicShelf.Logic.Impl
 			foreach (var comicCollection in comicCollections)
 			{
 				var user = _userRepository.Get(comicCollection.Collection.UserId);
+				var rentRequests = _rentRepository.GetInProgressRentsForGiverId(user.Id, comicId);
 				var userDto = Mapper.Map<UserDto>(user);
-				if (userId != user.Id && !userDtos.Any(e => e.Id == userDto.Id))
+				if (userId != user.Id && !userDtos.Any(e => e.Id == userDto.Id) && rentRequests.Count() == 0)
 				{
 					userDtos.Add(userDto);
 				}
@@ -130,9 +131,12 @@ namespace ComicShelf.Logic.Impl
 
 			foreach (var pendingRequest in pendingRequests)
 			{
-				var userDtoToDelete = userDtos.Find(e => e.Id == pendingRequest.GiverId);
-				if (userDtoToDelete != null)
-					userDtos.Remove(userDtoToDelete);
+				if(pendingRequest.ReceiverId == userId)
+				{
+					var userDtoToDelete = userDtos.Find(e => e.Id == pendingRequest.GiverId);
+					if (userDtoToDelete != null)
+						userDtos.Remove(userDtoToDelete);
+				}
 			}
 			return userDtos.PickRandom(requestsAvaible);
 		}
