@@ -102,6 +102,10 @@ export class ComicComponent implements OnInit {
   }
 
   RequestComic(id: number) {
-    this.requestRentModal.show(id);
+    this.collectionService.findUsersWithComic(this.currentUser.id, id).subscribe(data => {
+      this.requestRentModal.show(id);
+  }, error => {
+      this.toastr.error(error.error);
+  });
   }
 }

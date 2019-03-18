@@ -105,7 +105,7 @@ namespace ComicShelf.Logic.Impl
 		}
 
 		// TODO:
-		// If there is rent in progress u cant rent that comic again
+		// if user accepts to rent a comic cancel all other requests for that comic from that user
 		// If there is pending request show only 3 users
 		// Dont show user if there is a pending request for that comic from that user
 		// Cancel request
@@ -113,11 +113,15 @@ namespace ComicShelf.Logic.Impl
 		{
 			var comicCollections = _comicCollectionRepository.GetComicCollectionsByComicId(comicId);
 			var rentRequestsCount = _rentRepository.GetPendingRequestsCountForComicByUser(userId, comicId);
+			var rentInProgress = _rentRepository.GetRentRequestForuserInProgress(userId, comicId);
 			var requestsAvaible = 4 - rentRequestsCount;
 			var userDtos = new List<UserDto>();
 
 			if (requestsAvaible == 0)
 				throw new AppException("You can only make 4 requests for one comic");
+
+			if (rentInProgress != null)
+				throw new AppException("You already rented this comic");
 
 			foreach (var comicCollection in comicCollections)
 			{
