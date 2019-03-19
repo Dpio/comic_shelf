@@ -19,6 +19,8 @@ export class UserComicCollectionComponent implements OnInit {
     comics: Array<ComicModel>;
     collection: CollectionModel;
     wantLists: Array<CollectionModel>;
+    editingName: boolean;
+    editingDescription: boolean;
 
     constructor(
         private collectionService: CollectionService,
@@ -101,5 +103,19 @@ export class UserComicCollectionComponent implements OnInit {
                 this.toastr.error(error.error);
             }
         });
+    }
+
+    updateName(collectionName: string, collection: CollectionModel) {
+        collection.name = collectionName;
+        this.collectionService.updateCollection(collection).subscribe( data => {
+            this.editingName = false;
+         });
+    }
+
+    updateDescription(collectionDescription: string, collection: CollectionModel) {
+        collection.description = collectionDescription;
+        this.collectionService.updateCollection(collection).subscribe( data => {
+            this.editingDescription = false;
+         });
     }
 }

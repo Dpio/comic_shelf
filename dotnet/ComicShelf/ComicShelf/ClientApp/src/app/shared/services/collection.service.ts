@@ -62,4 +62,8 @@ export class CollectionService {
     findUsersWithComic(userId: number, comicId: number): Observable<Array<UserModel>> {
         return this.http.get<Array<UserModel>>(this.apiUrl + '/Collection/findUsersWithComic/' + userId + '/' + comicId);
     }
+
+    updateCollection(collection: CollectionModel): Observable<CollectionModel> {
+        return this.http.put<CollectionModel>(this.apiUrl + '/Collection', collection);
+    }
 }

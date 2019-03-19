@@ -7,9 +7,22 @@
                         <div class="header">
                             <h3 *ngIf="!collection">My Collection
                             </h3>
-                            <h3 *ngIf="collection">{{collection.name}}
-                                <h2>{{collection.description}}</h2>
-                            </h3>
+                            <div *ngIf="collection">
+                                <div *ngIf="editingName">
+                                    <input id="name" type="text" [ngModel]="collection.name" (keydown.esc)="editingName = false"
+                                        autocomplete="off" (change)="updateName($event.target.value,collection)" /></div>
+                                <div *ngIf="!editingName">
+                                    <h3>{{collection.name}} <button class="editButton" (click)="editingName = !editingName"><span
+                                                class="glyphicon glyphicon-pencil"></span></button></h3>
+                                </div>
+                                <div *ngIf="editingDescription">
+                                    <input id="description" type="text" [ngModel]="collection.description"
+                                        (keydown.esc)="editingDescription = false" autocomplete="off" (change)="updateDescription($event.target.value,collection)" /></div>
+                                <div *ngIf="!editingDescription">
+                                    <h2>{{collection.description}} <button class="editButton" (click)="editingDescription = !editingDescription"><span
+                                                class="glyphicon glyphicon-pencil"></span></button></h2>
+                                </div>
+                            </div>
                             <ul class="header-dropdown m-r--5">
                                 <li class="dropdown">
                                     <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
