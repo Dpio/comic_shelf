@@ -7,5 +7,7 @@ namespace ComicShelf.DataAccess.Repositories
 	{
 		IEnumerable<Comic> GetComicsInCollection(int collectionId);
 		ComicCollection GetComicCollection(int comicId, int collectionId);
+		IEnumerable<ComicCollection> GetComicCollectionsByCollectionId(int collectionId);
+		IEnumerable<ComicCollection> GetComicCollectionsByComicId(int comicId);
 	}
 }

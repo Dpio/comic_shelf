@@ -104,8 +104,16 @@ namespace ComicShelf.Api
 				services.AddDbContext<ApplicationDbContext>(options =>
 					options.UseSqlServer(Configuration.GetConnectionString("Default")));
 			}
+			services.AddCors(o => o.AddPolicy("CorsPolicy", builder =>
+			{
+				builder
+					.AllowAnyMethod()
+					.AllowAnyHeader()
+					.WithOrigins("http://localhost:4200");
+			}));
 
 			services.AddMvc();
+			services.AddSignalR();
 			services.AddCors(options => options.AddPolicy("AllowAll", p => p.AllowAnyOrigin()
 			.AllowAnyMethod().AllowAnyHeader()));
 			services.AddAuthorization();
@@ -127,7 +135,6 @@ namespace ComicShelf.Api
 				app.UseExceptionHandler("/Error");
 				
 			}
-
 			//app.UseHttpsRedirection();
 			//app.UseStaticFiles();
 			//app.UseSpaStaticFiles();
@@ -154,6 +161,10 @@ namespace ComicShelf.Api
 
 			app.UseCors("AllowAll");
 			app.UseSwagger();
+			app.UseSignalR(routes =>
+			{
+				routes.MapHub<NotifyHub>("/notify");
+			});
 			app.UseSwaggerUI(c =>
 			{
 

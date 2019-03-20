@@ -42,8 +42,20 @@ div.gallery button.addtocollection {
   top:48%;
   left:20%;
 }
+div.gallery button.addtowantlist {
+  top:56%;
+  left:22%;
+}
+div.gallery button.requestRent {
+  top:64%;
+  left:22%;
+}
 div.gallery ul.dropdown-menu{
   top:31%;
+  left:65%;
+}
+div.wantlist ul.dropdown-menu{
+  top:35%;
   left:65%;
 }
 * {box-sizing: border-box;}

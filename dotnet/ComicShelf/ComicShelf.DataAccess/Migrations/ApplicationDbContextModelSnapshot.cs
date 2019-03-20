@@ -105,6 +105,39 @@ namespace ComicShelf.DataAccess.Migrations
                     b.ToTable("ComicCollections");
                 });
 
+            modelBuilder.Entity("ComicShelf.DataAccess.Entities.Rent", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("ComicId");
+
+                    b.Property<DateTime>("EndDate");
+
+                    b.Property<int>("GiverId");
+
+                    b.Property<int>("ReceiverId");
+
+                    b.Property<DateTime>("StartDate");
+
+                    b.Property<string>("Status")
+                        .IsRequired();
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ComicId");
+
+                    b.HasIndex("GiverId");
+
+                    b.HasIndex("Id")
+                        .IsUnique();
+
+                    b.HasIndex("ReceiverId");
+
+                    b.ToTable("Rents");
+                });
+
             modelBuilder.Entity("ComicShelf.DataAccess.Entities.User", b =>
                 {
                     b.Property<int>("Id")
@@ -147,6 +180,24 @@ namespace ComicShelf.DataAccess.Migrations
                     b.HasOne("ComicShelf.DataAccess.Entities.Comic", "Comic")
                         .WithMany()
                         .HasForeignKey("ComicId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("ComicShelf.DataAccess.Entities.Rent", b =>
+                {
+                    b.HasOne("ComicShelf.DataAccess.Entities.Comic", "Comic")
+                        .WithMany()
+                        .HasForeignKey("ComicId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("ComicShelf.DataAccess.Entities.User", "Giver")
+                        .WithMany()
+                        .HasForeignKey("GiverId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("ComicShelf.DataAccess.Entities.User", "Receiver")
+                        .WithMany()
+                        .HasForeignKey("ReceiverId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

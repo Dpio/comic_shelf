@@ -1,0 +1,43 @@
+<div bsModal #requestRentModal="bs-modal" class="modal fade in" id="largeModal" tabindex="-1" role="dialog"
+    aria-labelledby="comicDetailsModal" aria-hidden="true" [config]="{backdrop: 'static'}" style>
+    <div class="modal-dialog " role="document">
+        <div #modalContent class="modal-content">
+            <div class="container-fluid">
+                <div class="moda-header text-center" style="margin: 20px 20px 20px 20px">
+                    <h2>Choose users for the request</h2>
+                </div>
+                <div class="modal-body">
+                    <div class="nousers" *ngIf="users.length == 0">No users have this comic </div>
+                    <div class="oneuser" *ngIf="users.length == 1">
+                        <div class="profile" *ngFor="let user of users" style="margin-left: 160px;">
+                            <label for="user-{{user.googleId}}">
+                                <input type="checkbox" name="user" class="filled-in" id="user-{{user.googleId}}"
+                                    [checked]="user.isSelected" (change)="user.isSelected = !user.isSelected" />
+                                <img class="test" src="{{user.picture}}" />
+                            </label>
+                            <div class="name">{{user.givenName}}</div>
+                        </div>
+                    </div>
+                    <div *ngIf="users.length > 1">
+                        <div class="profile" *ngFor="let user of users">
+                            <label for="user-{{user.googleId}}">
+                                <input type="checkbox" name="user" class="filled-in" id="user-{{user.googleId}}"
+                                    [checked]="user.isSelected" (change)="user.isSelected = !user.isSelected" />
+                                <img class="test" src="{{user.picture}}" />
+                            </label>
+                            <div class="name">{{user.givenName}}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button [disabled]="saving" type="button" class="btn btn-default waves-effect" (click)="close()">
+                        Cancel
+                    </button>
+                    <button *ngIf="users.length > 0" type="submit" class="btn btn-primary waves-effect" (click)="save()">
+                        Save
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

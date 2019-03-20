@@ -2,7 +2,6 @@ import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
 import { ModalDirective } from 'ngx-bootstrap';
 import { ComicModel } from '../../shared/models/comic.model';
 import { ComicService } from '../../shared/services/comic.service';
-import { Moment } from 'moment';
 import moment = require('moment');
 import { ComicAddToCollectionComponent } from '../comic-addToCollection/comic-addToCollection.component';
 
@@ -18,11 +17,14 @@ export class ComicDetailsComponent implements OnInit {
     @ViewChild('comicAddToCollectionModal') comicAddToCollectionModal: ComicAddToCollectionComponent;
     comic: ComicModel = new ComicModel();
     error: any;
+    image: File;
     premierDate: string;
     constructor(
-        private comicService: ComicService
+        private comicService: ComicService,
     ) {
     }
+    // TODO : Failed to load resource: net::ERR_UNKNOWN_URL_SCHEME [unsafe:data:image/jpeg;base64,]
+    // WARNING: sanitizing unsafe URL value data:image/jpeg;base64, (see http://g.co/ng/security#xss)
 
     ngOnInit(): void {
     }

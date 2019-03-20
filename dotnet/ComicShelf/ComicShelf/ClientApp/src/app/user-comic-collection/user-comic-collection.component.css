@@ -87,3 +87,18 @@ div.gallery button.addtocollection
 {
   margin-top: 5px; 
 }
+
+button.deletecollection{
+  float: right;
+}
+button.editButton{
+  appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    outline: none;
+    border: 0;
+    background: transparent;
+    font-size: 13px;
+    position: relative;
+    bottom: 10px;
+}

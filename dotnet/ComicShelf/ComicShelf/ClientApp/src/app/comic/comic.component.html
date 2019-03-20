@@ -20,6 +20,8 @@
                                     <button class="details" (click)="comicDetails(comic.id)">Details</button>
                                     <button class="addtocollection" (click)="addToCollection(comic.id)">Add to
                                         collection</button>
+                                    <button class="addtowantlist" (click)="addToCollection(comic.id)">Add to
+                                        want list</button>
                                     <button type="button" class="addtocollection dropdown-toggle" data-toggle="dropdown"
                                         aria-haspopup="true" aria-expanded="true">
                                         Add to collection
@@ -28,8 +30,23 @@
                                         <li><a *ngFor="let collection of collections" class=" waves-effect waves-block"
                                                 (click)="addToCollection(collection.id,comic.id)">{{collection.name}}</a></li>
                                         <li role="separator" class="divider"></li>
-                                        <li><a class=" waves-effect waves-block" (click)="addCollection()">New collection</a></li>
+                                        <li><a class=" waves-effect waves-block" (click)="addCollection(false)">New
+                                                collection</a></li>
                                     </ul>
+                                    <div class="wantlist">
+                                        <button type="button" class="addtowantlist dropdown-toggle" data-toggle="dropdown"
+                                            aria-haspopup="true" aria-expanded="true">
+                                            Add to want list
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            <li><a *ngFor="let wantlist of wantLists" class=" waves-effect waves-block"
+                                                    (click)="addToCollection(wantlist.id,comic.id)">{{wantlist.name}}</a></li>
+                                            <li role="separator" class="divider"></li>
+                                            <li><a class=" waves-effect waves-block" (click)="addCollection(true)">New want
+                                                    list</a></li>
+                                        </ul>
+                                    </div>
+                                    <button class="requestRent" (click)="RequestComic(comic.id)">Request comic</button>
                                 </div>
                             </div>
                         </div>
@@ -40,4 +57,5 @@
     </div>
 </section>
 <comic-details-modal #comicDetailsModal></comic-details-modal>
-<add-collection-modal #addCollectionModal></add-collection-modal>
+<add-collection-modal #addCollectionModal (modalSave)="getCollections()"></add-collection-modal>
+<request-rent-modal #requestRentModal></request-rent-modal>

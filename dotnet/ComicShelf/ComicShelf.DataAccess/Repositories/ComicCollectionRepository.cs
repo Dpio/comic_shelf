@@ -32,7 +32,25 @@ namespace ComicShelf.DataAccess.Repositories
 				.Where(e => e.CollectionId == collectionId && e.ComicId == comicId)
 				.Include(e => e.Collection)
 				.Include(e => e.Comic);
-			return comicCollection.First();
+			return comicCollection.FirstOrDefault();
+		}
+
+		public IEnumerable<ComicCollection> GetComicCollectionsByCollectionId(int collectionId)
+		{
+			var comicCollections = Entities
+				.Where(e => e.CollectionId == collectionId)
+				.Include(e => e.Collection)
+				.Include(e => e.Comic);
+			return comicCollections.ToList();
+		}
+
+		public IEnumerable<ComicCollection> GetComicCollectionsByComicId(int comicId)
+		{
+			var comicCollections = Entities
+				.Where(e => e.ComicId == comicId)
+				.Include(e => e.Collection)
+				.Include(e => e.Comic);
+			return comicCollections.ToList();
 		}
 	}
 }

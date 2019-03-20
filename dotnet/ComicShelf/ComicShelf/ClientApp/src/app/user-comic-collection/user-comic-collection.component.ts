@@ -18,8 +18,9 @@ export class UserComicCollectionComponent implements OnInit {
     collections: Array<CollectionModel>;
     comics: Array<ComicModel>;
     collection: CollectionModel;
-    collectionNames: Array<String>;
-    collectionId: number;
+    wantLists: Array<CollectionModel>;
+    editingName: boolean;
+    editingDescription: boolean;
 
     constructor(
         private collectionService: CollectionService,
@@ -29,14 +30,16 @@ export class UserComicCollectionComponent implements OnInit {
         this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
     }
 
+    // TODO: Grey out comics that are currently rented.
     ngOnInit(): void {
         this.getCollections();
+        this.getWantLists();
     }
 
-    getComics(id: number) {
+    getComics(collection: CollectionModel) {
         this.comics = new Array<ComicModel>();
-        this.collectionId = id;
-        this.collectionService.getComicsInCollection(id).subscribe(data => {
+        this.collection = collection;
+        this.collectionService.getComicsInCollection(collection.id).subscribe(data => {
             this.comics = data;
         }, error => {
             if (error.statusText === 'Unauthorized') {
@@ -66,11 +69,53 @@ export class UserComicCollectionComponent implements OnInit {
     }
 
     deleteComicFromCollection(comicId: number) {
-        const collectionid = this.collectionId;
-        this.collectionService.getComicCollection(comicId, collectionid).subscribe(data => {
-            this.collectionService.deleteComicFromCollection(data.id).subscribe( () => {
-                this.getComics(collectionid);
+        const collection = this.collection;
+        this.collectionService.getComicCollection(comicId, collection.id).subscribe(data => {
+            this.collectionService.deleteComicFromCollection(data.id).subscribe(() => {
+                this.getComics(collection);
+                this.collection = new CollectionModel();
             });
         });
+    }
+
+    deleteCollection(id: number) {
+        this.collectionService.getComicCollectionByCollectionId(id).subscribe(data => {
+            const comicCollections = data;
+            comicCollections.forEach(comicCollection => {
+                this.collectionService.deleteComicFromCollection(comicCollection.id);
+                this.comics = new Array<ComicModel>();
+            });
+        });
+        this.collectionService.deleteCollection(id).subscribe(() => {
+            this.getCollections();
+            this.getWantLists();
+        });
+    }
+
+    getWantLists() {
+        this.collectionService.getWantListForUser(this.currentUser.id).subscribe(data => {
+            this.wantLists = data;
+        }, error => {
+            if (error.statusText === 'Unauthorized') {
+                this.toastr.error(error.statusText);
+                this.authenticateService.logout();
+            } else {
+                this.toastr.error(error.error);
+            }
+        });
+    }
+
+    updateName(collectionName: string, collection: CollectionModel) {
+        collection.name = collectionName;
+        this.collectionService.updateCollection(collection).subscribe( data => {
+            this.editingName = false;
+         });
+    }
+
+    updateDescription(collectionDescription: string, collection: CollectionModel) {
+        collection.description = collectionDescription;
+        this.collectionService.updateCollection(collection).subscribe( data => {
+            this.editingDescription = false;
+         });
     }
 }

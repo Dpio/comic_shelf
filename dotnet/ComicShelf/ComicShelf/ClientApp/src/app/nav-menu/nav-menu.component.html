@@ -1,4 +1,5 @@
-<div class="brand"><a class="brand" [routerLink]='["/"]' onclick="closeNav()">Comic Shelf</a><a class="closebtn" onclick="closeNav()" style="cursor: pointer; font-size: 20px; top: -8px;">×</a></div>
+<div class="brand"><a class="brand" [routerLink]='["/"]' onclick="closeNav()">Comic Shelf</a><a class="closebtn"
+        onclick="closeNav()" style="cursor: pointer; font-size: 20px; top: -8px;">×</a></div>
 <div class="menu-list">
     <ng-template ngFor let-menuItem [ngForOf]="menuItems" let-mainMenuItemIndex="index">
         <ul id="menu-content" class="menu-content collapse out">
@@ -8,8 +9,7 @@
                     <span *ngIf="menuItem.icon" class='glyphicon glyphicon-{{menuItem.icon}}'></span>
                     {{menuItem.name}}
                 </a>
-                <a href="{{menuItem.route}}" target="_blank" *ngIf="!menuItem.items  && menuItem.route.indexOf('http') == 0"
-                    (click)='collapse()'>
+                <a href="{{menuItem.route}}" target="_blank" *ngIf="!menuItem.items  && menuItem.route.indexOf('http') == 0">
                     <span *ngIf="menuItem.icon" class='glyphicon glyphicon-{{menuItem.icon}}'></span>
                     {{menuItem.name}}
                 </a>

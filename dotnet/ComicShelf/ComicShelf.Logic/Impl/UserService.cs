@@ -10,10 +10,12 @@ namespace ComicShelf.Logic.Impl
 	public class UserService : IUserService
 	{
 		private readonly IUserRepository _userRepository;
+		private readonly ICollectionRepository _collectionRepository;
 
-		public UserService(IUserRepository repository, IMapper mapper)
+		public UserService(IUserRepository repository, ICollectionRepository collectionRepository, IMapper mapper)
 		{
 			_userRepository = repository;
+			_collectionRepository = collectionRepository;
 		}
 
 		public User Create(User user)
@@ -24,6 +26,16 @@ namespace ComicShelf.Logic.Impl
 
 			_userRepository.Add(user);
 			_userRepository.SaveChanges();
+
+			var collection = new Collection();
+			collection.Name = "My collection";
+			collection.Description = "This is my collection";
+			collection.IsPublic = true;
+			collection.IsWantList = false;
+			collection.UserId = user.Id;
+
+			_collectionRepository.Add(collection);
+			_collectionRepository.SaveChanges();
 
 			return user;
 		}

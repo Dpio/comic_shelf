@@ -2,6 +2,7 @@ import { OnInit, Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthenticateResponse } from '../shared/models/authenticate.model';
 import { UserService } from '../shared/services/user.service';
+import { RentService } from '../shared/services/rent.service';
 
 
 @Component({
@@ -21,8 +22,8 @@ export class LoggedComponent implements OnInit {
                 this.userService.getUser(pr.id).subscribe(data => {
                     const guser = new AuthenticateResponse();
                     guser.id = data.id;
-                    guser.username = data.username;
-                    guser.emailAddress = data.emailAddress;
+                    guser.givenName = data.givenName;
+                    guser.email = data.email;
                     guser.token = pr.token;
                     localStorage.setItem('currentUser', JSON.stringify(guser));
                     this.route.navigate(['']);

@@ -14,6 +14,7 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="7.0.1" />
+    <PackageReference Include="Microsoft.AspNet.SignalR" Version="2.4.0" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.1.3" />
     <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="2.1.1" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.3" />
@@ -28,6 +29,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ComicShelf.Common\ComicShelf.Common.csproj" />
     <ProjectReference Include="..\ComicShelf.Logic\ComicShelf.Logic.csproj" />
     <ProjectReference Include="..\ComicShelf.Models\ComicShelf.Models.csproj" />
   </ItemGroup>

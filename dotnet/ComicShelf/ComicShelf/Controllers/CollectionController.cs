@@ -3,6 +3,7 @@ using ComicShelf.Logic.Impl;
 using ComicShelf.Models.Collection;
 using ComicShelf.Models.Comic;
 using ComicShelf.Models.ComicCollection;
+using ComicShelf.Models.User;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
@@ -41,7 +42,17 @@ namespace ComicShelf.Api.Controllers
 		[Produces("application/json", Type = typeof(CollectionDto))]
 		public override IActionResult Post([FromBody] CreateCollectionDto value)
 		{
-			return base.Post(value);
+			try
+			{
+				_service.CheckIfCollectionNameExists(value);
+				var dto = _service.Create(value);
+				return Ok(dto);
+			}
+			catch (AppException ex)
+			{
+
+				return BadRequest(ex.Message);
+			}
 		}
 
 		[Authorize]
@@ -133,6 +144,44 @@ namespace ComicShelf.Api.Controllers
 			if (dto == null)
 				return NotFound();
 			return Ok(dto);
+		}
+
+		[Authorize]
+		[HttpGet("getWantListForUser/{userId}")]
+		[Produces("application/json", Type = typeof(IEnumerable<CollectionDto>))]
+		public IActionResult GetWantListForUser(int userId)
+		{
+			var dto = _service.GetWantListForUser(userId);
+			if (dto == null)
+				return NotFound();
+			return Ok(dto);
+		}
+
+		[Authorize]
+		[HttpGet("getComicCollectionsByCollectionId/{collectionId}")]
+		[Produces("application/json", Type = typeof(IEnumerable<ComicCollectionDto>))]
+		public IActionResult GetComicCollectionsByCollectionId(int collectionId)
+		{
+			var dto = _service.GetComicCollectionsByCollectionId(collectionId);
+			if (dto == null)
+				return NotFound();
+			return Ok(dto);
+		}
+
+		[Authorize]
+		[HttpGet("findUsersWithComic/{userId}/{comicId}")]
+		[Produces("application/json", Type = typeof(IEnumerable<UserDto>))]
+		public IActionResult FindUsersWithComic(int userId, int comicId)
+		{
+			try
+			{
+				var dto = _service.FindUsersWithComic(userId, comicId);
+				return Ok(dto);
+			}
+			catch (AppException ex)
+			{
+				return BadRequest(ex.Message);
+			}
 		}
 	}
 }

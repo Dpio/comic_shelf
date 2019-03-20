@@ -8,7 +8,8 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                     <h4 class="modal-title">
-                        <span>Add Collection</span>
+                        <span *ngIf="!isWantList">Add collection</span>
+                        <span *ngIf="isWantList">Add wantlist</span>
                     </h4>
                 </div>
                 <div class="modal-body">
