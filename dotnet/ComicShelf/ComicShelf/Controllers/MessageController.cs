@@ -21,7 +21,7 @@ namespace ComicShelf.Api.Controllers
 			string retMessage = string.Empty;
 			try
 			{
-				_hubContext.Clients.All.BroadcastMessage(msg.Msg);
+				_hubContext.Clients.All.BroadcastMessage(msg.Text);
 				retMessage = "Success";
 			}
 			catch (Exception e)
@@ -37,7 +37,7 @@ namespace ComicShelf.Api.Controllers
 			string retMessage = string.Empty;
 			try
 			{
-				_hubContext.Clients.All.BroadcastMessageForUser(msg.userId, msg.Msg);
+				_hubContext.Clients.All.BroadcastMessageForUser(msg.userId, msg.Text);
 				retMessage = "Success";
 			}
 			catch (Exception e)

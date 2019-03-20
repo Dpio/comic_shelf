@@ -78,7 +78,7 @@ export class RequestRentComponent implements OnInit {
             rent.giverId = e.id;
             this.rentService.createRent(rent).subscribe(() => {
                 const message = new MessageModel();
-                message.msg = this.currentUser.givenName + ' has requested: ' + this.comic.title;
+                message.text = this.currentUser.givenName + ' has requested: ' + this.comic.title;
                 message.userId = e.id;
                 this.messageService.BroadcastMessageForUser(message).subscribe(() => {
                 });

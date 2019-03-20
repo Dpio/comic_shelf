@@ -44,6 +44,7 @@ namespace ComicShelf.Api.Controllers
 		{
 			try
 			{
+				_service.CheckIfCollectionNameExists(value);
 				var dto = _service.Create(value);
 				return Ok(dto);
 			}

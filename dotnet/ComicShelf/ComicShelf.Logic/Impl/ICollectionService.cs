@@ -19,5 +19,6 @@ namespace ComicShelf.Logic.Impl
 		IEnumerable<CollectionDto> GetWantListForUser(int userId);
 		IEnumerable<ComicCollectionDto> GetComicCollectionsByCollectionId(int collectionId);
 		IEnumerable<UserDto> FindUsersWithComic(int userId, int comicId);
+		void CheckIfCollectionNameExists(CreateCollectionDto input);
 	}
 }

@@ -90,7 +90,7 @@ export class RentComponent implements OnInit {
             this.getRents();
         });
         const message = new MessageModel();
-        message.msg = giverName + ' has desclined your request of ' + title;
+        message.text = giverName + ' has desclined your request of ' + title;
         message.userId = receiverId;
         this.messageService.BroadcastMessageForUser(message).subscribe(() => {
         });

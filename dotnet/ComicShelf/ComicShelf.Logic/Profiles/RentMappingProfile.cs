@@ -9,7 +9,6 @@ namespace ComicShelf.Logic.Profiles
 		public RentMappingProfile()
 		{
 			CreateMap<Rent, RentDto>();
-				//.ForMember(e => e.Status, opt => opt.MapFrom(dst => dst.Status.ToString()));
 			CreateMap<RentDto, Rent>()
 				.ForMember(e => e.Comic, e => e.Ignore())
 				.ForMember(e => e.Giver, e => e.Ignore())

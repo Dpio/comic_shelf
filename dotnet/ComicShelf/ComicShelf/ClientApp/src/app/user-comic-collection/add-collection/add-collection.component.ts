@@ -57,6 +57,7 @@ export class AddCollectionComponent {
             this.close();
             this.modalSave.emit(null);
         }, error => {
+            this.saving = false;
             this.toastr.error(error.error);
         });
     }

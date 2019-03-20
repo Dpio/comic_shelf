@@ -3,6 +3,6 @@
 	public class MessageForUser
 	{
 		public int userId { get; set; }
-		public string Msg { get; set; }
+		public string Text { get; set; }
 	}
 }

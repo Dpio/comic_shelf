@@ -28,7 +28,7 @@ namespace ComicShelf.DataAccess.Repositories
 		public int GetNewRequestsCount(int userId)
 		{
 			var requestsCount = Entities
-				.Where(e => e.GiverId == userId && e.Status.ToString() == "PendingNew")
+				.Where(e => e.GiverId == userId && e.Status == RentStatus.PendingNew)
 				.Include(e => e.Giver)
 				.Include(e => e.Receiver)
 				.Include(e => e.Comic)
@@ -39,8 +39,8 @@ namespace ComicShelf.DataAccess.Repositories
 		public IEnumerable<Rent> GetPendingRequestsForComicByUser(int userId, int comicId)
 		{
 			var requests = Entities
-				.Where(e => e.ReceiverId == userId && e.ComicId == comicId && e.Status.ToString() == "PendingNew" ||
-				e.Status.ToString() == "Pending")
+				.Where(e => e.ReceiverId == userId && e.ComicId == comicId && e.Status == RentStatus.PendingNew ||
+				e.Status == RentStatus.Pending)
 				.Include(e => e.Giver)
 				.Include(e => e.Receiver)
 				.Include(e => e.Comic)
@@ -62,7 +62,7 @@ namespace ComicShelf.DataAccess.Repositories
 		public Rent GetRentRequestForuserInProgress(int userId, int comicId)
 		{
 			var rentRequest = Entities
-				.Where(e => e.ReceiverId == userId && e.ComicId == comicId && e.Status.ToString() == "InProgress")
+				.Where(e => e.ReceiverId == userId && e.ComicId == comicId && e.Status == RentStatus.InProgress)
 				.Include(e => e.Giver)
 				.Include(e => e.Receiver)
 				.Include(e => e.Comic)
@@ -73,7 +73,7 @@ namespace ComicShelf.DataAccess.Repositories
 		public IEnumerable<Rent> GetInProgressRentsForGiverId(int giverId, int comicId)
 		{
 			var rents = Entities
-				.Where(e => e.GiverId == giverId && e.ComicId == comicId && e.Status.ToString() == "InProgress")
+				.Where(e => e.GiverId == giverId && e.ComicId == comicId && e.Status == RentStatus.InProgress)
 				.Include(e => e.Giver)
 				.Include(e => e.Receiver)
 				.Include(e => e.Comic)
