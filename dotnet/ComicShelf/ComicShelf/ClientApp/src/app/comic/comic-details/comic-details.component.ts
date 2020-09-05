@@ -2,8 +2,8 @@ import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
 import { ModalDirective } from 'ngx-bootstrap';
 import { ComicModel } from '../../shared/models/comic.model';
 import { ComicService } from '../../shared/services/comic.service';
-import moment = require('moment');
 import { ComicAddToCollectionComponent } from '../comic-addToCollection/comic-addToCollection.component';
+import * as moment from 'moment';
 
 @Component({
     // tslint:disable-next-line:component-selector

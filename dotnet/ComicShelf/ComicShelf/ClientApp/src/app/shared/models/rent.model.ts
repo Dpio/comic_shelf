@@ -1,7 +1,7 @@
 import { BaseModel } from './base.model';
-import moment = require('moment');
 import { UserModel } from './user.model';
 import { ComicModel } from './comic.model';
+import * as moment from 'moment';
 
 export class RentModel extends BaseModel {
     id: number;

@@ -1,5 +1,5 @@
 import { BaseModel } from './base.model';
-import moment = require('moment');
+import * as moment from 'moment';
 
 export class UpdateRentModel extends BaseModel {
     id: number;

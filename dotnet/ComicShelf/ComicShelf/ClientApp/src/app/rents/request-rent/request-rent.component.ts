@@ -7,11 +7,11 @@ import { UserModel } from '../../shared/models/user.model';
 import { BaseApiService } from '../../shared/services/base.service';
 import { ToastrService } from 'ngx-toastr';
 import { RentModel } from '../../shared/models/rent.model';
-import moment = require('moment');
 import { MessageService } from '../../shared/services/messsage.service';
 import { MessageModel } from '../../shared/models/message.model';
 import { ComicService } from '../../shared/services/comic.service';
 import { ComicModel } from '../../shared/models/comic.model';
+import * as moment from 'moment';
 
 @Component({
     // tslint:disable-next-line:component-selector

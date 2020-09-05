@@ -3,7 +3,7 @@ import { AuthenticateResponse } from './shared/models/authenticate.model';
 import { AuthenticateService } from './shared/services/authenticate.service';
 import { HubConnection } from '@aspnet/signalr';
 import { ToastrService } from 'ngx-toastr';
-import signalR = require('@aspnet/signalr');
+import * as signalR from '@aspnet/signalr';
 import { Router, NavigationEnd } from '@angular/router';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { RentComponent } from './rents/rent.component';

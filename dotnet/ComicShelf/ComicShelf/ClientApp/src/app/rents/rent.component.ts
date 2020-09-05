@@ -5,7 +5,7 @@ import { RentModel, RentStatus } from '../shared/models/rent.model';
 import { BaseApiService } from '../shared/services/base.service';
 import { MessageModel } from '../shared/models/message.model';
 import { MessageService } from '../shared/services/messsage.service';
-import moment = require('moment');
+import * as moment from 'moment';
 import { Router, NavigationEnd } from '@angular/router';
 import { UpdateRentModel } from '../shared/models/updateRent.model';
 

@@ -1,4 +1,5 @@
-﻿using AutoFixture;
+﻿using System;
+using AutoFixture;
 using ComicShelf.DataAccess.Entities;
 using ComicShelf.Models.Collection;
 using Newtonsoft.Json;
@@ -18,7 +19,6 @@ namespace ComicShelf.Tests.Controllers
 			Context.SaveChanges();
 
 			// Act
-
 			var id = 1;
 			var response = await Client.GetAsync($"api/Collection/{id}");
 			response.EnsureSuccessStatusCode();
